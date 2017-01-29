@@ -1,4 +1,4 @@
-# Customizer Framework
+# WP Customizer Framework
 
 A Framework of WordPress Customizer API.
 

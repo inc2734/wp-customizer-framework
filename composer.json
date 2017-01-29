@@ -1,7 +1,7 @@
 {
   "name": "inc2734/customizer_framework",
   "description": "A framrwork of WordPress Customizer API.",
-  "licence": "GPL-2.0+",
+  "license": "GPL-2.0+",
   "require": {
     "php": ">=5.3"
   },

@@ -7,7 +7,7 @@ A Framework of WordPress Customizer API.
 In your theme directory.
 
 ```
-$ composer require inc2734/customizer_framework;
+$ composer require inc2734/wp-customizer-framework;
 ```
 
 ## How to use

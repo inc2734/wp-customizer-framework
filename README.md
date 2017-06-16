@@ -7,12 +7,18 @@ A Framework of WordPress Customizer API.
 In your theme directory.
 
 ```
-$ composer require inc2734/wp-customizer-framework;
+$ composer require inc2734/wp-customizer-framework
 ```
 
 ## How to use
+
 ```
-$Customizer = new \Inc2734\CustomizerFramework\CustomizerFramework();
+// When Using composer auto loader
+// $Customizer = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
+
+// When not Using composer auto loader
+include_once( get_template_directory() . '/vendor/inc2734/wp-customizer-framework/src/wp-customizer-framework.php' );
+$Customizer = Inc2734_WP_Customizer_Framework::init();
 
 $Panel = $Customizer->Panel(
 	'panel-name',

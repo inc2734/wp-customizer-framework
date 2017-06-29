@@ -17,7 +17,7 @@ $ composer require inc2734/wp-customizer-framework
 // $Customizer = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
 
 // When not Using composer auto loader
-include_once( get_template_directory() . '/vendor/inc2734/wp-customizer-framework/src/wp-customizer-framework.php' );
+include_once( get_theme_file_path( '/vendor/inc2734/wp-customizer-framework/src/wp-customizer-framework.php' ) );
 $Customizer = Inc2734_WP_Customizer_Framework::init();
 
 $Panel = $Customizer->Panel(

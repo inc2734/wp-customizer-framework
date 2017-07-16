@@ -7,18 +7,6 @@
 
 namespace Inc2734\WP_Customizer_Framework;
 
-class Customizer_Framework {
-
-	protected function __construct() {
-	}
-
-	/**
-	 * Create instance
-	 *
-	 * @return Inc2734_WP_Customizer_Framework
-	 */
-	public static function init() {
-		include_once( __DIR__ . '/wp-customizer-framework.php' );
-		return \Inc2734_WP_Customizer_Framework::init();
-	}
+include_once( __DIR__ . '/wp-customizer-framework.php' );
+class Customizer_Framework extends \Inc2734_WP_Customizer_Framework {
 }

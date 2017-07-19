@@ -34,6 +34,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 		$this->assertEquals( [
 			'label'   => 'Header Color',
 			'default' => '#f00',
+			'sanitize_callback' => 'sanitize_hex_color',
 		], $control->get_args() );
 	}
 

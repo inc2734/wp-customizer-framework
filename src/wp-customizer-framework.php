@@ -17,6 +17,17 @@ foreach ( $includes as $include ) {
 	}
 }
 
+if ( class_exists( 'WP_Customize_Control' ) ) {
+	$includes = array(
+		'/app/customize-control',
+	);
+	foreach ( $includes as $include ) {
+		foreach ( glob( __DIR__ . $include . '/*.php' ) as $file ) {
+			require_once( $file );
+		}
+	}
+}
+
 class Inc2734_WP_Customizer_Framework {
 
 	/**
@@ -146,7 +157,9 @@ class Inc2734_WP_Customizer_Framework {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
 	public function Control( $type, $id, $args ) {
-		$class = 'Inc2734_WP_Customizer_Framework_Control_' . ucfirst( $type );
+		$type = ucfirst( $type );
+		$type = str_replace( '-', '_', $type );
+		$class = 'Inc2734_WP_Customizer_Framework_Control_' . $type;
 		if ( class_exists( $class ) ) {
 			return new $class( $id, $args );
 		}

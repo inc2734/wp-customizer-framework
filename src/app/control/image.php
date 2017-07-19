@@ -19,13 +19,17 @@ class Inc2734_WP_Customizer_Framework_Control_Image extends Inc2734_WP_Customize
 			new WP_Customize_Image_Control(
 				$wp_customize,
 				$this->get_id(),
-				array_merge(
-					[
-						'sanitize_callback' => 'esc_url_raw',
-					],
-					$this->_generate_register_control_args()
-				)
+				$this->_generate_register_control_args()
 			)
 		);
+	}
+
+	/**
+	 * Sanitize callback function
+	 *
+	 * @return string|function Function name or function for sanitize
+	 */
+	public function sanitize_callback() {
+		return 'esc_url_raw';
 	}
 }

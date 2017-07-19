@@ -29,6 +29,11 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	public function __construct( $id, $args = array() ) {
 		$this->id   = $id;
 		$this->args = $args;
+
+		if ( ! isset( $this->args['sanitize_callback'] ) ) {
+			$this->args['sanitize_callback'] = $this->sanitize_callback();
+		}
+
 		add_filter( 'theme_mod_' . $id , array( $this, '_theme_mod' ) );
 	}
 
@@ -107,5 +112,14 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 				'settings' => $this->get_id(),
 			)
 		);
+	}
+
+	/**
+	 * Sanitize callback function
+	 *
+	 * @return string|function Function name or function for sanitize
+	 */
+	public function sanitize_callback() {
+		return '';
 	}
 }

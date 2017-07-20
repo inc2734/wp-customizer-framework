@@ -40,11 +40,6 @@ class Inc2734_WP_Customizer_Framework {
 	 */
 	protected static $controls = array();
 
-	/**
-	 * @var array
-	 */
-	protected static $removed_default_controls = array();
-
 	protected function __construct() {
 		add_action( 'customize_register', array( $this, '_customize_register' ) );
 	}
@@ -68,10 +63,6 @@ class Inc2734_WP_Customizer_Framework {
 	 * @return void
 	 */
 	public function _customize_register( WP_Customize_Manager $wp_customize ) {
-		foreach ( self::$removed_default_controls as $control_name ) {
-			$wp_customize->remove_control( $control_name );
-		}
-
 		foreach ( self::$controls as $Control ) {
 			$wp_customize->add_setting( $Control->get_id(), $Control->get_args() );
 			$Control->register_control( $wp_customize );
@@ -109,30 +100,13 @@ class Inc2734_WP_Customizer_Framework {
 	}
 
 	/**
-	 * Deregister control
-	 *
-	 * @param Inc2734_WP_Customizer_Framework_Abstract_Control|string $Control
-	 */
-	public function deregister( $Control ) {
-		if ( is_a( $Control, 'Inc2734_WP_Customizer_Framework_Abstract_Control' ) ) {
-			$control_name = $Control->get_id();
-			if ( isset( self::$controls[ $control_name ] ) ) {
-				unset( self::$controls[ $control_name ] );
-			}
-		} else {
-			$control_name = $Control;
-			self::$removed_default_controls[] = $control_name;
-		}
-	}
-
-	/**
 	 * Create panel
 	 *
 	 * @param string $id
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_panel/
 	 */
-	public function Panel( $id, array $args = array() ) {
+	public function panel( $id, array $args = array() ) {
 		return new Inc2734_WP_Customizer_Framework_Panel( $id, $args );
 	}
 
@@ -143,7 +117,7 @@ class Inc2734_WP_Customizer_Framework {
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_section/
 	 */
-	public function Section( $id, array $args = array() ) {
+	public function section( $id, array $args = array() ) {
 		return new Inc2734_WP_Customizer_Framework_Section( $id, $args );
 	}
 
@@ -156,7 +130,7 @@ class Inc2734_WP_Customizer_Framework {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
-	public function Control( $type, $id, $args ) {
+	public function control( $type, $id, $args ) {
 		$type = ucfirst( $type );
 		$type = str_replace( '-', '_', $type );
 		$class = 'Inc2734_WP_Customizer_Framework_Control_' . $type;

@@ -1,5 +1,9 @@
 # WP Customizer Framework
 
+[![Build Status](https://travis-ci.org/inc2734/wp-customizer-framework.svg?branch=master)](https://travis-ci.org/inc2734/wp-customizer-framework)
+[![Latest Stable Version](https://poser.pugx.org/inc2734/wp-customizer-framework/v/stable)](https://packagist.org/packages/inc2734/wp-customizer-framework)
+[![License](https://poser.pugx.org/inc2734/wp-customizer-framework/license)](https://packagist.org/packages/inc2734/wp-customizer-framework)
+
 A Framework of WordPress Customizer API.
 
 ## Install
@@ -18,28 +22,23 @@ $ composer require inc2734/wp-customizer-framework
 
 // When not Using composer auto loader
 include_once( get_theme_file_path( '/vendor/inc2734/wp-customizer-framework/src/wp-customizer-framework.php' ) );
-$Customizer = Inc2734_WP_Customizer_Framework::init();
+$customizer = Inc2734_WP_Customizer_Framework::init();
 
-$Panel = $Customizer->Panel(
-	'panel-name',
-	[
-		'title' => 'panel-name',
-	]
-);
+$customizer->panel( 'panel-id', [
+  'title' => 'panel-name',
+] );
 
-$Section = $Customizer->Section(
-	'section-name',
-	[
-		'title' => 'section-name',
-	]
-);
+$customizer->section( 'section-id', [
+  'title' => 'section-name',
+] );
 
-$Customizer->register( $Customizer->Control(
-	'color', // Control type
-	'control-id',
-	[
-		'label'   => 'Header Color',
-		'default' => '#f00',
-	]
-) )->join( $Section )->join( $Panel );
+$customizer->control( 'type' 'control-id', [
+  'label'   => 'Header Color',
+  'default' => '#f00',
+] );
+
+$panel = $customizer->panel( 'panel-id' );
+$section = $customizer->section( 'section-id' );
+$control = $customizer->control( 'control-id' );
+$control->join( $section )->join( $panel );
 ```

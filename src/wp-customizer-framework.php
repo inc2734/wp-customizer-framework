@@ -10,6 +10,7 @@ $includes = array(
 	'/app/control',
 	'/app/panel',
 	'/app/section',
+	'/app/manager',
 );
 foreach ( $includes as $include ) {
 	foreach ( glob( __DIR__ . $include . '/*.php' ) as $file ) {
@@ -40,7 +41,26 @@ class Inc2734_WP_Customizer_Framework {
 	 */
 	protected static $controls = array();
 
+	/**
+	 * @var Inc2734_WP_Customizer_Framework_Panel_Manager
+	 */
+	public static $panel_manager;
+
+	/**
+	 * @var Inc2734_WP_Customizer_Framework_Section_Manager
+	 */
+	public static $section_manager;
+
+	/**
+	 * @var Inc2734_WP_Customizer_Framework_Control_Manager
+	 */
+	public static $control_manager;
+
 	protected function __construct() {
+		self::$panel_manager   = new Inc2734_WP_Customizer_Framework_Panel_Manager( $this );
+		self::$section_manager = new Inc2734_WP_Customizer_Framework_Section_Manager( $this );
+		self::$control_manager = new Inc2734_WP_Customizer_Framework_Control_Manager( $this );
+
 		add_action( 'customize_register', array( $this, '_customize_register' ) );
 	}
 
@@ -63,7 +83,7 @@ class Inc2734_WP_Customizer_Framework {
 	 * @return void
 	 */
 	public function _customize_register( WP_Customize_Manager $wp_customize ) {
-		foreach ( self::$controls as $Control ) {
+		foreach ( self::$control_manager->get_controls() as $Control ) {
 			$wp_customize->add_setting( $Control->get_id(), $Control->get_args() );
 			$Control->register_control( $wp_customize );
 			$Section = $Control->Section();
@@ -87,57 +107,73 @@ class Inc2734_WP_Customizer_Framework {
 	}
 
 	/**
-	 * Register control
+	 * Add Panel
 	 *
-	 * @param Inc2734_WP_Customizer_Framework_Abstract_Control $Control
-	 * @return Inc2734_WP_Customizer_Framework_Abstract_Control
-	 */
-	public function register( Inc2734_WP_Customizer_Framework_Abstract_Control $Control ) {
-		if ( is_a( $Control, 'Inc2734_WP_Customizer_Framework_Abstract_Control' ) ) {
-		}
-		self::$controls[ $Control->get_id() ] = $Control;
-		return self::$controls[ $Control->get_id() ];
-	}
-
-	/**
-	 * Create panel
-	 *
-	 * @param string $id
+	 * @param string $panel_id
 	 * @param array $args
-	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_panel/
+	 * @return Inc2734_WP_Customizer_Framework_Panel
 	 */
-	public function panel( $id, array $args = array() ) {
-		return new Inc2734_WP_Customizer_Framework_Panel( $id, $args );
+	public function panel( $panel_id, $args ) {
+		return self::$panel_manager->add( $panel_id, $args );
 	}
 
 	/**
-	 * Create panel
+	 * Add Section
 	 *
-	 * @param string $id
+	 * @param string $section_id
 	 * @param array $args
-	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_section/
+	 * @return Inc2734_WP_Customizer_Framework_Section
 	 */
-	public function section( $id, array $args = array() ) {
-		return new Inc2734_WP_Customizer_Framework_Section( $id, $args );
+	public function section( $section_id, $args ) {
+		return self::$section_manager->add( $section_id, $args );
 	}
 
 	/**
-	 * Create panel
+	 * Add Control
 	 *
 	 * @param string $type
-	 * @param string $id
+	 * @param string $control_id
 	 * @param array $args
-	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
-	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
+	 * @return Inc2734_WP_Customizer_Framework_Control
 	 */
-	public function control( $type, $id, $args ) {
-		$type = ucfirst( $type );
-		$type = str_replace( '-', '_', $type );
-		$class = 'Inc2734_WP_Customizer_Framework_Control_' . $type;
-		if ( class_exists( $class ) ) {
-			return new $class( $id, $args );
-		}
-		echo $class . ' is not found.';
-		exit;
+	public function control( $type, $control_id, $args ) {
+		return self::$control_manager->add( $type, $control_id, $args );
+	}
+
+	/**
+	 * Get Panel
+	 *
+	 * @param string $panel_id
+	 * @return Inc2734_WP_Customizer_Framework_Panel|null
+	 */
+	public function get_panel( $panel_id ) {
+		return self::$panel_manager->get( $panel_id );
+	}
+
+	/**
+	 * Get Section
+	 *
+	 * @param string $section_id
+	 * @return Inc2734_WP_Customizer_Framework_Section|null
+	 */
+	public function get_section( $section_id ) {
+		return self::$section_manager->get( $section_id );
+	}
+
+	/**
+	 * Get Control
+	 *
+	 * @param string $control_id
+	 * @return Inc2734_WP_Customizer_Framework_Control|null
+	 */
+	public function get_control( $control_id ) {
+		return self::$control_manager->get( $control_id );
+	}
+
+	/**
+	 * @deprecated
+	 */
+	public function register( $Control ) {
+		return $Control;
 	}
 }

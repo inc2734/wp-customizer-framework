@@ -1,6 +1,6 @@
 <?php
 /**
- * @package inc2734/wp-view-controller
+ * @package inc2734/wp-customizer-framework
  * @author inc2734
  * @license GPL-2.0+
  */

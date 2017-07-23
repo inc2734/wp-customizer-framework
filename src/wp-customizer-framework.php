@@ -5,30 +5,6 @@
  * @license GPL-2.0+
  */
 
-$includes = array(
-	'/app/abstract',
-	'/app/control',
-	'/app/panel',
-	'/app/section',
-	'/app/manager',
-);
-foreach ( $includes as $include ) {
-	foreach ( glob( __DIR__ . $include . '/*.php' ) as $file ) {
-		require_once( $file );
-	}
-}
-
-if ( class_exists( 'WP_Customize_Control' ) ) {
-	$includes = array(
-		'/app/customize-control',
-	);
-	foreach ( $includes as $include ) {
-		foreach ( glob( __DIR__ . $include . '/*.php' ) as $file ) {
-			require_once( $file );
-		}
-	}
-}
-
 class Inc2734_WP_Customizer_Framework {
 
 	/**
@@ -57,6 +33,30 @@ class Inc2734_WP_Customizer_Framework {
 	public static $control_manager;
 
 	protected function __construct() {
+		$includes = array(
+			'/app/abstract',
+			'/app/control',
+			'/app/panel',
+			'/app/section',
+			'/app/manager',
+		);
+		foreach ( $includes as $include ) {
+			foreach ( glob( __DIR__ . $include . '/*.php' ) as $file ) {
+				require_once( $file );
+			}
+		}
+
+		if ( class_exists( 'WP_Customize_Control' ) ) {
+			$includes = array(
+				'/app/customize-control',
+			);
+			foreach ( $includes as $include ) {
+				foreach ( glob( __DIR__ . $include . '/*.php' ) as $file ) {
+					require_once( $file );
+				}
+			}
+		}
+
 		self::$panel_manager   = new Inc2734_WP_Customizer_Framework_Panel_Manager( $this );
 		self::$section_manager = new Inc2734_WP_Customizer_Framework_Section_Manager( $this );
 		self::$control_manager = new Inc2734_WP_Customizer_Framework_Control_Manager( $this );

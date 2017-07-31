@@ -85,6 +85,11 @@ class Inc2734_WP_Customizer_Framework {
 	public function _customize_register( WP_Customize_Manager $wp_customize ) {
 		foreach ( self::$control_manager->get_controls() as $Control ) {
 			$wp_customize->add_setting( $Control->get_id(), $Control->get_args() );
+
+			if ( ! $Control->Section() ) {
+				continue;
+			}
+
 			$Control->register_control( $wp_customize );
 			$Section = $Control->Section();
 			$Panel   = $Section->Panel();

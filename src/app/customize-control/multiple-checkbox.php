@@ -13,19 +13,6 @@ class Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control ext
 	public $type = 'multiple-checkbox';
 
 	/**
-	 * Enqueue scripts
-	 *
-	 * @return void
-	 */
-	public function enqueue() {
-		wp_enqueue_script(
-			'inc2734-wp-customizer-framework',
-			get_theme_file_uri( 'vendor/inc2734/wp-customizer-framework/src/assets/js/wp-customizer-framework.js' ),
-			['jquery']
-		);
-	}
-
-	/**
 	 * Render the control's content
 	 *
 	 * @return void

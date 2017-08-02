@@ -17,6 +17,11 @@ $ composer require inc2734/wp-customizer-framework
 ## How to use
 
 ```
+// Import to your admin js
+import '../../../vendor/inc2734/wp-customizer-framework/src/assets/js/wp-customizer-framework.js';
+```
+
+```
 // When Using composer auto loader
 // $Customizer = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
 
@@ -41,4 +46,12 @@ $panel = $customizer->panel( 'panel-id' );
 $section = $customizer->section( 'section-id' );
 $control = $customizer->control( 'control-id' );
 $control->join( $section )->join( $panel );
+
+// Enqueue CSS for admin page
+add_action( 'admin_enqueue_scripts', function() {
+  wp_enqueue_style(
+    get_stylesheet() . '-admin',
+    get_theme_file_uri( '/assets/css/admin.min.css' )
+  );
+} );
 ```

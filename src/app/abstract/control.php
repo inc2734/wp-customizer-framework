@@ -34,7 +34,8 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 			$this->args['sanitize_callback'] = $this->sanitize_callback();
 		}
 
-		add_filter( 'theme_mod_' . $id , array( $this, '_theme_mod' ) );
+		add_filter( 'theme_mod_' . $id , array( $this, '_set_default_value' ) );
+		//add_filter( 'default_option_' . $id , array( $this, '_set_default_value' ) );
 	}
 
 	/**
@@ -81,7 +82,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 * @param mixed $value
 	 * @return mixed
 	 */
-	public function _theme_mod( $value ) {
+	public function _set_default_value( $value ) {
 		if ( is_null( $value ) || false === $value ) {
 			if ( isset( $this->args['default'] ) ) {
 				return $this->args['default'];

@@ -15,6 +15,8 @@ class Inc2734_WP_Customizer_Framework_Control_Color extends Inc2734_WP_Customize
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
 	public function register_control( WP_Customize_Manager $wp_customize ) {
+		$this->args['type'] = 'color';
+
 		$wp_customize->add_control(
 			new WP_Customize_Color_Control(
 				$wp_customize,

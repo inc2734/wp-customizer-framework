@@ -78,21 +78,43 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 	/**
 	 * @test
 	 */
-	public function _theme_mod() {
+	public function _set_default_value__theme_mod() {
 		$control = new Inc2734_WP_Customizer_Framework_Control_Color( 'control-id', [
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
 
-		$this->assertEquals( 'value-1', $control->_theme_mod( 'value-1' ) );
-		$this->assertEquals( '#f00', $control->_theme_mod( null ) );
-		$this->assertEquals( '#f00', $control->_theme_mod( false ) );
+		$this->assertEquals( 'value-1', $control->_set_default_value( 'value-1' ) );
+		$this->assertEquals( '#f00', $control->_set_default_value( null ) );
+		$this->assertEquals( '#f00', $control->_set_default_value( false ) );
 
 		$control = new Inc2734_WP_Customizer_Framework_Control_Color( 'control-id', [
 			'label' => 'Header Color',
 		] );
-		$this->assertEquals( null, $control->_theme_mod( null ) );
-		$this->assertEquals( false, $control->_theme_mod( false ) );
+		$this->assertEquals( null, $control->_set_default_value( null ) );
+		$this->assertEquals( false, $control->_set_default_value( false ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function _set_default_value__option() {
+		$control = new Inc2734_WP_Customizer_Framework_Control_Color( 'control-id', [
+			'label'   => 'Header Color',
+			'default' => '#f00',
+			'type'    => 'option',
+		] );
+
+		$this->assertEquals( 'value-1', $control->_set_default_value( 'value-1' ) );
+		$this->assertEquals( '#f00', $control->_set_default_value( null ) );
+		$this->assertEquals( '#f00', $control->_set_default_value( false ) );
+
+		$control = new Inc2734_WP_Customizer_Framework_Control_Color( 'control-id', [
+			'label' => 'Header Color',
+			'type'  => 'option',
+		] );
+		$this->assertEquals( null, $control->_set_default_value( null ) );
+		$this->assertEquals( false, $control->_set_default_value( false ) );
 	}
 
 	/**

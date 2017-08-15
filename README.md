@@ -17,11 +17,6 @@ $ composer require inc2734/wp-customizer-framework
 ## How to use
 
 ```
-// Import to your admin js
-import '../../../vendor/inc2734/wp-customizer-framework/src/assets/js/wp-customizer-framework.js';
-```
-
-```
 // When Using composer auto loader
 // $Customizer = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
 

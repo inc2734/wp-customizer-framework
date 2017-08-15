@@ -33,6 +33,16 @@ class Inc2734_WP_Customizer_Framework {
 	public static $control_manager;
 
 	protected function __construct() {
+		add_action( 'admin_enqueue_scripts', function() {
+			wp_enqueue_script(
+				'inc2734-wp-customizer-framework',
+				home_url( str_replace( ABSPATH, '', __DIR__ ) . '/assets/js/wp-customizer-framework.js' ),
+				[ 'jquery' ],
+				false,
+				true
+			);
+		} );
+
 		$includes = array(
 			'/app/abstract',
 			'/app/control',

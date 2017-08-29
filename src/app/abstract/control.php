@@ -35,7 +35,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 		}
 
 		add_filter( 'theme_mod_' . $id , array( $this, '_set_default_value' ) );
-		//add_filter( 'default_option_' . $id , array( $this, '_set_default_value' ) );
+		add_filter( 'default_option_' . $id , array( $this, '_set_default_value' ) );
 	}
 
 	/**

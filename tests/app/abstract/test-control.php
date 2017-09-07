@@ -4,7 +4,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 	public function setup() {
 		include_once( __DIR__ . '/../../../src/app/abstract/control.php' );
 		include_once( __DIR__ . '/../../../src/app/control/color.php' );
-		include_once( __DIR__ . '/../../../src/app/section/section.php' );
+		include_once( __DIR__ . '/../../../src/app/section.php' );
 		parent::setup();
 	}
 

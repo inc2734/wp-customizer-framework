@@ -44,10 +44,9 @@ class Inc2734_WP_Customizer_Framework {
 		} );
 
 		$includes = array(
+			'/app',
 			'/app/abstract',
 			'/app/control',
-			'/app/panel',
-			'/app/section',
 			'/app/manager',
 		);
 		foreach ( $includes as $include ) {
@@ -84,6 +83,15 @@ class Inc2734_WP_Customizer_Framework {
 			self::$instance = new self();
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * Create instance for styles with customizer
+	 *
+	 * @return Inc2734_WP_Customizer_Framework_Styles
+	 */
+	public static function styles() {
+		return new Inc2734_WP_Customizer_Framework_Styles();
 	}
 
 	/**

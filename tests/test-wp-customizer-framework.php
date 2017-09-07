@@ -20,6 +20,14 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function styles() {
+		$cfs = \Inc2734\WP_Customizer_Framework\Customizer_Framework::styles();
+		$this->assertTrue( is_a( $cfs, 'Inc2734_WP_Customizer_Framework_Styles' ) );
+	}
+
+	/**
+	 * @test
+	 */
 	public function register() {
 		$customizer_framework = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
 		$control = $customizer_framework->Control(

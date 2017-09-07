@@ -2,8 +2,8 @@
 class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 
 	public function setup() {
-		include_once( __DIR__ . '/../../../src/app/section/section.php' );
-		include_once( __DIR__ . '/../../../src/app/panel/panel.php' );
+		include_once( __DIR__ . '/../../src/app/section.php' );
+		include_once( __DIR__ . '/../../src/app/panel.php' );
 		parent::setup();
 	}
 

@@ -73,8 +73,8 @@ class Inc2734_WP_Customizer_Framework_Styles {
 				$style['selectors'][ $i ] = '.mce-content-body.wp-editor ' . $selector;
 			}
 
-			$selectors  = esc_js( implode( ',', $style['selectors'] ) );
-			$properties = esc_js( implode( ';', $style['properties'] ) );
+			$selectors  = addslashes( implode( ',', $style['selectors'] ) );
+			$properties = addslashes( implode( ';', $style['properties'] ) );
 
 			if ( ! $style['media_query'] ) {
 				$mceInit['content_style'] .= "{$selectors} { {$properties} }";

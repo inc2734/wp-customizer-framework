@@ -5,12 +5,15 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Object of Section
+ */
 class Inc2734_WP_Customizer_Framework_Section {
 
 	/**
 	 * @var string
 	 */
-	protected $id;
+	protected $section_id;
 
 	/**
 	 * @var array
@@ -20,15 +23,15 @@ class Inc2734_WP_Customizer_Framework_Section {
 	/**
 	 * @var Inc2734_WP_Customizer_Framework_Panel
 	 */
-	protected $Panel;
+	protected $panel;
 
 	/**
-	 * @param string $id
+	 * @param string $section_id
 	 * @param array $args
 	 */
-	public function __construct( $id, $args = array() ) {
-		$this->id   = $id;
-		$this->args = $args;
+	public function __construct( $section_id, $args = array() ) {
+		$this->section_id = $section_id;
+		$this->args       = $args;
 	}
 
 	/**
@@ -37,7 +40,7 @@ class Inc2734_WP_Customizer_Framework_Section {
 	 * @return string
 	 */
 	public function get_id() {
-		return $this->id;
+		return $this->section_id;
 	}
 
 	/**
@@ -52,12 +55,12 @@ class Inc2734_WP_Customizer_Framework_Section {
 	/**
 	 * Section joined to Panel
 	 *
-	 * @param Inc2734_WP_Customizer_Framework_Panel $Panel
+	 * @param Inc2734_WP_Customizer_Framework_Panel $panel
 	 * @return Inc2734_WP_Customizer_Framework_Panel
 	 */
-	public function join( Inc2734_WP_Customizer_Framework_Panel $Panel ) {
-		$this->Panel = $Panel;
-		return $this->Panel;
+	public function join( Inc2734_WP_Customizer_Framework_Panel $panel ) {
+		$this->panel = $panel;
+		return $this->panel;
 	}
 
 	/**
@@ -65,7 +68,7 @@ class Inc2734_WP_Customizer_Framework_Section {
 	 *
 	 * @return Inc2734_WP_Customizer_Framework_Panel
 	 */
-	public function Panel() {
-		return $this->Panel;
+	public function panel() {
+		return $this->panel;
 	}
 }

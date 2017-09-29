@@ -5,6 +5,9 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Wrapper class for Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control
+ */
 class Inc2734_WP_Customizer_Framework_Control_Multiple_Checkbox extends Inc2734_WP_Customizer_Framework_Abstract_Control {
 
 	/**

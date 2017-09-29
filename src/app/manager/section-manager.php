@@ -5,6 +5,9 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Section manager
+ */
 class Inc2734_WP_Customizer_Framework_Section_Manager {
 
 	/**
@@ -50,13 +53,13 @@ class Inc2734_WP_Customizer_Framework_Section_Manager {
 	}
 
 	/**
-	 * Create panel
+	 * Create section
 	 *
-	 * @param string $id
+	 * @param string $section_id
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_section/
 	 */
-	protected function _section( $id, array $args = array() ) {
-		return new Inc2734_WP_Customizer_Framework_Section( $id, $args );
+	protected function _section( $section_id, array $args = array() ) {
+		return new Inc2734_WP_Customizer_Framework_Section( $section_id, $args );
 	}
 }

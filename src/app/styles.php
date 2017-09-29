@@ -5,23 +5,28 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Output styles based Customizer
+ *
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ */
 class Inc2734_WP_Customizer_Framework_Styles {
 
 	/**
 	 * Style settings
 	 * @var array
-	 *      @var array selectors
-	 *      @var array properties
-	 *      @var string media_query
+	 *        - array selectors
+	 *        - array properties
+	 *        - string media_query
 	 */
 	protected $styles = [];
 
 	public function __construct() {
-		add_filter( 'tiny_mce_before_init', function( $mceInit ) {
-			if ( ! isset( $mceInit['content_style'] ) ) {
-				$mceInit['content_style'] = '';
+		add_filter( 'tiny_mce_before_init', function( $mce_init ) {
+			if ( ! isset( $mce_init['content_style'] ) ) {
+				$mce_init['content_style'] = '';
 			}
-			return $mceInit;
+			return $mce_init;
 		}, 9 );
 
 		add_action( 'wp_print_styles', [ $this, '_wp_print_styles' ] );
@@ -46,15 +51,21 @@ class Inc2734_WP_Customizer_Framework_Styles {
 			if ( ! $style['media_query'] ) {
 				printf(
 					'%1$s { %2$s }',
-					$selectors,
-					$properties
+					// @todo
+					// @codingStandardsIgnoreStart
+					strip_tags( $selectors ),
+					// @codingStandardsIgnoreEnd
+					esc_textarea( $properties )
 				);
 			} else {
 				printf(
 					'%1$s { %2$s { %3$s } }',
-					$style['media_query'],
-					$selectors,
-					$properties
+					esc_html( $style['media_query'] ),
+					// @todo
+					// @codingStandardsIgnoreStart
+					strip_tags( $selectors ),
+					// @codingStandardsIgnoreEnd
+					esc_textarea( $properties )
 				);
 			}
 		}
@@ -64,10 +75,10 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	/**
 	 * Styles for TinyMCE
 	 *
-	 * @param array $mceInit
+	 * @param array $mce_init
 	 * @return array
 	 */
-	public function _tiny_mce_before_init( $mceInit ) {
+	public function _tiny_mce_before_init( $mce_init ) {
 		foreach ( $this->styles as $style ) {
 			foreach ( $style['selectors'] as $i => $selector ) {
 				$style['selectors'][ $i ] = '.mce-content-body.wp-editor ' . $selector;
@@ -77,12 +88,12 @@ class Inc2734_WP_Customizer_Framework_Styles {
 			$properties = addslashes( implode( ';', $style['properties'] ) );
 
 			if ( ! $style['media_query'] ) {
-				$mceInit['content_style'] .= "{$selectors} { {$properties} }";
+				$mce_init['content_style'] .= "{$selectors} { {$properties} }";
 			} else {
-				$mceInit['content_style'] .= "{$style['media_query']} { {$selectors} { {$properties} } }";
+				$mce_init['content_style'] .= "{$style['media_query']} { {$selectors} { {$properties} } }";
 			}
 		}
-		return $mceInit;
+		return $mce_init;
 	}
 
 	/**
@@ -202,7 +213,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 		$hex = $this->_hex_normalization( $hex );
 		$new_hex = '#';
 
-		for ($i = 0; $i < 3; $i++) {
+		for ( $i = 0; $i < 3; $i ++ ) {
 			$dec = hexdec( substr( $hex, $i * 2, 2 ) );
 			$dec = round( $dec * ( 100 + ( $percent * 100 * 2 ) ) / 100 );
 			$new_hex .= str_pad( dechex( $dec ) , 2, 0, STR_PAD_LEFT );
@@ -222,7 +233,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 		$hex = $this->_hex_normalization( $hex );
 		$rgba = [];
 
-		for ($i = 0; $i < 3; $i++) {
+		for ( $i = 0; $i < 3; $i ++ ) {
 			$dec = hexdec( substr( $hex, $i * 2, 2 ) );
 			$rgba[] = $dec;
 		}

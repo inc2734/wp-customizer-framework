@@ -5,12 +5,15 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Object of Panel
+ */
 class Inc2734_WP_Customizer_Framework_Panel {
 
 	/**
 	 * @var string
 	 */
-	protected $id;
+	protected $panel_id;
 
 	/**
 	 * @var array
@@ -18,12 +21,12 @@ class Inc2734_WP_Customizer_Framework_Panel {
 	protected $args = array();
 
 	/**
-	 * @param string $id
+	 * @param string $panel_id
 	 * @param array $args
 	 */
-	public function __construct( $id, $args = array() ) {
-		$this->id   = $id;
-		$this->args = $args;
+	public function __construct( $panel_id, $args = array() ) {
+		$this->panel_id = $panel_id;
+		$this->args     = $args;
 	}
 
 	/**
@@ -32,7 +35,7 @@ class Inc2734_WP_Customizer_Framework_Panel {
 	 * @return string
 	 */
 	public function get_id() {
-		return $this->id;
+		return $this->panel_id;
 	}
 
 	/**

@@ -5,12 +5,15 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Abstract customize control class
+ */
 abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 
 	/**
 	 * @var string
 	 */
-	protected $id;
+	protected $control_id;
 
 	/**
 	 * @var array
@@ -20,22 +23,22 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	/**
 	 * @var Inc2734_WP_Customizer_Framework_Section
 	 */
-	protected $Section;
+	protected $section;
 
 	/**
-	 * @param string $id
+	 * @param string $control_id
 	 * @param array $args
 	 */
-	public function __construct( $id, $args = array() ) {
-		$this->id   = $id;
-		$this->args = $args;
+	public function __construct( $control_id, $args = array() ) {
+		$this->control_id = $control_id;
+		$this->args       = $args;
 
 		if ( ! isset( $this->args['sanitize_callback'] ) ) {
 			$this->args['sanitize_callback'] = $this->sanitize_callback();
 		}
 
-		add_filter( 'theme_mod_' . $id , array( $this, '_set_default_value' ) );
-		add_filter( 'default_option_' . $id , array( $this, '_set_default_value' ) );
+		add_filter( 'theme_mod_' . $control_id , array( $this, '_set_default_value' ) );
+		add_filter( 'default_option_' . $control_id , array( $this, '_set_default_value' ) );
 	}
 
 	/**
@@ -44,7 +47,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 * @return string
 	 */
 	public function get_id() {
-		return $this->id;
+		return $this->control_id;
 	}
 
 	/**
@@ -59,12 +62,12 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	/**
 	 * Control joined to Section
 	 *
-	 * @param Inc2734_WP_Customizer_Framework_Section $Section
+	 * @param Inc2734_WP_Customizer_Framework_Section $section
 	 * @return Inc2734_WP_Customizer_Framework_Section
 	 */
-	public function join( Inc2734_WP_Customizer_Framework_Section $Section ) {
-		$this->Section = $Section;
-		return $this->Section;
+	public function join( Inc2734_WP_Customizer_Framework_Section $section ) {
+		$this->section = $section;
+		return $this->section;
 	}
 
 	/**
@@ -72,8 +75,8 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 *
 	 * @return Inc2734_WP_Customizer_Framework_Section
 	 */
-	public function Section() {
-		return $this->Section;
+	public function section() {
+		return $this->section;
 	}
 
 	/**
@@ -109,7 +112,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 		return array_merge(
 			$this->get_args(),
 			array(
-				'section'  => $this->Section->get_id(),
+				'section'  => $this->section->get_id(),
 				'settings' => $this->get_id(),
 			)
 		);

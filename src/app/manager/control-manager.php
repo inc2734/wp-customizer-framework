@@ -5,6 +5,9 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Control manager
+ */
 class Inc2734_WP_Customizer_Framework_Control_Manager {
 
 	/**
@@ -55,27 +58,28 @@ class Inc2734_WP_Customizer_Framework_Control_Manager {
 	 */
 	public function add( $type, $control_id, $args ) {
 		$control = $this->_control( $type, $control_id, $args );
-		$this->controls[ $control->get_id() ] = $control;
+		if ( $control ) {
+			$this->controls[ $control->get_id() ] = $control;
+		}
 		return $control;
 	}
 
 	/**
-	 * Create panel
+	 * Create control
 	 *
 	 * @param string $type
-	 * @param string $id
+	 * @param string $control_id
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
-	protected function _control( $type, $id, $args ) {
+	protected function _control( $type, $control_id, $args ) {
 		$type = ucfirst( $type );
 		$type = str_replace( '-', '_', $type );
 		$class = 'Inc2734_WP_Customizer_Framework_Control_' . $type;
 		if ( class_exists( $class ) ) {
-			return new $class( $id, $args );
+			return new $class( $control_id, $args );
 		}
-		echo $class . ' is not found.';
-		exit;
+		echo esc_html( $class . ' is not found.' );
 	}
 }

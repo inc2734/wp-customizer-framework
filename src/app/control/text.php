@@ -5,6 +5,9 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Wrapper class for WP_Customizer_Framework_Control_Text
+ */
 class Inc2734_WP_Customizer_Framework_Control_Text extends Inc2734_WP_Customizer_Framework_Abstract_Control {
 
 	/**

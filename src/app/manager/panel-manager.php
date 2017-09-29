@@ -5,6 +5,9 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Panel manager
+ */
 class Inc2734_WP_Customizer_Framework_Panel_Manager {
 
 	/**
@@ -52,11 +55,11 @@ class Inc2734_WP_Customizer_Framework_Panel_Manager {
 	/**
 	 * Create panel
 	 *
-	 * @param string $id
+	 * @param string $panel_id
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_panel/
 	 */
-	protected function _panel( $id, array $args = array() ) {
-		return new Inc2734_WP_Customizer_Framework_Panel( $id, $args );
+	protected function _panel( $panel_id, array $args = array() ) {
+		return new Inc2734_WP_Customizer_Framework_Panel( $panel_id, $args );
 	}
 }

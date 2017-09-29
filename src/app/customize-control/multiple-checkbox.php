@@ -5,10 +5,13 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Customize multipe checkbox control class
+ */
 class Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control extends WP_Customize_Control {
 
 	/**
-	 * @var	string
+	 * @var string
 	 */
 	public $type = 'multiple-checkbox';
 
@@ -28,7 +31,7 @@ class Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control ext
 		<?php endif; ?>
 
 		<?php if ( ! empty( $this->description ) ) : ?>
-			<span class="description customize-control-description"><?php echo $this->description; ?></span>
+			<span class="description customize-control-description"><?php echo esc_html( $this->description ); ?></span>
 		<?php endif; ?>
 
 		<?php $multi_values = ( ! is_array( $this->value() ) ) ? explode( ',', $this->value() ) : $this->value(); ?>
@@ -45,5 +48,6 @@ class Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control ext
 		</ul>
 
 		<input type="hidden" <?php $this->link(); ?> value="<?php echo esc_attr( implode( ',', $multi_values ) ); ?>" />
-	<?php }
+		<?php
+	}
 }

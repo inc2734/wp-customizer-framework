@@ -57,6 +57,6 @@ class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 			'title' => 'panel-name',
 		] );
 		$section->join( $panel );
-		$this->assertEquals( $panel, $section->Panel() );
+		$this->assertEquals( $panel, $section->panel() );
 	}
 }

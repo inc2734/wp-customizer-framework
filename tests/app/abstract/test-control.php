@@ -43,7 +43,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 	 */
 	public function join() {
 		$customizer_framework = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
-		$section = $customizer_framework->Section(
+		$section = $customizer_framework->section(
 			'section-name',
 			[
 				'title' => 'section-name',
@@ -61,7 +61,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 	 */
 	public function Section() {
 		$customizer_framework = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
-		$section = $customizer_framework->Section(
+		$section = $customizer_framework->section(
 			'section-name',
 			[
 				'title' => 'section-name',
@@ -72,7 +72,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'default' => '#f00',
 		] );
 		$control->join( $section );
-		$this->assertEquals( $section, $control->Section() );
+		$this->assertEquals( $section, $control->section() );
 	}
 
 	/**

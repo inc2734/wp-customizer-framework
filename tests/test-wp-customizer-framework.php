@@ -46,7 +46,7 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 	 */
 	public function panel() {
 		$customizer_framework = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
-		$panel = $customizer_framework->Panel(
+		$panel = $customizer_framework->panel(
 			'panel-name',
 			[
 				'title' => 'panel-name',
@@ -60,7 +60,7 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 	 */
 	public function section() {
 		$customizer_framework = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
-		$section = $customizer_framework->Section(
+		$section = $customizer_framework->section(
 			'section-name',
 			[
 				'title' => 'section-name',

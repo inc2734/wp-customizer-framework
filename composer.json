@@ -2,11 +2,14 @@
   "name": "inc2734/wp-customizer-framework",
   "description": "A library for WordPress Customizer.",
   "license": "GPL-2.0+",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "require": {
     "php": ">=5.6"
   },
   "require-dev": {
+    "squizlabs/php_codesniffer": "*",
+    "wp-coding-standards/wpcs": "*",
+    "phpmd/phpmd": "2.*",
     "phpunit/phpunit": "^5.7"
   },
   "authors": [
@@ -21,6 +24,11 @@
     }
   },
   "scripts": {
-    "test": "bash bin/phpunit.sh"
+    "test": [
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php",
+      "vendor/bin/phpmd ./ text phpmd.ruleset.xml --suffixes php --exclude /vendor/,/tests/",
+      "bash bin/phpunit.sh"
+    ]
   }
 }

@@ -5,6 +5,10 @@
  * @license GPL-2.0+
  */
 
+/**
+ * Framework for WordPress Theme Customization API
+ * @see https://codex.wordpress.org/Theme_Customization_API
+ */
 class Inc2734_WP_Customizer_Framework {
 
 	/**
@@ -101,30 +105,30 @@ class Inc2734_WP_Customizer_Framework {
 	 * @return void
 	 */
 	public function _customize_register( WP_Customize_Manager $wp_customize ) {
-		foreach ( self::$control_manager->get_controls() as $Control ) {
-			$wp_customize->add_setting( $Control->get_id(), $Control->get_args() );
+		foreach ( self::$control_manager->get_controls() as $control ) {
+			$wp_customize->add_setting( $control->get_id(), $control->get_args() );
 
-			if ( ! $Control->Section() ) {
+			if ( ! $control->section() ) {
 				continue;
 			}
 
-			$Control->register_control( $wp_customize );
-			$Section = $Control->Section();
-			$Panel   = $Section->Panel();
+			$control->register_control( $wp_customize );
+			$section = $control->section();
+			$panel   = $section->panel();
 
-			$args = $Section->get_args();
-			if ( ! empty( $Panel ) ) {
+			$args = $section->get_args();
+			if ( ! empty( $panel ) ) {
 				$args = array_merge( $args, array(
-					'panel' => $Panel->get_id(),
+					'panel' => $panel->get_id(),
 				) );
 			}
 
-			if ( ! $wp_customize->get_section( $Section->get_id() ) && $args ) {
-				$wp_customize->add_section( $Section->get_id(), $args );
+			if ( ! $wp_customize->get_section( $section->get_id() ) && $args ) {
+				$wp_customize->add_section( $section->get_id(), $args );
 			}
 
-			if ( ! empty( $Panel ) ) {
-				$wp_customize->add_panel( $Panel->get_id(), $Panel->get_args() );
+			if ( ! empty( $panel ) ) {
+				$wp_customize->add_panel( $panel->get_id(), $panel->get_args() );
 			}
 		}
 	}
@@ -196,7 +200,7 @@ class Inc2734_WP_Customizer_Framework {
 	/**
 	 * @deprecated
 	 */
-	public function register( $Control ) {
-		return $Control;
+	public function register( $control ) {
+		return $control;
 	}
 }

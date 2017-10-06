@@ -40,7 +40,7 @@ class Inc2734_WP_Customizer_Framework {
 		add_action( 'admin_enqueue_scripts', function() {
 			wp_enqueue_script(
 				'inc2734-wp-customizer-framework',
-				home_url( str_replace( ABSPATH, '', __DIR__ ) . '/assets/js/wp-customizer-framework.js' ),
+				site_url( str_replace( ABSPATH, '', __DIR__ ) . '/assets/js/wp-customizer-framework.js' ),
 				[ 'jquery' ],
 				false,
 				true

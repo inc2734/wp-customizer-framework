@@ -26,6 +26,11 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	protected $section;
 
 	/**
+	 * @var Inc2734_WP_Customizer_Framework_Partial
+	 */
+	protected $partial;
+
+	/**
 	 * @param string $control_id
 	 * @param array $args
 	 */
@@ -37,8 +42,8 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 			$this->args['sanitize_callback'] = $this->sanitize_callback();
 		}
 
-		add_filter( 'theme_mod_' . $control_id , array( $this, '_set_default_value' ) );
-		add_filter( 'default_option_' . $control_id , array( $this, '_set_default_value' ) );
+		add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
+		add_filter( 'default_option_' . $control_id, array( $this, '_set_default_value' ) );
 	}
 
 	/**
@@ -77,6 +82,19 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 */
 	public function section() {
 		return $this->section;
+	}
+
+	/**
+	 * Control joined to Partial
+	 *
+	 * @param array|null $args
+	 */
+	public function partial( $args = null ) {
+		if ( is_null( $args ) ) {
+			return $this->partial;
+		} elseif ( is_array( $args ) ) {
+			$this->partial = new Inc2734_WP_Customizer_Framework_Partial( $this->get_id(), $args );
+		}
 	}
 
 	/**

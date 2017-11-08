@@ -42,6 +42,9 @@ $panel = $customizer->panel( 'panel-id' );
 $section = $customizer->section( 'section-id' );
 $control = $customizer->control( 'control-id' );
 $control->join( $section )->join( $panel );
+$control->partial( [
+	'selector' => '.blogname',
+] );
 ```
 
 ### Set styles

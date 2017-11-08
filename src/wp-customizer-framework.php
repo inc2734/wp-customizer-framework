@@ -130,6 +130,11 @@ class Inc2734_WP_Customizer_Framework {
 			if ( ! empty( $panel ) ) {
 				$wp_customize->add_panel( $panel->get_id(), $panel->get_args() );
 			}
+
+			$partial = $control->partial();
+			if ( $partial ) {
+				$wp_customize->selective_refresh->add_partial( $partial->get_id(), $partial->get_args() );
+			}
 		}
 	}
 

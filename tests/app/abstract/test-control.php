@@ -35,7 +35,36 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 			'sanitize_callback' => 'sanitize_hex_color',
+			'setting_type' => 'theme_mod',
 		], $control->get_args() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function get_setting_args() {
+		$control = new Inc2734_WP_Customizer_Framework_Control_Color( 'control-id', [
+			'label'   => 'Header Color',
+			'default' => '#f00',
+		] );
+		$this->assertEquals( [
+			'label'   => 'Header Color',
+			'default' => '#f00',
+			'sanitize_callback' => 'sanitize_hex_color',
+			'type' => 'theme_mod',
+		], $control->get_setting_args() );
+
+		$control = new Inc2734_WP_Customizer_Framework_Control_Color( 'control-id', [
+			'label'   => 'Header Color',
+			'default' => '#f00',
+			'type'    => 'option',
+		] );
+		$this->assertEquals( [
+			'label'   => 'Header Color',
+			'default' => '#f00',
+			'sanitize_callback' => 'sanitize_hex_color',
+			'type' => 'option',
+		], $control->get_setting_args() );
 	}
 
 	/**

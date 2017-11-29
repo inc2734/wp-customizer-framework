@@ -35,6 +35,12 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 * @param array $args
 	 */
 	public function __construct( $control_id, $args = array() ) {
+		$args['setting_type'] = 'theme_mod';
+		if ( isset( $args['type'] ) ) {
+			$args['setting_type'] = $args['type'];
+			unset( $args['type'] );
+		}
+
 		$this->control_id = $control_id;
 		$this->args       = $args;
 
@@ -43,7 +49,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 		}
 
 		add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
-		add_filter( 'default_option_' . $control_id, array( $this, '_set_default_value' ) );
+		add_filter( 'default_option_' . $control_id, array( $this, '_set_default_option' ), 10, 2 );
 	}
 
 	/**
@@ -62,6 +68,18 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 */
 	public function get_args() {
 		return $this->args;
+	}
+
+	/**
+	 * Return setting args
+	 *
+	 * @return array
+	 */
+	public function get_setting_args() {
+		$args = $this->get_args();
+		$args['type'] = $args['setting_type'];
+		unset( $args['setting_type'] );
+		return $args;
 	}
 
 	/**
@@ -110,6 +128,17 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 			}
 		}
 		return $value;
+	}
+
+	/**
+	 * Set default option
+	 *
+	 * @param mixed $value
+	 * @param string $option Control ID
+	 * @return mixed
+	 */
+	public function _set_default_option( $value, $option ) {
+		return $this->_set_default_value( $value );
 	}
 
 	/**

@@ -36,7 +36,7 @@ class Inc2734_WP_Customizer_Framework_Control_Checkbox extends Inc2734_WP_Custom
 	 */
 	public function sanitize_callback() {
 		return function( $value ) {
-			return (int)( true === $value || 'true' === $value || 1 === $value );
+			return (int) ( true === $value || 'true' === $value || 1 === $value );
 		};
 	}
 }

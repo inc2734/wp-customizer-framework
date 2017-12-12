@@ -29,7 +29,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 			return $mce_init;
 		}, 9 );
 
-		add_action( 'wp_print_styles', [ $this, '_wp_print_styles' ] );
+		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_inc2734_wp_customizer_framework_print_styles' ] );
 		add_filter( 'tiny_mce_before_init', [ $this, '_tiny_mce_before_init' ] );
 	}
 
@@ -38,11 +38,10 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 *
 	 * @return void
 	 */
-	public function _wp_print_styles() {
-		echo '<style>';
+	public function _inc2734_wp_customizer_framework_print_styles() {
 		foreach ( $this->styles as $style ) {
 			foreach ( $style['selectors'] as $i => $selector ) {
-				$style['selectors'][ $i ] = 'body ' . $selector;
+				$style['selectors'][ $i ] = $selector;
 			}
 
 			$selectors  = implode( ',', $style['selectors'] );
@@ -69,7 +68,6 @@ class Inc2734_WP_Customizer_Framework_Styles {
 				);
 			}
 		}
-		echo '</style>';
 	}
 
 	/**
@@ -81,7 +79,12 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	public function _tiny_mce_before_init( $mce_init ) {
 		foreach ( $this->styles as $style ) {
 			foreach ( $style['selectors'] as $i => $selector ) {
-				$style['selectors'][ $i ] = '.mce-content-body.wp-editor ' . $selector;
+				$selector = trim( $selector );
+				if ( preg_match( '|^[\.#>]|', $selector ) ) {
+					$style['selectors'][ $i ] = '.mce-content-body.mceContentBody ' . $selector;
+				} else {
+					$style['selectors'][ $i ] = $selector;
+				}
 			}
 
 			$selectors  = addslashes( implode( ',', $style['selectors'] ) );

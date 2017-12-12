@@ -47,6 +47,12 @@ class Inc2734_WP_Customizer_Framework {
 			);
 		} );
 
+		add_action( 'wp_head', function() {
+			echo '<style>';
+			do_action( 'inc2734_wp_customizer_framework_print_styles' );
+			echo '</style>';
+		} );
+
 		$includes = array(
 			'/app',
 			'/app/abstract',

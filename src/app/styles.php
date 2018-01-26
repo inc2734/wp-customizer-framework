@@ -5,12 +5,15 @@
  * @license GPL-2.0+
  */
 
+namespace Inc2734\WP_Customizer_Framework\App;
+
 /**
  * Output styles based Customizer
  *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
-class Inc2734_WP_Customizer_Framework_Styles {
+class Styles {
 
 	/**
 	 * Style settings
@@ -130,7 +133,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	public function light( $hex ) {
-		return $this->_color_luminance( $hex, 0.2 );
+		return $this->lighten( $hex, 0.2 );
 	}
 
 	/**
@@ -140,7 +143,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	public function lighter( $hex ) {
-		return $this->_color_luminance( $hex, 0.335 );
+		return $this->lighten( $hex, 0.335 );
 	}
 
 	/**
@@ -150,7 +153,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	public function lightest( $hex ) {
-		return $this->_color_luminance( $hex, 0.37 );
+		return $this->lighten( $hex, 0.37 );
 	}
 
 	/**
@@ -160,7 +163,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	public function dark( $hex ) {
-		return $this->_color_luminance( $hex, -0.2 );
+		return $this->darken( $hex, 0.2 );
 	}
 
 	/**
@@ -170,7 +173,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	public function darker( $hex ) {
-		return $this->_color_luminance( $hex, -0.335 );
+		return $this->darken( $hex, 0.335 );
 	}
 
 	/**
@@ -180,7 +183,7 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	public function darkest( $hex ) {
-		return $this->_color_luminance( $hex, -0.37 );
+		return $this->darken( $hex, 0.37 );
 	}
 
 	/**
@@ -213,16 +216,17 @@ class Inc2734_WP_Customizer_Framework_Styles {
 	 * @return hex
 	 */
 	protected function _color_luminance( $hex, $percent ) {
-		$hex = $this->_hex_normalization( $hex );
-		$new_hex = '#';
+		$hex        = $this->_hex_normalization( $hex );
+		$hue        = $this->_get_hue( $hex );
+		$saturation = $this->_get_saturation( $hex );
+		$luminance  = $this->_get_luminance( $hex );
 
-		for ( $i = 0; $i < 3; $i ++ ) {
-			$dec = hexdec( substr( $hex, $i * 2, 2 ) );
-			$dec = round( $dec * ( 100 + ( $percent * 100 * 2 ) ) / 100 );
-			$new_hex .= str_pad( dechex( $dec ), 2, 0, STR_PAD_LEFT );
-		}
+		// Add luminance.
+		$luminance += $percent * 100;
+		$luminance  = ( 100 < $luminance ) ? 100 : $luminance;
 
-		return $new_hex;
+		$hex = $this->_convert_hsl_to_hex( $hue, $saturation, $luminance );
+		return $hex;
 	}
 
 	/**
@@ -263,5 +267,131 @@ class Inc2734_WP_Customizer_Framework_Styles {
 		}
 
 		return $hex;
+	}
+
+	/**
+	 * Return hue from hex
+	 *
+	 * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+	 *
+	 * @param hex $hex
+	 * @return hue
+	 */
+	private function _get_hue( $hex ) {
+		$red   = hexdec( substr( $hex, 0, 2 ) );
+		$green = hexdec( substr( $hex, 2, 2 ) );
+		$blue  = hexdec( substr( $hex, 4, 2 ) );
+		$max_rgb = max( $red, $green, $blue );
+		$min_rgb = min( $red, $green, $blue );
+
+		if ( $red === $green && $red === $blue ) {
+			return 0;
+		}
+
+		$diff_max_min_rgb = $max_rgb - $min_rgb;
+
+		if ( $red === $max_rgb ) {
+			$hue = 60 * ( $diff_max_min_rgb ? ( $green - $blue ) / $diff_max_min_rgb : 0 );
+		} elseif ( $green === $max_rgb ) {
+			$hue = 60 * ( $diff_max_min_rgb ? ( $blue - $red ) / $diff_max_min_rgb : 0 ) + 120;
+		} elseif ( $blue === $max_rgb ) {
+			$hue = 60 * ( $diff_max_min_rgb ? ( $red - $green ) / $diff_max_min_rgb : 0 ) + 240;
+		}
+
+		if ( 0 > $hue ) {
+			$hue += 360;
+		}
+
+		return $hue;
+	}
+
+	/**
+	 * Return saturation from hex
+	 *
+	 * @param hex $hex
+	 * @return saturation
+	 */
+	private function _get_saturation( $hex ) {
+		$red   = hexdec( substr( $hex, 0, 2 ) );
+		$green = hexdec( substr( $hex, 2, 2 ) );
+		$blue  = hexdec( substr( $hex, 4, 2 ) );
+		$max_rgb = max( $red, $green, $blue );
+		$min_rgb = min( $red, $green, $blue );
+
+		$cnt = round( ( $max_rgb + $min_rgb ) / 2 );
+		if ( 127 >= $cnt ) {
+			$tmp = ( $max_rgb + $min_rgb );
+			$saturation = $tmp ? ( $max_rgb - $min_rgb ) / $tmp : 0;
+		} else {
+			$tmp = ( 510 - $max_rgb - $min_rgb );
+			$saturation = ( $tmp ) ? ( ( $max_rgb - $min_rgb ) / $tmp ) : 0;
+		}
+		return $saturation * 100;
+	}
+
+	/**
+	 * Return luminance from hex
+	 *
+	 * @param hex $hex
+	 * @return luminance
+	 */
+	private function _get_luminance( $hex ) {
+		$red   = hexdec( substr( $hex, 0, 2 ) );
+		$green = hexdec( substr( $hex, 2, 2 ) );
+		$blue  = hexdec( substr( $hex, 4, 2 ) );
+		$max_rgb = max( $red, $green, $blue );
+		$min_rgb = min( $red, $green, $blue );
+
+		return ( $max_rgb + $min_rgb ) / 2 / 255 * 100;
+	}
+
+	/**
+	 * Convert hsl to hex
+	 *
+	 * @param hue $hue
+	 * @param saturation $saturation
+	 * @param luminance $luminance
+	 * @return hex
+	 */
+	private function _convert_hsl_to_hex( $hue, $saturation, $luminance ) {
+		if ( 49 >= $luminance ) {
+			$max_hsl = 2.55 * ( $luminance + $luminance * ( $saturation / 100 ) );
+			$min_hsl = 2.55 * ( $luminance - $luminance * ( $saturation / 100 ) );
+		} else {
+			$max_hsl = 2.55 * ( $luminance + ( 100 - $luminance ) * ( $saturation / 100 ) );
+			$min_hsl = 2.55 * ( $luminance - ( 100 - $luminance ) * ( $saturation / 100 ) );
+		}
+
+		if ( 60 >= $hue ) {
+			$red   = $max_hsl;
+			$green = ( $hue / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+			$blue  = $min_hsl;
+		} elseif ( 120 >= $hue ) {
+			$red   = ( ( 120 - $hue ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+			$green = $max_hsl;
+			$blue  = $min_hsl;
+		} elseif ( 180 >= $hue ) {
+			$red   = $min_hsl;
+			$green = $max_hsl;
+			$blue  = ( ( $hue - 120 ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+		} elseif ( 240 >= $hue ) {
+			$red  = $min_hsl;
+			$green = ( ( 240 - $hue ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+			$blue  = $max_hsl;
+		} elseif ( 300 >= $hue ) {
+			$red  = ( ( $hue - 240 ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+			$green = $min_hsl;
+			$blue  = $max_hsl;
+		} else {
+			$red  = $max_hsl;
+			$green = $min_hsl;
+			$blue  = ( ( 360 - $hue ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+		}
+
+		$red = sprintf( '%02s', dechex( round( $red ) ) );
+		$green = sprintf( '%02s', dechex( round( $green ) ) );
+		$blue = sprintf( '%02s', dechex( round( $blue ) ) );
+
+		return '#' . $red . $green . $blue;
 	}
 }

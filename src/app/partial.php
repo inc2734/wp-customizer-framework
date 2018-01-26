@@ -5,11 +5,13 @@
  * @license GPL-2.0+
  */
 
+namespace Inc2734\WP_Customizer_Framework\App;
+
 /**
  * Object of Partial
  * @see https://developer.wordpress.org/reference/classes/wp_customize_selective_refresh/
  */
-class Inc2734_WP_Customizer_Framework_Partial {
+class Partial {
 
 	/**
 	 * @var string

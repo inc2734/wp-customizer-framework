@@ -5,10 +5,11 @@
  * @license GPL-2.0+
  */
 
-/**
- * Wrapper class for Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control
- */
-class Inc2734_WP_Customizer_Framework_Control_Multiple_Checkbox extends Inc2734_WP_Customizer_Framework_Abstract_Control {
+namespace Inc2734\WP_Customizer_Framework\App\Control;
+
+use Inc2734\WP_Customizer_Framework\App\Customize_Control;
+
+class Multiple_Checkbox extends Abstract_Control {
 
 	/**
 	 * Add control
@@ -17,11 +18,11 @@ class Inc2734_WP_Customizer_Framework_Control_Multiple_Checkbox extends Inc2734_
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
-	public function register_control( WP_Customize_Manager $wp_customize ) {
+	public function register_control( \WP_Customize_Manager $wp_customize ) {
 		$this->args['type'] = 'multiple-checkbox';
 
 		$wp_customize->add_control(
-			new Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control(
+			new Customize_Control\Multiple_Checkbox_Control(
 				$wp_customize,
 				$this->get_id(),
 				$this->_generate_register_control_args()

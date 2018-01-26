@@ -5,10 +5,9 @@
  * @license GPL-2.0+
  */
 
-/**
- * Object of Panel
- */
-class Inc2734_WP_Customizer_Framework_Panel {
+namespace Inc2734\WP_Customizer_Framework\App;
+
+class Panel {
 
 	/**
 	 * @var string

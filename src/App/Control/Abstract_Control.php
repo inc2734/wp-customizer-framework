@@ -5,10 +5,12 @@
  * @license GPL-2.0+
  */
 
-/**
- * Abstract customize control class
- */
-abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
+namespace Inc2734\WP_Customizer_Framework\App\Control;
+
+use Inc2734\WP_Customizer_Framework\App\Section;
+use Inc2734\WP_Customizer_Framework\App\Partial;
+
+abstract class Abstract_Control {
 
 	/**
 	 * @var string
@@ -21,12 +23,12 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	protected $args = array();
 
 	/**
-	 * @var Inc2734_WP_Customizer_Framework_Section
+	 * @var Section
 	 */
 	protected $section;
 
 	/**
-	 * @var Inc2734_WP_Customizer_Framework_Partial
+	 * @var Partial
 	 */
 	protected $partial;
 
@@ -85,10 +87,10 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	/**
 	 * Control joined to Section
 	 *
-	 * @param Inc2734_WP_Customizer_Framework_Section $section
-	 * @return Inc2734_WP_Customizer_Framework_Section
+	 * @param Section $section
+	 * @return Section
 	 */
-	public function join( Inc2734_WP_Customizer_Framework_Section $section ) {
+	public function join( Section $section ) {
 		$this->section = $section;
 		return $this->section;
 	}
@@ -96,7 +98,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	/**
 	 * Return Section that Control joined to
 	 *
-	 * @return Inc2734_WP_Customizer_Framework_Section
+	 * @return Section
 	 */
 	public function section() {
 		return $this->section;
@@ -111,7 +113,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 		if ( is_null( $args ) ) {
 			return $this->partial;
 		} elseif ( is_array( $args ) ) {
-			$this->partial = new Inc2734_WP_Customizer_Framework_Partial( $this->get_id(), $args );
+			$this->partial = new Partial( $this->get_id(), $args );
 		}
 	}
 
@@ -148,7 +150,7 @@ abstract class Inc2734_WP_Customizer_Framework_Abstract_Control {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
-	abstract public function register_control( WP_Customize_Manager $wp_customize );
+	abstract public function register_control( \WP_Customize_Manager $wp_customize );
 
 	/**
 	 * Generate register control args that added section, settings

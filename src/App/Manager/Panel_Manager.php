@@ -5,13 +5,15 @@
  * @license GPL-2.0+
  */
 
-/**
- * Panel manager
- */
-class Inc2734_WP_Customizer_Framework_Panel_Manager {
+namespace Inc2734\WP_Customizer_Framework\App\Manager;
+
+use Inc2734\WP_Customizer_Framework\Customizer_Framework;
+use Inc2734\WP_Customizer_Framework\App\Panel;
+
+class Panel_Manager {
 
 	/**
-	 * @var Inc2734_WP_Customizer_Framework
+	 * @var Inc2734\WP_Customizer_Framework\Customizer_Framework
 	 */
 	protected $customizer;
 
@@ -21,9 +23,9 @@ class Inc2734_WP_Customizer_Framework_Panel_Manager {
 	protected $panels = array();
 
 	/**
-	 * @param Inc2734_WP_Customizer_Framework $customizer
+	 * @param Customizer_Framework $customizer
 	 */
-	public function __construct( Inc2734_WP_Customizer_Framework $customizer ) {
+	public function __construct( Customizer_Framework $customizer ) {
 		$this->customizer = $customizer;
 	}
 
@@ -31,7 +33,7 @@ class Inc2734_WP_Customizer_Framework_Panel_Manager {
 	 * Get Panel
 	 *
 	 * @param string $panel_id
-	 * @return Inc2734_WP_Customizer_Framework_Panel|null
+	 * @return Panel|null
 	 */
 	public function get( $panel_id ) {
 		if ( isset( $this->panels[ $panel_id ] ) ) {
@@ -44,7 +46,7 @@ class Inc2734_WP_Customizer_Framework_Panel_Manager {
 	 *
 	 * @param string $panel_id
 	 * @param array $args
-	 * @return Inc2734_WP_Customizer_Framework_Panel
+	 * @return Panel
 	 */
 	public function add( $panel_id, $args ) {
 		$panel = $this->_panel( $panel_id, $args );
@@ -60,6 +62,6 @@ class Inc2734_WP_Customizer_Framework_Panel_Manager {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_panel/
 	 */
 	protected function _panel( $panel_id, array $args = array() ) {
-		return new Inc2734_WP_Customizer_Framework_Panel( $panel_id, $args );
+		return new Panel( $panel_id, $args );
 	}
 }

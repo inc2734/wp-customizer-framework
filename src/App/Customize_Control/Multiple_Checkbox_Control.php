@@ -5,10 +5,9 @@
  * @license GPL-2.0+
  */
 
-/**
- * Customize multipe checkbox control class
- */
-class Inc2734_WP_Customizer_Framework_WP_Customize_Multiple_Checkbox_Control extends WP_Customize_Control {
+namespace Inc2734\WP_Customizer_Framework\App\Customize_Control;
+
+class Multiple_Checkbox_Control extends \WP_Customize_Control {
 
 	/**
 	 * @var string

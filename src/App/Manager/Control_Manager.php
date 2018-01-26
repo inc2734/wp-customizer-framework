@@ -5,13 +5,14 @@
  * @license GPL-2.0+
  */
 
-/**
- * Control manager
- */
-class Inc2734_WP_Customizer_Framework_Control_Manager {
+namespace Inc2734\WP_Customizer_Framework\App\Manager;
+
+use Inc2734\WP_Customizer_Framework\Customizer_Framework;
+
+class Control_Manager {
 
 	/**
-	 * @var Inc2734_WP_Customizer_Framework
+	 * @var Customizer_Framework
 	 */
 	protected $customizer;
 
@@ -21,9 +22,9 @@ class Inc2734_WP_Customizer_Framework_Control_Manager {
 	protected $controls = array();
 
 	/**
-	 * @param Inc2734_WP_Customizer_Framework $customizer
+	 * @param Customizer_Framework $customizer
 	 */
-	public function __construct( Inc2734_WP_Customizer_Framework $customizer ) {
+	public function __construct( Customizer_Framework $customizer ) {
 		$this->customizer = $customizer;
 	}
 
@@ -31,7 +32,7 @@ class Inc2734_WP_Customizer_Framework_Control_Manager {
 	 * Get Control
 	 *
 	 * @param string $control_id
-	 * @return Inc2734_WP_Customizer_Framework_Control|null
+	 * @return Control|null
 	 */
 	public function get( $control_id ) {
 		if ( isset( $this->controls[ $control_id ] ) ) {
@@ -42,7 +43,7 @@ class Inc2734_WP_Customizer_Framework_Control_Manager {
 	/**
 	 * Get all Controls
 	 *
-	 * @return array Array of Inc2734_WP_Customizer_Framework_Control
+	 * @return array Array of Control
 	 */
 	public function get_controls() {
 		return $this->controls;
@@ -54,7 +55,7 @@ class Inc2734_WP_Customizer_Framework_Control_Manager {
 	 * @param string $type
 	 * @param string $control_id
 	 * @param array $args
-	 * @return Inc2734_WP_Customizer_Framework_Control
+	 * @return Control
 	 */
 	public function add( $type, $control_id, $args ) {
 		$control = $this->_control( $type, $control_id, $args );
@@ -76,7 +77,7 @@ class Inc2734_WP_Customizer_Framework_Control_Manager {
 	protected function _control( $type, $control_id, $args ) {
 		$type = ucfirst( $type );
 		$type = str_replace( '-', '_', $type );
-		$class = 'Inc2734_WP_Customizer_Framework_Control_' . $type;
+		$class = '\Inc2734\WP_Customizer_Framework\App\Control\\' . $type;
 		if ( class_exists( $class ) ) {
 			return new $class( $control_id, $args );
 		}

@@ -14,7 +14,7 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 	 */
 	public function init() {
 		$customizer_framework = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
-		$this->assertTrue( is_a( $customizer_framework, 'Inc2734_WP_Customizer_Framework' ) );
+		$this->assertTrue( is_a( $customizer_framework, 'Inc2734\WP_Customizer_Framework\Customizer_Framework' ) );
 	}
 
 	/**
@@ -22,7 +22,7 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 	 */
 	public function styles() {
 		$cfs = \Inc2734\WP_Customizer_Framework\Customizer_Framework::styles();
-		$this->assertTrue( is_a( $cfs, 'Inc2734_WP_Customizer_Framework_Styles' ) );
+		$this->assertTrue( is_a( $cfs, '\Inc2734\WP_Customizer_Framework\App\Styles' ) );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 				'title' => 'panel-name',
 			]
 		);
-		$this->assertTrue( is_a( $panel, 'Inc2734_WP_Customizer_Framework_Panel' ) );
+		$this->assertTrue( is_a( $panel, '\Inc2734\WP_Customizer_Framework\App\Panel' ) );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 				'title' => 'section-name',
 			]
 		);
-		$this->assertTrue( is_a( $section, 'Inc2734_WP_Customizer_Framework_Section' ) );
+		$this->assertTrue( is_a( $section, '\Inc2734\WP_Customizer_Framework\App\Section' ) );
 	}
 
 	/**
@@ -82,6 +82,6 @@ class Inc2734_WP_Customizer_Framework_Test extends WP_UnitTestCase {
 				'default' => '#f00',
 			]
 		);
-		$this->assertTrue( is_a( $control, 'Inc2734_WP_Customizer_Framework_Abstract_Control' ) );
+		$this->assertTrue( is_a( $control, '\Inc2734\WP_Customizer_Framework\App\Control\Abstract_Control' ) );
 	}
 }

@@ -5,13 +5,15 @@
  * @license GPL-2.0+
  */
 
-/**
- * Section manager
- */
-class Inc2734_WP_Customizer_Framework_Section_Manager {
+namespace Inc2734\WP_Customizer_Framework\App\Manager;
+
+use Inc2734\WP_Customizer_Framework\Customizer_Framework;
+use Inc2734\WP_Customizer_Framework\App\Section;
+
+class Section_Manager {
 
 	/**
-	 * @var Inc2734_WP_Customizer_Framework
+	 * @var Customizer_Framework
 	 */
 	protected $customizer;
 
@@ -21,9 +23,9 @@ class Inc2734_WP_Customizer_Framework_Section_Manager {
 	protected $sections = array();
 
 	/**
-	 * @param Inc2734_WP_Customizer_Framework $customizer
+	 * @param Customizer_Framework $customizer
 	 */
-	public function __construct( Inc2734_WP_Customizer_Framework $customizer ) {
+	public function __construct( Customizer_Framework $customizer ) {
 		$this->customizer = $customizer;
 	}
 
@@ -31,7 +33,7 @@ class Inc2734_WP_Customizer_Framework_Section_Manager {
 	 * Get Section
 	 *
 	 * @param string $section_id
-	 * @return Inc2734_WP_Customizer_Framework_Section|null
+	 * @return Section|null
 	 */
 	public function get( $section_id ) {
 		if ( isset( $this->sections[ $section_id ] ) ) {
@@ -44,7 +46,7 @@ class Inc2734_WP_Customizer_Framework_Section_Manager {
 	 *
 	 * @param string $section_id
 	 * @param array $args
-	 * @return Inc2734_WP_Customizer_Framework_Section
+	 * @return Section
 	 */
 	public function add( $section_id, $args ) {
 		$section = $this->_section( $section_id, $args );
@@ -59,7 +61,7 @@ class Inc2734_WP_Customizer_Framework_Section_Manager {
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_section/
 	 */
-	protected function _section( $section_id, array $args = array() ) {
-		return new Inc2734_WP_Customizer_Framework_Section( $section_id, $args );
+	protected function _section( $section_id, array $args = [] ) {
+		return new Section( $section_id, $args );
 	}
 }

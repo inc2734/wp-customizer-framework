@@ -1,9 +1,10 @@
 <?php
+use Inc2734\WP_Customizer_Framework\App\Panel;
+use Inc2734\WP_Customizer_Framework\App\Section;
+
 class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 
 	public function setup() {
-		include_once( __DIR__ . '/../../src/app/section.php' );
-		include_once( __DIR__ . '/../../src/app/panel.php' );
 		parent::setup();
 	}
 
@@ -15,7 +16,7 @@ class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function get_id() {
-		$section = new Inc2734_WP_Customizer_Framework_Section( 'section-name', [
+		$section = new Section( 'section-name', [
 			'title' => 'section-name',
 		] );
 		$this->assertEquals( 'section-name', $section->get_id() );
@@ -25,7 +26,7 @@ class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function get_args() {
-		$section = new Inc2734_WP_Customizer_Framework_Section( 'section-name', [
+		$section = new Section( 'section-name', [
 			'title' => 'section-name',
 		] );
 		$this->assertEquals( [
@@ -37,10 +38,10 @@ class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function join() {
-		$section = new Inc2734_WP_Customizer_Framework_Section( 'section-name', [
+		$section = new Section( 'section-name', [
 			'title' => 'section-name',
 		] );
-		$panel = new Inc2734_WP_Customizer_Framework_Panel( 'panel-name', [
+		$panel = new Panel( 'panel-name', [
 			'title' => 'panel-name',
 		] );
 		$this->assertEquals( $panel, $section->join( $panel ) );
@@ -50,10 +51,10 @@ class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function Panel() {
-		$section = new Inc2734_WP_Customizer_Framework_Section( 'section-name', [
+		$section = new Section( 'section-name', [
 			'title' => 'section-name',
 		] );
-		$panel = new Inc2734_WP_Customizer_Framework_Panel( 'panel-name', [
+		$panel = new Panel( 'panel-name', [
 			'title' => 'panel-name',
 		] );
 		$section->join( $panel );

@@ -5,10 +5,9 @@
  * @license GPL-2.0+
  */
 
-/**
- * Wrapper class for WP_Customizer_Framework_Control_Url
- */
-class Inc2734_WP_Customizer_Framework_Control_Url extends Inc2734_WP_Customizer_Framework_Abstract_Control {
+namespace Inc2734\WP_Customizer_Framework\App\Control;
+
+class Url extends Abstract_Control {
 
 	/**
 	 * Add control
@@ -17,11 +16,11 @@ class Inc2734_WP_Customizer_Framework_Control_Url extends Inc2734_WP_Customizer_
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
-	public function register_control( WP_Customize_Manager $wp_customize ) {
+	public function register_control( \WP_Customize_Manager $wp_customize ) {
 		$this->args['type'] = 'url';
 
 		$wp_customize->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$wp_customize,
 				$this->get_id(),
 				$this->_generate_register_control_args()

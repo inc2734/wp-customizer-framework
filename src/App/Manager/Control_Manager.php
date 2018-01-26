@@ -75,7 +75,6 @@ class Control_Manager {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
 	protected function _control( $type, $control_id, $args ) {
-		//$type = ucfirst( $type );
 		$_type = explode( '-', $type );
 		foreach ( $_type as $key => $value ) {
 			$_type[ $key ] = ucfirst( $value );

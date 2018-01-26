@@ -75,8 +75,12 @@ class Control_Manager {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
 	protected function _control( $type, $control_id, $args ) {
-		$type = ucfirst( $type );
-		$type = str_replace( '-', '_', $type );
+		//$type = ucfirst( $type );
+		$_type = explode( '-', $type );
+		foreach ( $_type as $key => $value ) {
+			$_type[ $key ] = ucfirst( $value );
+		}
+		$type = implode( '_', $_type );
 		$class = '\Inc2734\WP_Customizer_Framework\App\Control\\' . $type;
 		if ( class_exists( $class ) ) {
 			return new $class( $control_id, $args );

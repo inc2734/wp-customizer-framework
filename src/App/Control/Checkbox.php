@@ -35,7 +35,10 @@ class Checkbox extends Abstract_Control {
 	 */
 	public function sanitize_callback() {
 		return function( $value ) {
-			return (int) ( true === $value || 'true' === $value || 1 === $value );
+			if ( true === $value || 'true' === $value || 1 === $value ) {
+				return 1;
+			}
+			return '';
 		};
 	}
 }

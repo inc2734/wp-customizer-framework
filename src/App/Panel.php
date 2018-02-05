@@ -23,7 +23,7 @@ class Panel {
 	 * @param string $panel_id
 	 * @param array $args
 	 */
-	public function __construct( $panel_id, $args = array() ) {
+	public function __construct( $panel_id, array $args = [] ) {
 		$this->panel_id = $panel_id;
 		$this->args     = $args;
 	}

@@ -33,11 +33,13 @@ class Section_Manager {
 	 * Get Section
 	 *
 	 * @param string $section_id
-	 * @return Section|null
+	 * @return Section
 	 */
 	public function get( $section_id ) {
 		if ( isset( $this->sections[ $section_id ] ) ) {
 			return $this->sections[ $section_id ];
+		} else {
+			return $this->_section( $section_id, [] );
 		}
 	}
 
@@ -48,7 +50,7 @@ class Section_Manager {
 	 * @param array $args
 	 * @return Section
 	 */
-	public function add( $section_id, $args ) {
+	public function add( $section_id, array $args ) {
 		$section = $this->_section( $section_id, $args );
 		$this->sections[ $section->get_id() ] = $section;
 		return $section;

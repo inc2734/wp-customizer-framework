@@ -28,7 +28,7 @@ class Section {
 	 * @param string $section_id
 	 * @param array $args
 	 */
-	public function __construct( $section_id, $args = array() ) {
+	public function __construct( $section_id, array $args = [] ) {
 		$this->section_id = $section_id;
 		$this->args       = $args;
 	}

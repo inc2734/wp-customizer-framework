@@ -38,6 +38,8 @@ class Panel_Manager {
 	public function get( $panel_id ) {
 		if ( isset( $this->panels[ $panel_id ] ) ) {
 			return $this->panels[ $panel_id ];
+		} else {
+			return $this->_panel( $panel_id, [] );
 		}
 	}
 

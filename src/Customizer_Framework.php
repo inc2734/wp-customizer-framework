@@ -117,7 +117,7 @@ class Customizer_Framework {
 				$wp_customize->add_section( $section->get_id(), $args );
 			}
 
-			if ( ! empty( $panel ) ) {
+			if ( ! empty( $panel ) && ! $wp_customize->get_panel( $panel->get_id() ) ) {
 				$wp_customize->add_panel( $panel->get_id(), $panel->get_args() );
 			}
 

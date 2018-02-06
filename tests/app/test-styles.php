@@ -15,6 +15,7 @@ class Inc2734_WP_Customizer_Framework_Styles_Test extends WP_UnitTestCase {
 	public function light() {
 		$cfs = Inc2734\WP_Customizer_Framework\Customizer_Framework::styles();
 		$this->assertEquals( '#7ed5d7', $cfs->light( '#38b3b7' ) );
+		$this->assertEquals( '#ffffff', $cfs->light( '#ffffff' ) );
 	}
 
 	/**
@@ -39,6 +40,7 @@ class Inc2734_WP_Customizer_Framework_Styles_Test extends WP_UnitTestCase {
 	public function dark() {
 		$cfs = Inc2734\WP_Customizer_Framework\Customizer_Framework::styles();
 		$this->assertEquals( '#206769', $cfs->dark( '#38b3b7' ) );
+		$this->assertEquals( '#000000', $cfs->dark( '#000000' ) );
 	}
 
 	/**

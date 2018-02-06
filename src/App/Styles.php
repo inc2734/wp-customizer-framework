@@ -224,7 +224,7 @@ class Styles {
 		// Add luminance.
 		$luminance += $percent * 100;
 		$luminance  = ( 100 < $luminance ) ? 100 : $luminance;
-		$luminance  = ( 0 > $luminance )   ? 0   : $luminance;
+		$luminance  = ( 0 > $luminance ) ? 0 : $luminance;
 
 		$hex = $this->_convert_hsl_to_hex( $hue, $saturation, $luminance );
 		return $hex;

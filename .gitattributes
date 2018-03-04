@@ -4,6 +4,6 @@
 .travis.yml export-ignore
 codesniffer.ruleset.xml export-ignore
 phpmd.ruleset.xml export-ignore
-phpunit.xml.dist
+phpunit.xml.dist export-ignore
 bin export-ignore
 tests export-ignore

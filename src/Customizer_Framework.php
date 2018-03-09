@@ -45,9 +45,12 @@ class Customizer_Framework {
 
 	protected function __construct() {
 		add_action( 'admin_enqueue_scripts', function() {
+			$abspath = str_replace( '\\', '/', ABSPATH );
+			$__dir__ = str_replace( '\\', '/', __DIR__ );
+
 			wp_enqueue_script(
 				'inc2734-wp-customizer-framework',
-				site_url( str_replace( ABSPATH, '', __DIR__ ) . '/assets/js/wp-customizer-framework.js' ),
+				site_url( str_replace( $abspath, '', $__dir__ ) . '/assets/js/wp-customizer-framework.js' ),
 				[ 'jquery' ],
 				false,
 				true

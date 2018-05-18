@@ -33,6 +33,7 @@ class Styles {
 		}, 9 );
 
 		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_inc2734_wp_customizer_framework_print_styles' ] );
+		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );
 		add_filter( 'tiny_mce_before_init', [ $this, '_tiny_mce_before_init' ] );
 	}
 
@@ -71,6 +72,21 @@ class Styles {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Styles for AMP
+	 *
+	 * @return void
+	 */
+	public function _amp_post_template_css() {
+		ob_start();
+		$this->_inc2734_wp_customizer_framework_print_styles();
+		$css = ob_get_clean();
+		$css = str_replace( '!important', '', $css );
+		// @codingStandardsIgnoreStart
+		echo $css;
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**

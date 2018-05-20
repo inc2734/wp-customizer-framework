@@ -44,24 +44,8 @@ class Customizer_Framework {
 	public static $control_manager;
 
 	protected function __construct() {
-		add_action( 'admin_enqueue_scripts', function() {
-			$abspath = str_replace( '\\', '/', ABSPATH );
-			$__dir__ = str_replace( '\\', '/', __DIR__ );
-
-			wp_enqueue_script(
-				'inc2734-wp-customizer-framework',
-				site_url( str_replace( $abspath, '', $__dir__ ) . '/assets/js/wp-customizer-framework.js' ),
-				[ 'jquery' ],
-				false,
-				true
-			);
-		} );
-
-		add_action( 'wp_head', function() {
-			echo '<style>';
-			do_action( 'inc2734_wp_customizer_framework_print_styles' );
-			echo '</style>';
-		} );
+		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
+		add_action( 'wp_head', [ $this, '_print_styles' ] );
 
 		self::$panel_manager   = new Panel_Manager( $this );
 		self::$section_manager = new Section_Manager( $this );
@@ -89,6 +73,35 @@ class Customizer_Framework {
 	 */
 	public static function styles() {
 		return new Styles();
+	}
+
+	/**
+	 * Enqueue assets for admin page
+	 *
+	 * @return void
+	 */
+	public function _admin_enqueue_scripts() {
+		$abspath = str_replace( '\\', '/', ABSPATH );
+		$__dir__ = str_replace( '\\', '/', __DIR__ );
+
+		wp_enqueue_script(
+			'inc2734-wp-customizer-framework',
+			site_url( str_replace( $abspath, '', $__dir__ ) . '/assets/js/wp-customizer-framework.js' ),
+			[ 'jquery' ],
+			false,
+			true
+		);
+	}
+
+	/**
+	 * Print styles from registerd styles
+	 *
+	 * @return void
+	 */
+	public function _print_styles() {
+		echo '<style>';
+		do_action( 'inc2734_wp_customizer_framework_print_styles' );
+		echo '</style>';
 	}
 
 	/**

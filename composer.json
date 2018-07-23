@@ -2,7 +2,7 @@
   "name": "inc2734/wp-customizer-framework",
   "description": "A library for WordPress Customizer.",
   "license": "GPL-2.0-or-later",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "require": {
     "php": ">=5.6"
   },

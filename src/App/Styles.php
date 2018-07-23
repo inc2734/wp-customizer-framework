@@ -44,10 +44,6 @@ class Styles {
 	 */
 	public function _inc2734_wp_customizer_framework_print_styles() {
 		foreach ( $this->styles as $style ) {
-			foreach ( $style['selectors'] as $i => $selector ) {
-				$style['selectors'][ $i ] = $selector;
-			}
-
 			$selectors  = implode( ',', $style['selectors'] );
 			$properties = implode( ';', $style['properties'] );
 

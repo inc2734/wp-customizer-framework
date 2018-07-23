@@ -111,7 +111,8 @@ class Customizer_Framework {
 	 * @return void
 	 */
 	public function _customize_register( \WP_Customize_Manager $wp_customize ) {
-		foreach ( self::$control_manager->get_controls() as $control ) {
+		$controls = self::$control_manager->get_controls();
+		foreach ( $controls as $control ) {
 			$wp_customize->add_setting( $control->get_id(), $control->get_setting_args() );
 
 			if ( ! $control->section() ) {

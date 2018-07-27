@@ -84,11 +84,15 @@ class Customizer_Framework {
 		$abspath = str_replace( '\\', '/', ABSPATH );
 		$__dir__ = str_replace( '\\', '/', __DIR__ );
 
+		$relative_path = str_replace( $abspath, '', $__dir__ ) . '/assets/js/wp-customizer-framework.js';
+		$src  = site_url( $relative_path );
+		$path = $abspath . $relative_path;
+
 		wp_enqueue_script(
 			'inc2734-wp-customizer-framework',
-			site_url( str_replace( $abspath, '', $__dir__ ) . '/assets/js/wp-customizer-framework.js' ),
+			$src,
 			[ 'jquery' ],
-			false,
+			filemtime( $path ),
 			true
 		);
 	}

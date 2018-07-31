@@ -43,6 +43,11 @@ class Customizer_Framework {
 	 */
 	public static $control_manager;
 
+	/**
+	 * @var Styles
+	 */
+	public static $styles;
+
 	protected function __construct() {
 		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
 		add_action( 'wp_head', [ $this, '_print_styles' ] );
@@ -72,7 +77,10 @@ class Customizer_Framework {
 	 * @return Styles
 	 */
 	public static function styles() {
-		return new Styles();
+		if ( is_null( self::$styles ) ) {
+			self::$styles = new Styles();
+		}
+		return self::$styles;
 	}
 
 	/**

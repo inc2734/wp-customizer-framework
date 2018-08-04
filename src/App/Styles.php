@@ -35,6 +35,7 @@ class Styles {
 		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_inc2734_wp_customizer_framework_print_styles' ] );
 		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );
 		add_filter( 'tiny_mce_before_init', [ $this, '_tiny_mce_before_init' ] );
+		add_filter( 'admin_head', [ $this, '_gutenberg_styles' ] );
 	}
 
 	/**
@@ -43,31 +44,7 @@ class Styles {
 	 * @return void
 	 */
 	public function _inc2734_wp_customizer_framework_print_styles() {
-		foreach ( $this->styles as $style ) {
-			$selectors  = implode( ',', $style['selectors'] );
-			$properties = implode( ';', $style['properties'] );
-
-			if ( ! $style['media_query'] ) {
-				printf(
-					'%1$s { %2$s }',
-					// @todo
-					// @codingStandardsIgnoreStart
-					strip_tags( $selectors ),
-					// @codingStandardsIgnoreEnd
-					esc_textarea( $properties )
-				);
-			} else {
-				printf(
-					'%1$s { %2$s { %3$s } }',
-					esc_html( $style['media_query'] ),
-					// @todo
-					// @codingStandardsIgnoreStart
-					strip_tags( $selectors ),
-					// @codingStandardsIgnoreEnd
-					esc_textarea( $properties )
-				);
-			}
-		}
+		$this->_print_styles( $this->styles );
 	}
 
 	/**
@@ -112,6 +89,64 @@ class Styles {
 			}
 		}
 		return $mce_init;
+	}
+
+	/**
+	 * Print styles for Gutenberg
+	 *
+	 * @return void
+	 */
+	public function _gutenberg_styles() {
+		if ( ! function_exists( 'is_gutenberg_page' ) || ! is_gutenberg_page() ) {
+			return;
+		}
+
+		$styles = [];
+		foreach ( $this->styles as $styles_index => $style ) {
+			foreach ( $style['selectors'] as $selectors_index => $selector ) {
+				$selector = trim( $selector );
+				$style['selectors'][ $selectors_index ] = '.edit-post-visual-editor ' . $selector;
+			}
+			$styles[ $styles_index ] = $style;
+		}
+
+		$this->_print_styles( $styles );
+	}
+
+	/**
+	 * Print styles in head
+	 *
+	 * @param array $styles
+	 * @return void
+	 */
+	protected function _print_styles( $styles ) {
+		echo '<style id="wp-customizer-framework-print-styles">';
+		foreach ( $styles as $style ) {
+			$selectors  = implode( ',', $style['selectors'] );
+			$properties = implode( ';', $style['properties'] );
+
+			if ( ! $style['media_query'] ) {
+				printf(
+					'%1$s { %2$s }',
+					// @todo
+					// @codingStandardsIgnoreStart
+					strip_tags( $selectors ),
+					// @codingStandardsIgnoreEnd
+					esc_textarea( $properties )
+				);
+			} else {
+				printf(
+					'%1$s { %2$s { %3$s } }',
+					esc_html( $style['media_query'] ),
+					// @todo
+					// @codingStandardsIgnoreStart
+					strip_tags( $selectors ),
+					// @codingStandardsIgnoreEnd
+					esc_textarea( $properties )
+				);
+			}
+		}
+		echo '</style>';
 	}
 
 	/**

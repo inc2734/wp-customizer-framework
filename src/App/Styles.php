@@ -105,7 +105,7 @@ class Styles {
 		foreach ( $this->styles as $styles_index => $style ) {
 			foreach ( $style['selectors'] as $selectors_index => $selector ) {
 				$selector = trim( $selector );
-				$style['selectors'][ $selectors_index ] = '.edit-post-visual-editor ' . $selector;
+				$style['selectors'][ $selectors_index ] = '.edit-post-visual-editor .editor-writing-flow ' . $selector;
 			}
 			$styles[ $styles_index ] = $style;
 		}

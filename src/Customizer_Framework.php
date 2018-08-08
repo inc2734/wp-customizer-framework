@@ -51,6 +51,7 @@ class Customizer_Framework {
 	protected function __construct() {
 		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
 		add_action( 'wp_head', [ $this, '_print_styles' ] );
+		add_action( 'admin_head', [ $this, '_print_gutenberg_styles' ] );
 
 		self::$panel_manager   = new Panel_Manager( $this );
 		self::$section_manager = new Section_Manager( $this );
@@ -111,8 +112,19 @@ class Customizer_Framework {
 	 * @return void
 	 */
 	public function _print_styles() {
-		echo '<style>';
+		echo '<style id="wp-customizer-framework-print-styles">';
 		do_action( 'inc2734_wp_customizer_framework_print_styles' );
+		echo '</style>';
+	}
+
+	/**
+	 * Print styles from registerd styles
+	 *
+	 * @return void
+	 */
+	public function _print_gutenberg_styles() {
+		echo '<style id="wp-customizer-framework-print-styles">';
+		do_action( 'inc2734_wp_customizer_framework_print_gutenberg_styles' );
 		echo '</style>';
 	}
 

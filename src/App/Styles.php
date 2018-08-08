@@ -32,10 +32,10 @@ class Styles {
 			return $mce_init;
 		}, 9 );
 
-		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_inc2734_wp_customizer_framework_print_styles' ] );
+		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_print_front_styles' ] );
 		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );
 		add_filter( 'tiny_mce_before_init', [ $this, '_tiny_mce_before_init' ] );
-		add_filter( 'admin_head', [ $this, '_gutenberg_styles' ] );
+		add_filter( 'inc2734_wp_customizer_framework_print_gutenberg_styles', [ $this, '_print_gutenberg_styles' ] );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Styles {
 	 *
 	 * @return void
 	 */
-	public function _inc2734_wp_customizer_framework_print_styles() {
+	public function _print_front_styles() {
 		$this->_print_styles( $this->styles );
 	}
 
@@ -96,7 +96,7 @@ class Styles {
 	 *
 	 * @return void
 	 */
-	public function _gutenberg_styles() {
+	public function _print_gutenberg_styles() {
 		if ( ! function_exists( 'is_gutenberg_page' ) || ! is_gutenberg_page() ) {
 			return;
 		}
@@ -120,7 +120,6 @@ class Styles {
 	 * @return void
 	 */
 	protected function _print_styles( $styles ) {
-		echo '<style id="wp-customizer-framework-print-styles">';
 		foreach ( $styles as $style ) {
 			$selectors  = implode( ',', $style['selectors'] );
 			$properties = implode( ';', $style['properties'] );
@@ -146,7 +145,6 @@ class Styles {
 				);
 			}
 		}
-		echo '</style>';
 	}
 
 	/**

@@ -54,7 +54,7 @@ class Styles {
 	 */
 	public function _amp_post_template_css() {
 		ob_start();
-		$this->_inc2734_wp_customizer_framework_print_styles();
+		$this->_print_front_styles();
 		$css = ob_get_clean();
 		$css = str_replace( '!important', '', $css );
 		// @codingStandardsIgnoreStart

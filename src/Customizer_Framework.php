@@ -90,12 +90,9 @@ class Customizer_Framework {
 	 * @return void
 	 */
 	public function _admin_enqueue_scripts() {
-		$abspath = str_replace( '\\', '/', ABSPATH );
-		$__dir__ = str_replace( '\\', '/', __DIR__ );
-
-		$relative_path = str_replace( $abspath, '', $__dir__ ) . '/assets/js/wp-customizer-framework.js';
-		$src  = site_url( $relative_path );
-		$path = $abspath . $relative_path;
+		$relative_path = '/vendor/inc2734/wp-customizer-framework/src/assets/js/wp-customizer-framework.js';
+		$src  = get_template_directory_uri() . $relative_path;
+		$path = get_template_directory() . $relative_path;
 
 		wp_enqueue_script(
 			'inc2734-wp-customizer-framework',

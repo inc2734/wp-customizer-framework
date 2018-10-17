@@ -130,8 +130,8 @@ class Styles {
 					// @todo
 					// @codingStandardsIgnoreStart
 					strip_tags( $selectors ),
+					str_replace( '&quot;', '"', esc_textarea( $properties ) )
 					// @codingStandardsIgnoreEnd
-					esc_textarea( $properties )
 				);
 			} else {
 				printf(
@@ -140,8 +140,8 @@ class Styles {
 					// @todo
 					// @codingStandardsIgnoreStart
 					strip_tags( $selectors ),
+					str_replace( '&quot;', '"', esc_textarea( $properties ) )
 					// @codingStandardsIgnoreEnd
-					esc_textarea( $properties )
 				);
 			}
 		}

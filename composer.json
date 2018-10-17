@@ -34,6 +34,7 @@
       "vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php",
       "vendor/bin/phpmd ./ text phpmd.ruleset.xml --suffixes php --exclude /vendor/,/tests/",
       "bash bin/phpunit.sh"
-    ]
+    ],
+    "phpcbf": "vendor/bin/phpcbf -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php"
   }
 }

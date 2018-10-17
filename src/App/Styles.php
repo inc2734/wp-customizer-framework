@@ -25,12 +25,16 @@ class Styles {
 	protected $styles = [];
 
 	public function __construct() {
-		add_filter( 'tiny_mce_before_init', function( $mce_init ) {
-			if ( ! isset( $mce_init['content_style'] ) ) {
-				$mce_init['content_style'] = '';
-			}
-			return $mce_init;
-		}, 9 );
+		add_filter(
+			'tiny_mce_before_init',
+			function( $mce_init ) {
+				if ( ! isset( $mce_init['content_style'] ) ) {
+					$mce_init['content_style'] = '';
+				}
+				return $mce_init;
+			},
+			9
+		);
 
 		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_print_front_styles' ] );
 		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );

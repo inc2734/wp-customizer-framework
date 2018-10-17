@@ -146,9 +146,12 @@ class Customizer_Framework {
 
 			$args = $section->get_args();
 			if ( ! empty( $panel ) ) {
-				$args = array_merge( $args, array(
-					'panel' => $panel->get_id(),
-				) );
+				$args = array_merge(
+					$args,
+					[
+						'panel' => $panel->get_id(),
+					]
+				);
 			}
 
 			if ( ! $wp_customize->get_section( $section->get_id() ) && $args ) {

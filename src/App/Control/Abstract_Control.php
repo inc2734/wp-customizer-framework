@@ -10,6 +10,9 @@ namespace Inc2734\WP_Customizer_Framework\App\Control;
 use Inc2734\WP_Customizer_Framework\App\Section;
 use Inc2734\WP_Customizer_Framework\App\Partial;
 
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ */
 abstract class Abstract_Control {
 
 	/**

@@ -120,6 +120,19 @@ class Customizer_Framework {
 	 * @return void
 	 */
 	public function _print_gutenberg_styles() {
+		$screen = get_current_screen();
+		if ( ! $screen || 'post' !== $screen->base ) {
+			return;
+		}
+
+		$post = get_post();
+		$use_gutenberg_plugin = function_exists( '\is_gutenberg_page' ) && \is_gutenberg_page();
+		$use_block_editor     = function_exists( '\use_block_editor_for_post' ) && \use_block_editor_for_post( $post );
+
+		if ( ! $post || ! $use_gutenberg_plugin && ! $use_block_editor ) {
+			return;
+		}
+
 		echo '<style id="wp-customizer-framework-print-styles">';
 		do_action( 'inc2734_wp_customizer_framework_print_gutenberg_styles' );
 		echo '</style>';

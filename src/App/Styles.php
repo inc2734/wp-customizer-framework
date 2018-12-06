@@ -101,10 +101,6 @@ class Styles {
 	 * @return void
 	 */
 	public function _print_gutenberg_styles() {
-		if ( ! function_exists( 'is_gutenberg_page' ) || ! is_gutenberg_page() ) {
-			return;
-		}
-
 		$styles = [];
 		foreach ( $this->styles as $styles_index => $style ) {
 			foreach ( $style['selectors'] as $selectors_index => $selector ) {

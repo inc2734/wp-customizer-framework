@@ -8,56 +8,25 @@
 namespace Inc2734\WP_Customizer_Framework;
 
 use Inc2734\WP_Customizer_Framework\App\Styles;
-use Inc2734\WP_Customizer_Framework\App\Manager\Panel_Manager;
-use Inc2734\WP_Customizer_Framework\App\Manager\Section_Manager;
-use Inc2734\WP_Customizer_Framework\App\Manager\Control_Manager;
 
 /**
- * Framework for WordPress Theme Customization API
- * @see https://codex.wordpress.org/Theme_Customization_API
+ * Old framework class
+ *
+ * @deprecated
  */
 class Customizer_Framework {
 
 	/**
-	 * @var Inc2734\WP_Customizer_Framework\Customizer_Framework
+	 * @var Customizer_Framework
 	 */
 	protected static $instance;
 
 	/**
-	 * @var array
+	 * @var Framework
 	 */
-	protected static $controls = array();
-
-	/**
-	 * @var Panel_Manager
-	 */
-	public static $panel_manager;
-
-	/**
-	 * @var Section_Manager
-	 */
-	public static $section_manager;
-
-	/**
-	 * @var Control_Manager
-	 */
-	public static $control_manager;
-
-	/**
-	 * @var Styles
-	 */
-	public static $styles;
+	protected static $framework;
 
 	protected function __construct() {
-		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
-		add_action( 'wp_head', [ $this, '_print_styles' ] );
-		add_action( 'admin_head', [ $this, '_print_gutenberg_styles' ] );
-
-		self::$panel_manager   = new Panel_Manager( $this );
-		self::$section_manager = new Section_Manager( $this );
-		self::$control_manager = new Control_Manager( $this );
-
-		add_action( 'customize_register', array( $this, '_customize_register' ) );
 	}
 
 	/**
@@ -66,10 +35,10 @@ class Customizer_Framework {
 	 * @return Inc2734_WP_Customizer_Framework
 	 */
 	public static function init() {
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
+		if ( is_null( static::$instance ) ) {
+			static::$instance = new self();
 		}
-		return self::$instance;
+		return static::$instance;
 	}
 
 	/**
@@ -78,108 +47,7 @@ class Customizer_Framework {
 	 * @return Styles
 	 */
 	public static function styles() {
-		if ( is_null( self::$styles ) ) {
-			self::$styles = new Styles();
-		}
-		return self::$styles;
-	}
-
-	/**
-	 * Enqueue assets for admin page
-	 *
-	 * @return void
-	 */
-	public function _admin_enqueue_scripts() {
-		$relative_path = '/vendor/inc2734/wp-customizer-framework/src/assets/js/wp-customizer-framework.js';
-		$src  = get_template_directory_uri() . $relative_path;
-		$path = get_template_directory() . $relative_path;
-
-		wp_enqueue_script(
-			'inc2734-wp-customizer-framework',
-			$src,
-			[ 'jquery' ],
-			filemtime( $path ),
-			true
-		);
-	}
-
-	/**
-	 * Print styles from registerd styles
-	 *
-	 * @return void
-	 */
-	public function _print_styles() {
-		echo '<style id="wp-customizer-framework-print-styles">';
-		do_action( 'inc2734_wp_customizer_framework_print_styles' );
-		echo '</style>';
-	}
-
-	/**
-	 * Print styles from registerd styles
-	 *
-	 * @return void
-	 */
-	public function _print_gutenberg_styles() {
-		$screen = get_current_screen();
-		if ( ! $screen || 'post' !== $screen->base ) {
-			return;
-		}
-
-		$post = get_post();
-		$use_gutenberg_plugin = function_exists( '\is_gutenberg_page' ) && \is_gutenberg_page();
-		$use_block_editor     = function_exists( '\use_block_editor_for_post' ) && \use_block_editor_for_post( $post );
-
-		if ( ! $post || ! $use_gutenberg_plugin && ! $use_block_editor ) {
-			return;
-		}
-
-		echo '<style id="wp-customizer-framework-print-styles">';
-		do_action( 'inc2734_wp_customizer_framework_print_gutenberg_styles' );
-		echo '</style>';
-	}
-
-	/**
-	 * Setup customizer
-	 *
-	 * @param WP_Customize_Manager $wp_customize
-	 * @return void
-	 */
-	public function _customize_register( \WP_Customize_Manager $wp_customize ) {
-		$controls = self::$control_manager->get_controls();
-		foreach ( $controls as $control ) {
-			$wp_customize->add_setting( $control->get_id(), $control->get_setting_args() );
-
-			if ( ! $control->section() ) {
-				continue;
-			}
-
-			$control->register_control( $wp_customize );
-			$section = $control->section();
-			$panel   = $section->panel();
-
-			$args = $section->get_args();
-			if ( ! empty( $panel ) ) {
-				$args = array_merge(
-					$args,
-					[
-						'panel' => $panel->get_id(),
-					]
-				);
-			}
-
-			if ( ! $wp_customize->get_section( $section->get_id() ) && $args ) {
-				$wp_customize->add_section( $section->get_id(), $args );
-			}
-
-			if ( ! empty( $panel ) && ! $wp_customize->get_panel( $panel->get_id() ) ) {
-				$wp_customize->add_panel( $panel->get_id(), $panel->get_args() );
-			}
-
-			$partial = $control->partial();
-			if ( $partial ) {
-				$wp_customize->selective_refresh->add_partial( $partial->get_id(), $partial->get_args() );
-			}
-		}
+		return Styles::init();
 	}
 
 	/**
@@ -190,7 +58,7 @@ class Customizer_Framework {
 	 * @return Panel
 	 */
 	public function panel( $panel_id, $args ) {
-		return self::$panel_manager->add( $panel_id, $args );
+		return Framework::panel( $panel_id, $args );
 	}
 
 	/**
@@ -201,7 +69,7 @@ class Customizer_Framework {
 	 * @return Section
 	 */
 	public function section( $section_id, $args ) {
-		return self::$section_manager->add( $section_id, $args );
+		return Framework::section( $section_id, $args );
 	}
 
 	/**
@@ -213,7 +81,7 @@ class Customizer_Framework {
 	 * @return Control
 	 */
 	public function control( $type, $control_id, $args ) {
-		return self::$control_manager->add( $type, $control_id, $args );
+		return Framework::control( $type, $control_id, $args );
 	}
 
 	/**
@@ -223,7 +91,7 @@ class Customizer_Framework {
 	 * @return Panel|null
 	 */
 	public function get_panel( $panel_id ) {
-		return self::$panel_manager->get( $panel_id );
+		return Framework::get_panel( $panel_id );
 	}
 
 	/**
@@ -233,7 +101,7 @@ class Customizer_Framework {
 	 * @return Section|null
 	 */
 	public function get_section( $section_id ) {
-		return self::$section_manager->get( $section_id );
+		return Framework::get_section( $section_id );
 	}
 
 	/**
@@ -243,13 +111,6 @@ class Customizer_Framework {
 	 * @return Control|null
 	 */
 	public function get_control( $control_id ) {
-		return self::$control_manager->get( $control_id );
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function register( $control ) {
-		return $control;
+		return Framework::get_control( $control_id );
 	}
 }

@@ -7,27 +7,14 @@
 
 namespace Inc2734\WP_Customizer_Framework\App\Manager;
 
-use Inc2734\WP_Customizer_Framework\Customizer_Framework;
 use Inc2734\WP_Customizer_Framework\App\Section;
 
 class Section_Manager {
 
 	/**
-	 * @var Customizer_Framework
-	 */
-	protected $customizer;
-
-	/**
 	 * @var array
 	 */
-	protected $sections = array();
-
-	/**
-	 * @param Customizer_Framework $customizer
-	 */
-	public function __construct( Customizer_Framework $customizer ) {
-		$this->customizer = $customizer;
-	}
+	protected static $sections = [];
 
 	/**
 	 * Get Section
@@ -35,11 +22,11 @@ class Section_Manager {
 	 * @param string $section_id
 	 * @return Section
 	 */
-	public function get( $section_id ) {
-		if ( isset( $this->sections[ $section_id ] ) ) {
-			return $this->sections[ $section_id ];
+	public static function get( $section_id ) {
+		if ( isset( static::$sections[ $section_id ] ) ) {
+			return static::$sections[ $section_id ];
 		} else {
-			return $this->_section( $section_id, [] );
+			return static::_section( $section_id, [] );
 		}
 	}
 
@@ -50,9 +37,9 @@ class Section_Manager {
 	 * @param array $args
 	 * @return Section
 	 */
-	public function add( $section_id, array $args ) {
-		$section = $this->_section( $section_id, $args );
-		$this->sections[ $section->get_id() ] = $section;
+	public static function add( $section_id, array $args ) {
+		$section = static::_section( $section_id, $args );
+		static::$sections[ $section->get_id() ] = $section;
 		return $section;
 	}
 
@@ -63,7 +50,7 @@ class Section_Manager {
 	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_section/
 	 */
-	protected function _section( $section_id, array $args = [] ) {
+	protected static function _section( $section_id, array $args = [] ) {
 		return new Section( $section_id, $args );
 	}
 }

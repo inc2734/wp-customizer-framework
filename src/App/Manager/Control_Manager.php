@@ -7,26 +7,12 @@
 
 namespace Inc2734\WP_Customizer_Framework\App\Manager;
 
-use Inc2734\WP_Customizer_Framework\Customizer_Framework;
-
 class Control_Manager {
-
-	/**
-	 * @var Customizer_Framework
-	 */
-	protected $customizer;
 
 	/**
 	 * @var array
 	 */
-	protected $controls = array();
-
-	/**
-	 * @param Customizer_Framework $customizer
-	 */
-	public function __construct( Customizer_Framework $customizer ) {
-		$this->customizer = $customizer;
-	}
+	protected static $controls = [];
 
 	/**
 	 * Get Control
@@ -34,9 +20,9 @@ class Control_Manager {
 	 * @param string $control_id
 	 * @return Control|null
 	 */
-	public function get( $control_id ) {
-		if ( isset( $this->controls[ $control_id ] ) ) {
-			return $this->controls[ $control_id ];
+	public static function get( $control_id ) {
+		if ( isset( static::$controls[ $control_id ] ) ) {
+			return static::$controls[ $control_id ];
 		}
 	}
 
@@ -45,8 +31,8 @@ class Control_Manager {
 	 *
 	 * @return array Array of Control
 	 */
-	public function get_controls() {
-		return $this->controls;
+	public static function get_controls() {
+		return static::$controls;
 	}
 
 	/**
@@ -57,10 +43,10 @@ class Control_Manager {
 	 * @param array $args
 	 * @return Control
 	 */
-	public function add( $type, $control_id, $args ) {
-		$control = $this->_control( $type, $control_id, $args );
+	public static function add( $type, $control_id, $args ) {
+		$control = static::_control( $type, $control_id, $args );
 		if ( $control ) {
-			$this->controls[ $control->get_id() ] = $control;
+			static::$controls[ $control->get_id() ] = $control;
 		}
 		return $control;
 	}
@@ -74,7 +60,7 @@ class Control_Manager {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
-	protected function _control( $type, $control_id, $args ) {
+	protected static function _control( $type, $control_id, $args ) {
 		$_type = explode( '-', $type );
 		foreach ( $_type as $key => $value ) {
 			$_type[ $key ] = ucfirst( $value );

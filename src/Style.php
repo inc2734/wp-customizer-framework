@@ -5,40 +5,24 @@
  * @license GPL-2.0+
  */
 
-namespace Inc2734\WP_Customizer_Framework\App;
+namespace Inc2734\WP_Customizer_Framework;
 
-use Inc2734\WP_Customizer_Framework\Style;
-use Inc2734\WP_Customizer_Framework\App\Style\Outputer;
 use Inc2734\WP_Customizer_Framework\App\Style\Extender;
 
 /**
- * Old style class
- *
- * @deprecated
- *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class Styles {
+class Style {
 
 	/**
-	 * @var Styles
-	 */
-	protected static $instance;
-
-	protected function __construct() {
-	}
-
-	/**
-	 * Initialie
+	 * Style settings
 	 *
-	 * @return Styles
+	 * @var array
+	 *  array selectors
+	 *  array properties
+	 *  string media_query
 	 */
-	public static function init() {
-		if ( is_null( static::$instance ) ) {
-			static::$instance = new self();
-		}
-		return static::$instance;
-	}
+	protected static $styles = [];
 
 	/**
 	 * Registers style setting
@@ -48,8 +32,55 @@ class Styles {
 	 * @param string $media_query
 	 * @return void
 	 */
-	public function register( $selectors, $properties, $media_query = null ) {
-		Style::register( $selectors, $properties, $media_query );
+	public static function register( $selectors, $properties, $media_query = null ) {
+		if ( ! is_array( $selectors ) ) {
+			$selectors = explode( ',', $selectors );
+		}
+
+		if ( ! is_array( $properties ) ) {
+			$properties = explode( ';', $properties );
+		}
+
+		static::$styles[] = [
+			'selectors'   => $selectors,
+			'properties'  => $properties,
+			'media_query' => $media_query,
+		];
+	}
+
+	/**
+	 * Return registerd styles
+	 *
+	 * @return array
+	 *  @var array selectors
+	 *  @var array properties
+	 *  @var string media_query
+	 */
+	public static function get_registerd_styles() {
+		return static::$styles;
+	}
+
+	/**
+	 * Set selectors. Styles of these selectors output like extend of Sass.
+	 *
+	 * @param string $placeholder
+	 * @param array $selectors
+	 * @return void
+	 */
+	public static function extend( $placeholder, array $selectors ) {
+		Extender::extend( $placeholder, $selectors );
+	}
+
+	/**
+	 * Register styles.
+	 * You use Customizer_Framework->register method in $callback.
+	 *
+	 * @param string $placeholder
+	 * @param function $callback
+	 * @return void
+	 */
+	public static function placeholder( $placeholder, $callback ) {
+		Extender::placeholder( $placeholder, $callback );
 	}
 
 	/**
@@ -58,8 +89,8 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	public function light( $hex ) {
-		return $this->lighten( $hex, 0.2 );
+	public static function light( $hex ) {
+		return static::lighten( $hex, 0.2 );
 	}
 
 	/**
@@ -68,8 +99,8 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	public function lighter( $hex ) {
-		return $this->lighten( $hex, 0.335 );
+	public static function lighter( $hex ) {
+		return static::lighten( $hex, 0.335 );
 	}
 
 	/**
@@ -78,8 +109,8 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	public function lightest( $hex ) {
-		return $this->lighten( $hex, 0.37 );
+	public static function lightest( $hex ) {
+		return static::lighten( $hex, 0.37 );
 	}
 
 	/**
@@ -88,8 +119,8 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	public function dark( $hex ) {
-		return $this->darken( $hex, 0.2 );
+	public static function dark( $hex ) {
+		return static::darken( $hex, 0.2 );
 	}
 
 	/**
@@ -98,8 +129,8 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	public function darker( $hex ) {
-		return $this->darken( $hex, 0.335 );
+	public static function darker( $hex ) {
+		return static::darken( $hex, 0.335 );
 	}
 
 	/**
@@ -108,8 +139,8 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	public function darkest( $hex ) {
-		return $this->darken( $hex, 0.37 );
+	public static function darkest( $hex ) {
+		return static::darken( $hex, 0.37 );
 	}
 
 	/**
@@ -119,8 +150,8 @@ class Styles {
 	 * @param int $percent
 	 * @return hex
 	 */
-	public function lighten( $hex, $percent ) {
-		return $this->_color_luminance( $hex, $percent );
+	public static function lighten( $hex, $percent ) {
+		return static::_color_luminance( $hex, $percent );
 	}
 
 	/**
@@ -130,8 +161,8 @@ class Styles {
 	 * @param int $percent
 	 * @return hex
 	 */
-	public function darken( $hex, $percent ) {
-		return $this->_color_luminance( $hex, $percent * -1 );
+	public static function darken( $hex, $percent ) {
+		return static::_color_luminance( $hex, $percent * -1 );
 	}
 
 	/**
@@ -141,18 +172,18 @@ class Styles {
 	 * @param int $percent
 	 * @return hex
 	 */
-	protected function _color_luminance( $hex, $percent ) {
-		$hex        = $this->_hex_normalization( $hex );
-		$hue        = $this->_get_hue( $hex );
-		$saturation = $this->_get_saturation( $hex );
-		$luminance  = $this->_get_luminance( $hex );
+	protected static function _color_luminance( $hex, $percent ) {
+		$hex        = static::_hex_normalization( $hex );
+		$hue        = static::_get_hue( $hex );
+		$saturation = static::_get_saturation( $hex );
+		$luminance  = static::_get_luminance( $hex );
 
 		// Add luminance.
 		$luminance += $percent * 100;
 		$luminance  = ( 100 < $luminance ) ? 100 : $luminance;
 		$luminance  = ( 0 > $luminance ) ? 0 : $luminance;
 
-		$hex = $this->_convert_hsl_to_hex( $hue, $saturation, $luminance );
+		$hex = static::_convert_hsl_to_hex( $hue, $saturation, $luminance );
 		return $hex;
 	}
 
@@ -163,8 +194,8 @@ class Styles {
 	 * @param int $percent
 	 * @return rgba
 	 */
-	public function rgba( $hex, $percent ) {
-		$hex = $this->_hex_normalization( $hex );
+	public static function rgba( $hex, $percent ) {
+		$hex = static::_hex_normalization( $hex );
 		$rgba = [];
 
 		for ( $i = 0; $i < 3; $i ++ ) {
@@ -186,7 +217,7 @@ class Styles {
 	 * @param hex $hex
 	 * @return hex
 	 */
-	protected function _hex_normalization( $hex ) {
+	protected static function _hex_normalization( $hex ) {
 		$hex = preg_replace( '/[^0-9a-f]/i', '', ltrim( $hex, '#' ) );
 
 		if ( strlen( $hex ) < 6 ) {
@@ -204,7 +235,7 @@ class Styles {
 	 * @param hex $hex
 	 * @return hue
 	 */
-	private function _get_hue( $hex ) {
+	private static function _get_hue( $hex ) {
 		$red   = hexdec( substr( $hex, 0, 2 ) );
 		$green = hexdec( substr( $hex, 2, 2 ) );
 		$blue  = hexdec( substr( $hex, 4, 2 ) );
@@ -238,7 +269,7 @@ class Styles {
 	 * @param hex $hex
 	 * @return saturation
 	 */
-	private function _get_saturation( $hex ) {
+	private static function _get_saturation( $hex ) {
 		$red   = hexdec( substr( $hex, 0, 2 ) );
 		$green = hexdec( substr( $hex, 2, 2 ) );
 		$blue  = hexdec( substr( $hex, 4, 2 ) );
@@ -262,7 +293,7 @@ class Styles {
 	 * @param hex $hex
 	 * @return luminance
 	 */
-	private function _get_luminance( $hex ) {
+	private static function _get_luminance( $hex ) {
 		$red   = hexdec( substr( $hex, 0, 2 ) );
 		$green = hexdec( substr( $hex, 2, 2 ) );
 		$blue  = hexdec( substr( $hex, 4, 2 ) );
@@ -280,7 +311,7 @@ class Styles {
 	 * @param luminance $luminance
 	 * @return hex
 	 */
-	private function _convert_hsl_to_hex( $hue, $saturation, $luminance ) {
+	private static function _convert_hsl_to_hex( $hue, $saturation, $luminance ) {
 		if ( 49 >= $luminance ) {
 			$max_hsl = 2.55 * ( $luminance + $luminance * ( $saturation / 100 ) );
 			$min_hsl = 2.55 * ( $luminance - $luminance * ( $saturation / 100 ) );

@@ -1,8 +1,7 @@
 <?php
-use Inc2734\WP_Customizer_Framework\Customizer_Framework;
 use Inc2734\WP_Customizer_Framework\Style;
 
-class Inc2734_WP_Customizer_Framework_Styles_Test extends WP_UnitTestCase {
+class Style_Test extends WP_UnitTestCase {
 
 	public function setup() {
 		parent::setup();
@@ -17,8 +16,7 @@ class Inc2734_WP_Customizer_Framework_Styles_Test extends WP_UnitTestCase {
 	 * @runInSeparateProcess
 	 */
 	public function register() {
-		$cfs = Customizer_Framework::styles();
-		$cfs->register(
+		Style::register(
 			[
 				'body',
 			],
@@ -50,49 +48,43 @@ class Inc2734_WP_Customizer_Framework_Styles_Test extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function light() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertEquals( '#7ed5d7', $cfs->light( '#38b3b7' ) );
-		$this->assertEquals( '#ffffff', $cfs->light( '#ffffff' ) );
+		$this->assertEquals( '#7ed5d7', Style::light( '#38b3b7' ) );
+		$this->assertEquals( '#ffffff', Style::light( '#ffffff' ) );
 	}
 
 	/**
 	 * @test
 	 */
 	public function lighter() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertEquals( '#b2e6e8', $cfs->lighter( '#38b3b7' ) );
+		$this->assertEquals( '#b2e6e8', Style::lighter( '#38b3b7' ) );
 	}
 
 	/**
 	 * @test
 	 */
 	public function lightest() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertEquals( '#c0eaec', $cfs->lightest( '#38b3b7' ) );
+		$this->assertEquals( '#c0eaec', Style::lightest( '#38b3b7' ) );
 	}
 
 	/**
 	 * @test
 	 */
 	public function dark() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertEquals( '#206769', $cfs->dark( '#38b3b7' ) );
-		$this->assertEquals( '#000000', $cfs->dark( '#000000' ) );
+		$this->assertEquals( '#206769', Style::dark( '#38b3b7' ) );
+		$this->assertEquals( '#000000', Style::dark( '#000000' ) );
 	}
 
 	/**
 	 * @test
 	 */
 	public function darker() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertEquals( '#103334', $cfs->darker( '#38b3b7' ) );
+		$this->assertEquals( '#103334', Style::darker( '#38b3b7' ) );
 	}
 
 	/**
 	 * @test
 	 */
 	public function darkest() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertEquals( '#0c2627', $cfs->darkest( '#38b3b7' ) );
+		$this->assertEquals( '#0c2627', Style::darkest( '#38b3b7' ) );
 	}
 }

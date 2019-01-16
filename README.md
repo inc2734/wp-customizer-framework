@@ -15,28 +15,34 @@ $ composer require inc2734/wp-customizer-framework
 ```
 
 ## How to use
+### Initialize
+```
+require_once( get_theme_file_path( '/vendor/autoload.php' ) );
+
+new \Inc2734\WP_Customizer_Framework\Bootstrap();
+```
+
 ### Customizer
 ```
-// When Using composer auto loader
-require_once( get_theme_file_path( '/vendor/autoload.php' ) );
-$Customizer = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
+use Inc2734\WP_Customizer_Framework\Framework;
 
-$customizer->panel( 'panel-id', [
+Framework::panel( 'panel-id', [
   'title' => 'panel-name',
 ] );
 
-$customizer->section( 'section-id', [
+Framework::section( 'section-id', [
   'title' => 'section-name',
 ] );
 
-$customizer->control( 'type' 'control-id', [
+Framework::control( 'type' 'control-id', [
   'label'   => 'Header Color',
   'default' => '#f00',
 ] );
 
-$panel = $customizer->panel( 'panel-id' );
-$section = $customizer->section( 'section-id' );
-$control = $customizer->control( 'control-id' );
+$panel   = Framework::get_panel( 'panel-id' );
+$section = Framework::get_section( 'section-id' );
+$control = Framework::get_control( 'control-id' );
+
 $control->join( $section )->join( $panel );
 $control->partial( [
 	'selector' => '.blogname',
@@ -46,12 +52,11 @@ $control->partial( [
 ### Set styles
 ```
 add_action( 'wp_loaded', function() {
-  $Customizer = \Inc2734\WP_Customizer_Framework\Customizer_Framework::init();
-  $cfs = Customizer->styles();
+  use Inc2734\WP_Customizer_Framework\Style;
 
   $accent_color = get_theme_mod( 'accent-color' );
 
-  $cfs->register(
+  Style::register(
     [
       '.page-title',
       '.strong',
@@ -62,5 +67,5 @@ add_action( 'wp_loaded', function() {
     ],
     '@media (min-width: 768px)' // Optional
   );
-});
+} );
 ```

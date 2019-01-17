@@ -18,12 +18,24 @@ use Inc2734\WP_Customizer_Framework\App\Style\Outputer;
 class Bootstrap {
 
 	public function __construct() {
+		add_action( 'wp_loaded', [ $this, '_load_styles' ], 11 );
 		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
 		add_action( 'wp_head', [ $this, '_print_styles' ] );
 		add_action( 'admin_head', [ $this, '_print_gutenberg_styles' ] );
 		add_action( 'customize_register', array( $this, '_customize_register' ) );
 
 		new Outputer();
+	}
+
+	/**
+	 * The action hook for loading PHP files for styles.
+	 * Customizer init on wp_loaded, so this action hook need to be after that.
+	 *
+	 * @return void
+	 */
+	public function _load_styles() {
+		do_action( 'inc2734_wp_customizer_framework_load_styles' );
+		do_action( 'inc2734_wp_customizer_framework_after_load_styles' );
 	}
 
 	/**

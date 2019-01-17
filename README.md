@@ -51,21 +51,72 @@ $control->partial( [
 
 ### Set styles
 ```
-add_action( 'wp_loaded', function() {
-  use Inc2734\WP_Customizer_Framework\Style;
+use Inc2734\WP_Customizer_Framework\Style;
 
-  $accent_color = get_theme_mod( 'accent-color' );
+add_action(
+  'inc2734_wp_customizer_framework_load_styles',
+  function() {
+    $accent_color = get_theme_mod( 'accent-color' );
 
-  Style::register(
-    [
-      '.page-title',
-      '.strong',
-    ],
-    [
-      "color: {$accent_color}",
-      "border-bottom-color: {$accent_color}",
-    ],
-    '@media (min-width: 768px)' // Optional
-  );
-} );
+    Style::register(
+      [
+        '.page-title',
+        '.strong',
+      ],
+      [
+        "color: {$accent_color}",
+        "border-bottom-color: {$accent_color}",
+      ],
+      '@media (min-width: 768px)' // Optional
+    );
+  }
+);
+```
+
+#### Using placeholder
+```
+use Inc2734\WP_Customizer_Framework\Style;
+
+add_action(
+  'inc2734_wp_customizer_framework_load_styles',
+  function() {
+    /**
+     * Extend "btn-base" placeholder
+     *
+     * Style::extend( 'btn-base', [ '.btn-a' ] );
+     */
+    include_once( get_theme_file_path( '/css/btn-a.php' ) );
+
+    /**
+     * Extend "btn-base" placeholder
+     *
+     * Style::extend( 'btn-base', [ '.btn-b' ] );
+     */
+    include_once( get_theme_file_path( '/css/btn-b.php' ) );
+
+    /**
+     * Extend "btn-base" placeholder
+     *
+     * Style::extend( 'btn-base', [ '.btn-c' ] );
+     */
+    include_once( get_theme_file_path( '/css/btn-c.php' ) );
+  }
+);
+
+add_action(
+  'inc2734_wp_customizer_framework_after_load_styles',
+  function() {
+    Style::placeholder(
+      'btn-base',
+      function( $selectors ) {
+        $accent_color = get_theme_mod( 'accent-color' );
+
+        Style::register(
+          $selectors,
+          'border-color: ' . $accent_color
+        );
+      }
+    );
+  }
+);
 ```

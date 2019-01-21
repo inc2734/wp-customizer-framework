@@ -7,7 +7,9 @@
 
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
-class Dropdown_Pages extends Abstract_Control {
+use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
+
+class Dropdown_Pages extends Base {
 
 	/**
 	 * Add control

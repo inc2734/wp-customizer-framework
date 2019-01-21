@@ -5,7 +5,7 @@
  * @license GPL-2.0+
  */
 
-namespace Inc2734\WP_Customizer_Framework\App\Control;
+namespace Inc2734\WP_Customizer_Framework\App\Contract\Control;
 
 use Inc2734\WP_Customizer_Framework\App\Section;
 use Inc2734\WP_Customizer_Framework\App\Partial;
@@ -13,7 +13,7 @@ use Inc2734\WP_Customizer_Framework\App\Partial;
 /**
  * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
-abstract class Abstract_Control {
+abstract class Control {
 
 	/**
 	 * @var string

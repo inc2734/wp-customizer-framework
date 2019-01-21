@@ -7,9 +7,10 @@
 
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
+use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
 use Inc2734\WP_Customizer_Framework\App\Customize_Control;
 
-class Multiple_Checkbox extends Abstract_Control {
+class Multiple_Checkbox extends Base {
 
 	/**
 	 * Add control

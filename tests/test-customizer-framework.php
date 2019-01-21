@@ -68,7 +68,7 @@ class Customizer_Framework_Test extends WP_UnitTestCase {
 				'default' => '#f00',
 			]
 		);
-		$this->assertTrue( is_a( $control, '\Inc2734\WP_Customizer_Framework\App\Control\Abstract_Control' ) );
+		$this->assertTrue( is_a( $control, '\Inc2734\WP_Customizer_Framework\App\Contract\Control\Control' ) );
 	}
 
 	/**

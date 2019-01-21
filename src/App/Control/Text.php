@@ -7,7 +7,9 @@
 
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
-class Text extends Abstract_Control {
+use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
+
+class Text extends Base {
 
 	/**
 	 * Add control

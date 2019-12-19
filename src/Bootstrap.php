@@ -139,7 +139,7 @@ class Bootstrap {
 	protected function _join( WP_Customize_Manager $wp_customize, Control $control, Section $section, Panel $panel = null ) {
 		$section_args = $section->get_args();
 
-		if ( ! empty( $panel ) && ! $panel->get_args() ) {
+		if ( ! empty( $panel ) && $panel->get_args() ) {
 			$section_args = array_merge(
 				$section_args,
 				[

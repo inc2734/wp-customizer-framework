@@ -8,6 +8,7 @@
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
 use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
+use WP_Customize_Color_Control;
 
 class Color extends Base {
 
@@ -22,7 +23,7 @@ class Color extends Base {
 		$this->args['type'] = 'color';
 
 		$wp_customize->add_control(
-			new \WP_Customize_Color_Control(
+			new WP_Customize_Color_Control(
 				$wp_customize,
 				$this->get_id(),
 				$this->_generate_register_control_args()

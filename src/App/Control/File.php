@@ -8,6 +8,7 @@
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
 use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
+use WP_Customize_Upload_Control;
 
 class File extends Base {
 
@@ -22,7 +23,7 @@ class File extends Base {
 		$this->args['type'] = 'upload';
 
 		$wp_customize->add_control(
-			new \WP_Customize_Upload_Control(
+			new WP_Customize_Upload_Control(
 				$wp_customize,
 				$this->get_id(),
 				$this->_generate_register_control_args()

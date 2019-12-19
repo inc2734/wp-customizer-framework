@@ -8,6 +8,7 @@
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
 use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
+use WP_Customize_Image_Control;
 
 class Image extends Base {
 
@@ -22,7 +23,7 @@ class Image extends Base {
 		$this->args['type'] = 'image';
 
 		$wp_customize->add_control(
-			new \WP_Customize_Image_Control(
+			new WP_Customize_Image_Control(
 				$wp_customize,
 				$this->get_id(),
 				$this->_generate_register_control_args()

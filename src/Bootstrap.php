@@ -9,6 +9,10 @@ namespace Inc2734\WP_Customizer_Framework;
 
 use Inc2734\WP_Customizer_Framework\App\Manager\Control_Manager;
 use Inc2734\WP_Customizer_Framework\App\Style\Outputer;
+use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control;
+use Inc2734\WP_Customizer_Framework\App\Section;
+use Inc2734\WP_Customizer_Framework\App\Panel;
+use WP_Customize_Manager;
 
 /**
  * Framework for WordPress Theme Customization API
@@ -98,7 +102,7 @@ class Bootstrap {
 	 * @param WP_Customize_Manager $wp_customize
 	 * @return void
 	 */
-	public function _customize_register( \WP_Customize_Manager $wp_customize ) {
+	public function _customize_register( WP_Customize_Manager $wp_customize ) {
 		$controls = Control_Manager::get_controls();
 		foreach ( $controls as $control ) {
 			$wp_customize->add_setting( $control->get_id(), $control->get_setting_args() );
@@ -108,31 +112,53 @@ class Bootstrap {
 			}
 
 			$control->register_control( $wp_customize );
-			$section = $control->section();
-			$panel   = $section->panel();
-
-			$args = $section->get_args();
-			if ( ! empty( $panel ) ) {
-				$args = array_merge(
-					$args,
-					[
-						'panel' => $panel->get_id(),
-					]
-				);
+			$section      = $control->section();
+			$section_args = $section->get_args();
+			if ( ! $section_args ) {
+				continue;
 			}
 
-			if ( ! $wp_customize->get_section( $section->get_id() ) && $args ) {
-				$wp_customize->add_section( $section->get_id(), $args );
+			$panel = $section->panel();
+			if ( ! empty( $panel ) && ! $panel->get_args() ) {
+				continue;
 			}
 
-			if ( ! empty( $panel ) && ! $wp_customize->get_panel( $panel->get_id() ) ) {
-				$wp_customize->add_panel( $panel->get_id(), $panel->get_args() );
-			}
+			$this->_join( $wp_customize, $control, $section, $panel );
+		}
+	}
 
-			$partial = $control->partial();
-			if ( $partial ) {
-				$wp_customize->selective_refresh->add_partial( $partial->get_id(), $partial->get_args() );
-			}
+	/**
+	 * Join control to section and panel
+	 *
+	 * @param WP_Customize_Manager $wp_customize
+	 * @param Control $control
+	 * @param Section $section
+	 * @param Panel $panel
+	 * @return void
+	 */
+	protected function _join( WP_Customize_Manager $wp_customize, Control $control, Section $section, Panel $panel = null ) {
+		$section_args = $section->get_args();
+
+		if ( ! empty( $panel ) && ! $panel->get_args() ) {
+			$section_args = array_merge(
+				$section_args,
+				[
+					'panel' => $panel->get_id(),
+				]
+			);
+		}
+
+		if ( ! $wp_customize->get_section( $section->get_id() ) && $section_args ) {
+			$wp_customize->add_section( $section->get_id(), $section_args );
+		}
+
+		if ( ! empty( $panel ) && ! $wp_customize->get_panel( $panel->get_id() ) ) {
+			$wp_customize->add_panel( $panel->get_id(), $panel->get_args() );
+		}
+
+		$partial = $control->partial();
+		if ( $partial ) {
+			$wp_customize->selective_refresh->add_partial( $partial->get_id(), $partial->get_args() );
 		}
 	}
 }

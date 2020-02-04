@@ -8,7 +8,7 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
     "wp-coding-standards/wpcs": "*",
-    "phpmd/phpmd": "2.*",
+    "phpmd/phpmd": "2.7.0|>=2.8.2",
     "phpunit/phpunit": "7.*",
     "phpcompatibility/phpcompatibility-wp": "*",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3"
@@ -28,7 +28,7 @@
     "test": [
       "vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp,vendor/wp-coding-standards/wpcs",
       "vendor/bin/phpcs -p -s -v -n . --standard=./.phpcs.xml.dist --extensions=php",
-      "vendor/bin/phpmd ./ text phpmd.ruleset.xml --suffixes php --exclude /vendor/,/tests/",
+      "vendor/bin/phpmd ./ text .phpmd.ruleset.xml --suffixes php --exclude /vendor/,/tests/",
       "bash bin/phpunit.sh"
     ],
     "phpcbf": "vendor/bin/phpcbf -p -s -v -n . --standard=./codesniffer.ruleset.xml --extensions=php"

@@ -3,7 +3,7 @@
 .gitignore export-ignore
 .travis.yml export-ignore
 codesniffer.ruleset.xml export-ignore
-phpmd.ruleset.xml export-ignore
-phpunit.xml.dist export-ignore
+.phpmd.ruleset.xml export-ignore
+.phpunit.xml.dist export-ignore
 bin export-ignore
 tests export-ignore

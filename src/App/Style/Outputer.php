@@ -91,7 +91,7 @@ class Outputer {
 		foreach ( $styles as $styles_index => $style ) {
 			foreach ( $style['selectors'] as $selectors_index => $selector ) {
 				$selector = trim( $selector );
-				$style['selectors'][ $selectors_index ] = '.edit-post-layout__content .editor-styles-wrapper ' . $selector;
+				$style['selectors'][ $selectors_index ] = '.edit-post-visual-editor.editor-styles-wrapper ' . $selector;
 			}
 			$new_styles[ $styles_index ] = $style;
 		}

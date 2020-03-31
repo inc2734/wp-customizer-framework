@@ -15,8 +15,6 @@ use Inc2734\WP_Customizer_Framework\App\Style\Extender;
  * Old style class
  *
  * @deprecated
- *
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class Styles {
 
@@ -198,8 +196,6 @@ class Styles {
 
 	/**
 	 * Return hue from hex
-	 *
-	 * @SuppressWarnings(PHPMD.CyclomaticComplexity)
 	 *
 	 * @param hex $hex
 	 * @return hue

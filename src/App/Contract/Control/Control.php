@@ -50,8 +50,11 @@ abstract class Control {
 			$this->args['sanitize_callback'] = $this->sanitize_callback();
 		}
 
-		add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
-		add_filter( 'default_option_' . $control_id, array( $this, '_set_default_option' ), 10, 2 );
+		if ( 'theme_mod' === $args['setting_type'] ) {
+			add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
+		} elseif ( 'option' === $args['setting_type'] ) {
+			add_filter( 'default_option_' . $control_id, array( $this, '_set_default_option' ), 10, 2 );
+		}
 	}
 
 	/**

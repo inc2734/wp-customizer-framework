@@ -22,7 +22,9 @@ class Style_Test extends WP_UnitTestCase {
 			],
 			[
 				'font-size' => '16px',
-				'color' => '#000',
+				'color: #000',
+				'background-color' => '',
+				'font-style: ',
 			],
 			'@media (min-width: 1024px)'
 		);
@@ -35,7 +37,7 @@ class Style_Test extends WP_UnitTestCase {
 					],
 					'properties' => [
 						'font-size' => '16px',
-						'color'     => '#000',
+						'color: #000',
 					],
 					'media_query' => '@media (min-width: 1024px)',
 				],

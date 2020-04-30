@@ -38,9 +38,33 @@ class Style {
 			$properties = explode( ';', $properties );
 		}
 
+		$sanitized_properties = [];
+
+		/**
+		 * $key ... index or property
+		 * @value ... property value or property: property value
+		 */
+		foreach ( $properties as $key => $value ) {
+			if ( is_int( $key ) ) {
+				if ( preg_match( '/:\s*$/', $value ) ) {
+					continue;
+				}
+			} else {
+				if ( is_null( $value ) || '' === $value ) {
+					continue;
+				}
+			}
+
+			$sanitized_properties[ $key ] = $value;
+		}
+
+		if ( ! $sanitized_properties ) {
+			return;
+		}
+
 		static::$styles[] = [
 			'selectors'   => $selectors,
-			'properties'  => $properties,
+			'properties'  => $sanitized_properties,
 			'media_query' => $media_query,
 		];
 	}

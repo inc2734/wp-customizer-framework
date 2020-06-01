@@ -34,7 +34,7 @@ Framework::section( 'section-id', [
   'title' => 'section-name',
 ] );
 
-Framework::control( 'type' 'control-id', [
+Framework::control( 'type', 'control-id', [
   'label'   => 'Header Color',
   'default' => '#f00',
 ] );

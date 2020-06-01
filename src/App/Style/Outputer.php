@@ -14,8 +14,8 @@ class Outputer {
 	public function __construct() {
 		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_print_front_styles' ] );
 		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );
-		add_filter( 'tiny_mce_before_init', [ $this, '_tiny_mce_before_init' ] );
-		add_filter( 'inc2734_wp_customizer_framework_print_gutenberg_styles', [ $this, '_print_gutenberg_styles' ] );
+		add_filter( 'tiny_mce_before_init', [ $this, '_enqueue_classic_editor_style' ], 11 );
+		add_filter( 'block_editor_settings', [ $this, '_enqueue_block_editor_style' ], 11 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Outputer {
 	 * @param array $mce_init
 	 * @return array
 	 */
-	public function _tiny_mce_before_init( $mce_init ) {
+	public function _enqueue_classic_editor_style( $mce_init ) {
 		$styles = WP_Customizer_Framework\Style::get_registerd_styles();
 
 		if ( ! isset( $mce_init['content_style'] ) ) {
@@ -80,23 +80,24 @@ class Outputer {
 	}
 
 	/**
-	 * Print styles for Gutenberg
+	 * Styles for block editor
 	 *
-	 * @return void
+	 * @param array $mce_init
+	 * @return array
 	 */
-	public function _print_gutenberg_styles() {
+	public function _enqueue_block_editor_style( $settings ) {
+		do_action( 'inc2734_wp_customizer_framework_after_load_styles' );
+
 		$styles = WP_Customizer_Framework\Style::get_registerd_styles();
-		$new_styles = [];
+		ob_start();
+		$this->_print_styles( $styles );
+		$css = ob_get_clean();
+		$settings['styles'][] = [
+			'css'     => $css,
+			'baseURL' => null,
+		];
 
-		foreach ( $styles as $styles_index => $style ) {
-			foreach ( $style['selectors'] as $selectors_index => $selector ) {
-				$selector = trim( $selector );
-				$style['selectors'][ $selectors_index ] = '.edit-post-visual-editor.editor-styles-wrapper ' . $selector;
-			}
-			$new_styles[ $styles_index ] = $style;
-		}
-
-		$this->_print_styles( $new_styles );
+		return $settings;
 	}
 
 	/**

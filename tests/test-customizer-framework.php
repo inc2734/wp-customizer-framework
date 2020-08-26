@@ -22,14 +22,6 @@ class Customizer_Framework_Test extends WP_UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function styles() {
-		$cfs = Customizer_Framework::styles();
-		$this->assertTrue( is_a( $cfs, '\Inc2734\WP_Customizer_Framework\App\Styles' ) );
-	}
-
-	/**
-	 * @test
-	 */
 	public function panel() {
 		$customizer_framework = Customizer_Framework::init();
 		$panel = $customizer_framework->panel(

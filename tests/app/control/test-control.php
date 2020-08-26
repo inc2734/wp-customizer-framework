@@ -28,12 +28,8 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( [
-			'label'   => 'Header Color',
-			'default' => '#f00',
-			'sanitize_callback' => 'sanitize_hex_color',
-			'setting_type' => 'theme_mod',
-		], $control->get_args() );
+		$this->assertEquals( 'Header Color', $control->get_arg( 'label' ) );
+		$this->assertEquals( 'sanitize_hex_color', $control->get_arg( 'sanitize_callback' ) );
 	}
 
 	/**
@@ -44,24 +40,16 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( [
-			'label'   => 'Header Color',
-			'default' => '#f00',
-			'sanitize_callback' => 'sanitize_hex_color',
-			'type' => 'theme_mod',
-		], $control->get_setting_args() );
+		$this->assertEquals( '#f00', $control->get_setting_arg( 'default' ) );
+		$this->assertEquals( 'theme_mod', $control->get_setting_arg( 'type' ) );
 
 		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
 			'label'   => 'Header Color',
 			'default' => '#f00',
 			'type'    => 'option',
 		] );
-		$this->assertEquals( [
-			'label'   => 'Header Color',
-			'default' => '#f00',
-			'sanitize_callback' => 'sanitize_hex_color',
-			'type' => 'option',
-		], $control->get_setting_args() );
+		$this->assertEquals( '#f00', $control->get_setting_arg( 'default' ) );
+		$this->assertEquals( 'option', $control->get_setting_arg( 'type' ) );
 	}
 
 	/**
@@ -145,6 +133,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 
 	/**
 	 * @test
+	 * @group hoge
 	 */
 	public function get_theme_mod() {
 		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [

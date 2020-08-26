@@ -20,7 +20,7 @@ class Content extends Base {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
 	public function register_control( \WP_Customize_Manager $wp_customize ) {
-		$this->args['type'] = 'content';
+		$this->set_arg( 'type', 'content' );
 
 		$wp_customize->add_control(
 			new Customize_Control\Content_Control(

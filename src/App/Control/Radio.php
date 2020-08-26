@@ -20,7 +20,7 @@ class Radio extends Base {
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
 	 */
 	public function register_control( \WP_Customize_Manager $wp_customize ) {
-		$this->args['type'] = 'radio';
+		$this->set_arg( 'type', 'radio' );
 
 		$wp_customize->add_control(
 			new WP_Customize_Control(

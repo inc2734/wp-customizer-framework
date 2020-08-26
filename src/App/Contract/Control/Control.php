@@ -18,9 +18,70 @@ abstract class Control {
 	protected $control_id;
 
 	/**
+	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-control.php#L210
+	 *
 	 * @var array
+	 *  @var int instance_number
+	 *  @var WP_Customize_Manager manager
+	 *  @var string id
+	 *  @var array settings
+	 *  @var string setting
+	 *  @var string capability
+	 *  @var int priority
+	 *  @var string section
+	 *  @var string label
+	 *  @var string description
+	 *  @var array choices
+	 *  @var array input_attrs
+	 *  @var boolean allow_addition
+	 *  @var array json
+	 *  @var string text
+	 *  @var string active_callback
 	 */
-	protected $args = array();
+	protected $args = [
+		'instance_number' => null,
+		'manager'         => null,
+		'id'              => null,
+		'settings'        => null,
+		'setting'         => 'default',
+		'capability'      => null,
+		'priority'        => 10,
+		'section'         => '',
+		'label'           => '',
+		'description'     => '',
+		'choices'         => [],
+		'input_attrs'     => [],
+		'allow_addition'  => false,
+		'json'            => [],
+		'type'            => 'text',
+		'active_callback' => '',
+	];
+
+	/**
+	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-setting.php#L210
+	 *
+	 * @var array
+	 *  @var string type
+	 *  @var string capability
+	 *  @var string|array theme_supports
+	 *  @var string default
+	 *  @var string transport
+	 *  @var callback validate_callback
+	 *  @var callback sanitize_callback
+	 *  @var callback sanitize_js_callback
+	 *  @var boolean dirty
+	 */
+	protected $setting_args = [
+		'type'                 => 'theme_mod',
+		'capability'           => 'edit_theme_options',
+		'theme_supports'       => '',
+		'default'              => '',
+		'transport'            => 'refresh',
+		'validate_callback'    => '',
+		'sanitize_callback'    => '',
+		'sanitize_js_callback' => '',
+		'dirty'                => false,
+	];
 
 	/**
 	 * @var Section
@@ -36,24 +97,25 @@ abstract class Control {
 	 * @param string $control_id
 	 * @param array $args
 	 */
-	public function __construct( $control_id, $args = array() ) {
-		$args['setting_type'] = 'theme_mod';
-		if ( isset( $args['type'] ) ) {
-			$args['setting_type'] = $args['type'];
-			unset( $args['type'] );
+	public function __construct( $control_id, $args = [] ) {
+		foreach ( $args as $key => $value ) {
+			if ( array_key_exists( $key, $this->setting_args ) ) {
+				$this->set_setting_arg( $key, $value );
+			} elseif ( array_key_exists( $key, $this->args ) ) {
+				$this->set_arg( $key, $value );
+			}
 		}
 
 		$this->control_id = $control_id;
-		$this->args       = $args;
 
-		if ( ! isset( $this->args['sanitize_callback'] ) ) {
-			$this->args['sanitize_callback'] = $this->sanitize_callback();
+		if ( ! $this->get_arg( 'sanitize_callback' ) ) {
+			$this->set_arg( 'sanitize_callback', $this->sanitize_callback() );
 		}
 
-		if ( 'theme_mod' === $args['setting_type'] ) {
-			add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
-		} elseif ( 'option' === $args['setting_type'] ) {
-			add_filter( 'default_option_' . $control_id, array( $this, '_set_default_option' ), 10, 2 );
+		if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
+			add_filter( 'theme_mod_' . $control_id, [ $this, '_set_default_value' ] );
+		} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
+			add_filter( 'default_option_' . $control_id, [ $this, '_set_default_option' ], 10, 2 );
 		}
 	}
 
@@ -76,15 +138,50 @@ abstract class Control {
 	}
 
 	/**
+	 * Return specific control arg
+	 */
+	public function get_arg( $key ) {
+		return array_key_exists( $key, $this->args )
+			? $this->args[ $key ]
+			: false;
+	}
+
+	/**
 	 * Return setting args
 	 *
 	 * @return array
 	 */
 	public function get_setting_args() {
-		$args = $this->get_args();
-		$args['type'] = $args['setting_type'];
-		unset( $args['setting_type'] );
-		return $args;
+		return $this->setting_args;
+	}
+
+	/**
+	 * Return specific setting arg
+	 */
+	public function get_setting_arg( $key ) {
+		return array_key_exists( $key, $this->setting_args )
+			? $this->setting_args[ $key ]
+			: false;
+	}
+
+	/**
+	 * Set control arg
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function set_arg( $key, $value ) {
+		$this->args[ $key ] = $value;
+	}
+
+	/**
+	 * Set setting arg
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function set_setting_arg( $key, $value ) {
+		$this->setting_args[ $key ] = $value;
 	}
 
 	/**
@@ -128,8 +225,8 @@ abstract class Control {
 	 */
 	public function _set_default_value( $value ) {
 		if ( is_null( $value ) || false === $value ) {
-			if ( isset( $this->args['default'] ) ) {
-				return $this->args['default'];
+			if ( '' !== $this->get_setting_arg( 'default' ) ) {
+				return $this->get_setting_arg( 'default' );
 			}
 		}
 		return $value;

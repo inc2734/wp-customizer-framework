@@ -108,8 +108,8 @@ abstract class Control {
 
 		$this->control_id = $control_id;
 
-		if ( ! $this->get_arg( 'sanitize_callback' ) ) {
-			$this->set_arg( 'sanitize_callback', $this->sanitize_callback() );
+		if ( ! $this->get_setting_arg( 'sanitize_callback' ) ) {
+			$this->set_setting_arg( 'sanitize_callback', $this->sanitize_callback() );
 		}
 
 		if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {

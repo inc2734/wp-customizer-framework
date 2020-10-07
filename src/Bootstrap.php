@@ -21,13 +21,32 @@ use WP_Customize_Manager;
  */
 class Bootstrap {
 
-	public function __construct() {
-		add_action( 'wp_loaded', [ $this, '_load_styles' ], 11 );
-		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
-		add_action( 'wp_print_scripts', [ $this, '_print_styles' ] );
-		add_action( 'customize_register', array( $this, '_customize_register' ) );
+	/**
+	 * @var array $args Array of argments.
+	 *   @var string $handle The main style handle.
+	 */
+	protected $args = [];
 
+	/**
+	 * Constructor.
+	 *
+	 * @param array $args Array of argments.
+	 *   @var string $handle The main style handle.
+	 */
+	public function __construct( $args = [] ) {
+		$this->args = $args;
+
+		add_action( 'wp_loaded', [ $this, '_load_styles' ], 11 );
+		add_action( 'customize_register', array( $this, '_customize_register' ) );
 		new Outputer();
+
+		if ( ! empty( $this->args['handle'] ) ) {
+			add_action( 'snow_monkey_enqueued_main_style', [ $this, '_enqueued_main_style' ] );
+		} else {
+			add_action( 'wp_print_scripts', [ $this, '_wp_print_scripts' ] );
+		}
+
+		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
 	}
 
 	/**
@@ -60,11 +79,24 @@ class Bootstrap {
 	}
 
 	/**
-	 * Print styles from registerd styles
+	 * Print styles from registerd style tag with handle.
 	 *
 	 * @return void
 	 */
-	public function _print_styles() {
+	public function _enqueued_main_style() {
+		do_action( 'inc2734_wp_customizer_framework_after_load_styles' );
+
+		ob_start();
+		$this->_print_styles();
+		$t = wp_add_inline_style( $this->args['handle'], ob_get_clean() );
+	}
+
+	/**
+	 * Print styles from registerd style tag without handle.
+	 *
+	 * @return void
+	 */
+	public function _wp_print_scripts() {
 		if ( is_admin() ) {
 			return;
 		}
@@ -72,8 +104,17 @@ class Bootstrap {
 		do_action( 'inc2734_wp_customizer_framework_after_load_styles' );
 
 		echo '<style id="wp-customizer-framework-print-styles">';
-		do_action( 'inc2734_wp_customizer_framework_print_styles' );
+		$this->_print_styles();
 		echo '</style>';
+	}
+
+	/**
+	 * Print styles from registerd styles.
+	 *
+	 * @return void
+	 */
+	protected function _print_styles() {
+		do_action( 'inc2734_wp_customizer_framework_print_styles' );
 	}
 
 	/**

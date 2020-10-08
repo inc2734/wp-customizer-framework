@@ -40,7 +40,8 @@ class Multiple_Checkbox_Control extends \WP_Customize_Control {
 		?>
 
 		<ul>
-			<?php foreach ( (string) $this->choices as $value => $label ) : ?>
+			<?php foreach ( $this->choices as $value => $label ) : ?>
+				<?php $value = (string) $value; ?>
 				<li>
 					<label>
 						<input type="checkbox" value="<?php echo esc_attr( $value ); ?>" <?php checked( in_array( $value, $multi_values, true ) ); ?> />

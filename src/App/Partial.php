@@ -9,6 +9,7 @@ namespace Inc2734\WP_Customizer_Framework\App;
 
 /**
  * Object of Partial
+ *
  * @see https://developer.wordpress.org/reference/classes/wp_customize_selective_refresh/
  */
 class Partial {
@@ -24,8 +25,10 @@ class Partial {
 	protected $args = array();
 
 	/**
-	 * @param string $partial_id
-	 * @param array $args
+	 * Constructor.
+	 *
+	 * @param string $partial_id The Partial ID.
+	 * @param array  $args       Array of argment.
 	 */
 	public function __construct( $partial_id, $args = array() ) {
 		$this->partial_id = $partial_id;
@@ -33,7 +36,7 @@ class Partial {
 	}
 
 	/**
-	 * Return partial id
+	 * Return Partial ID.
 	 *
 	 * @return string
 	 */
@@ -42,7 +45,7 @@ class Partial {
 	}
 
 	/**
-	 * Return partial args
+	 * Return partial args.
 	 *
 	 * @return array
 	 */

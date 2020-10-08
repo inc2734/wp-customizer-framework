@@ -15,9 +15,9 @@ class Control_Manager {
 	protected static $controls = [];
 
 	/**
-	 * Get Control
+	 * Get Control.
 	 *
-	 * @param string $control_id
+	 * @param string $control_id The Control ID.
 	 * @return Control|null
 	 */
 	public static function get( $control_id ) {
@@ -27,20 +27,20 @@ class Control_Manager {
 	}
 
 	/**
-	 * Get all Controls
+	 * Get all Controls.
 	 *
-	 * @return array Array of Control
+	 * @return array Array of Control.
 	 */
 	public static function get_controls() {
 		return static::$controls;
 	}
 
 	/**
-	 * Add Control
+	 * Add Control.
 	 *
-	 * @param string $type
-	 * @param string $control_id
-	 * @param array $args
+	 * @param string $type       The Control type.
+	 * @param string $control_id The Control ID.
+	 * @param array  $args       Array of argment.
 	 * @return Control
 	 */
 	public static function add( $type, $control_id, $args ) {
@@ -52,20 +52,22 @@ class Control_Manager {
 	}
 
 	/**
-	 * Create control
+	 * Create control.
 	 *
-	 * @param string $type
-	 * @param string $control_id
-	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
+	 *
+	 * @param string $type       The Control type.
+	 * @param string $control_id The Control ID.
+	 * @param array  $args       Array of argment.
+	 * @return Control
 	 */
 	protected static function _control( $type, $control_id, $args ) {
 		$_type = explode( '-', $type );
 		foreach ( $_type as $key => $value ) {
 			$_type[ $key ] = ucfirst( $value );
 		}
-		$type = implode( '_', $_type );
+		$type  = implode( '_', $_type );
 		$class = '\Inc2734\WP_Customizer_Framework\App\Control\\' . $type;
 		if ( class_exists( $class ) ) {
 			return new $class( $control_id, $args );

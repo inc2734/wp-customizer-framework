@@ -17,9 +17,9 @@ class Panel_Manager {
 	protected static $panels = [];
 
 	/**
-	 * Get Panel
+	 * Get Panel.
 	 *
-	 * @param string $panel_id
+	 * @param string $panel_id The Panel ID.
 	 * @return Panel|null
 	 */
 	public static function get( $panel_id ) {
@@ -31,24 +31,25 @@ class Panel_Manager {
 	}
 
 	/**
-	 * Add Panel
+	 * Add Panel.
 	 *
-	 * @param string $panel_id
-	 * @param array $args
+	 * @param string $panel_id The Panel ID.
+	 * @param array  $args     Array of argment.
 	 * @return Panel
 	 */
 	public static function add( $panel_id, $args ) {
-		$panel = static::_panel( $panel_id, $args );
+		$panel                              = static::_panel( $panel_id, $args );
 		static::$panels[ $panel->get_id() ] = $panel;
 		return $panel;
 	}
 
 	/**
-	 * Create panel
+	 * Create panel.
 	 *
-	 * @param string $panel_id
-	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_panel/
+	 *
+	 * @param string $panel_id The Panel ID.
+	 * @param array  $args     Array of argment.
 	 */
 	protected static function _panel( $panel_id, array $args = array() ) {
 		return new Panel( $panel_id, $args );

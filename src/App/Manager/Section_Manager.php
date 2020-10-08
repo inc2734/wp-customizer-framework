@@ -17,9 +17,9 @@ class Section_Manager {
 	protected static $sections = [];
 
 	/**
-	 * Get Section
+	 * Get Section.
 	 *
-	 * @param string $section_id
+	 * @param string $section_id The Section ID.
 	 * @return Section
 	 */
 	public static function get( $section_id ) {
@@ -31,24 +31,26 @@ class Section_Manager {
 	}
 
 	/**
-	 * Add Section
+	 * Add Section.
 	 *
-	 * @param string $section_id
-	 * @param array $args
+	 * @param string $section_id The Section ID.
+	 * @param array  $args       Array of argment.
 	 * @return Section
 	 */
 	public static function add( $section_id, array $args ) {
-		$section = static::_section( $section_id, $args );
+		$section                                = static::_section( $section_id, $args );
 		static::$sections[ $section->get_id() ] = $section;
 		return $section;
 	}
 
 	/**
-	 * Create section
+	 * Create section.
 	 *
-	 * @param string $section_id
-	 * @param array $args
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_section/
+	 *
+	 * @param string $section_id The Section ID.
+	 * @param array  $args       Array of argment.
+	 * @return Section
 	 */
 	protected static function _section( $section_id, array $args = [] ) {
 		return new Section( $section_id, $args );

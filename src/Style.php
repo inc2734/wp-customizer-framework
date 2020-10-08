@@ -22,11 +22,11 @@ class Style {
 	protected static $styles = [];
 
 	/**
-	 * Registers style setting
+	 * Registers style setting.
 	 *
-	 * @param string|array $selectors
-	 * @param string|array $properties
-	 * @param string $media_query
+	 * @param string|array $selectors Target selectors.
+	 * @param string|array $properties Properties.
+	 * @param string       $media_query Media query.
 	 * @return void
 	 */
 	public static function register( $selectors, $properties, $media_query = null ) {
@@ -40,10 +40,8 @@ class Style {
 
 		$sanitized_properties = [];
 
-		/**
-		 * $key ... index or property
-		 * @value ... property value or property: property value
-		 */
+		// $key ... index or property
+		// @value ... property value or property: property value
 		foreach ( $properties as $key => $value ) {
 			if ( is_int( $key ) ) {
 				if ( preg_match( '/:\s*$/', $value ) ) {
@@ -70,7 +68,7 @@ class Style {
 	}
 
 	/**
-	 * Return registerd styles
+	 * Return registerd styles.
 	 *
 	 * @return array
 	 *  @var array selectors
@@ -84,8 +82,8 @@ class Style {
 	/**
 	 * Set selectors. Styles of these selectors output like extend of Sass.
 	 *
-	 * @param string $placeholder
-	 * @param array $selectors
+	 * @param string $placeholder Sass placeholder.
+	 * @param array  $selectors Target selectors.
 	 * @return void
 	 */
 	public static function extend( $placeholder, array $selectors ) {
@@ -96,8 +94,8 @@ class Style {
 	 * Register styles.
 	 * You use Customizer_Framework->register method in $callback.
 	 *
-	 * @param string $placeholder
-	 * @param function $callback
+	 * @param string   $placeholder Sass placeholder.
+	 * @param function $callback The callback function.
 	 * @return void
 	 */
 	public static function placeholder( $placeholder, $callback ) {

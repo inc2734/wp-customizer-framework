@@ -20,8 +20,8 @@ class Panel {
 	protected $args = array();
 
 	/**
-	 * @param string $panel_id
-	 * @param array $args
+	 * @param string $panel_id The Panel ID.
+	 * @param array  $args     Array of argment.
 	 */
 	public function __construct( $panel_id, array $args = [] ) {
 		$this->panel_id = $panel_id;
@@ -29,7 +29,7 @@ class Panel {
 	}
 
 	/**
-	 * Return panel id
+	 * Return Panel ID.
 	 *
 	 * @return string
 	 */
@@ -38,7 +38,7 @@ class Panel {
 	}
 
 	/**
-	 * Return panel args
+	 * Return panel args.
 	 *
 	 * @return array
 	 */

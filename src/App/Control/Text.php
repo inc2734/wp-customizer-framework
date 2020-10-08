@@ -9,17 +9,19 @@ namespace Inc2734\WP_Customizer_Framework\App\Control;
 
 use Inc2734\WP_Customizer_Framework\App\Contract\Control\Control as Base;
 use WP_Customize_Control;
+use WP_Customize_Manager;
 
 class Text extends Base {
 
 	/**
-	 * Add control
+	 * Add control.
 	 *
-	 * @param WP_Customize_Manager $wp_customize
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
+	 *
+	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager object.
 	 */
-	public function register_control( \WP_Customize_Manager $wp_customize ) {
+	public function register_control( WP_Customize_Manager $wp_customize ) {
 		$this->set_arg( 'type', 'text' );
 
 		$wp_customize->add_control(

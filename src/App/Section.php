@@ -25,8 +25,10 @@ class Section {
 	protected $panel;
 
 	/**
-	 * @param string $section_id
-	 * @param array $args
+	 * Constructor.
+
+	 * @param string $section_id The Section ID.
+	 * @param array  $args       Array of argment.
 	 */
 	public function __construct( $section_id, array $args = [] ) {
 		$this->section_id = $section_id;
@@ -34,7 +36,7 @@ class Section {
 	}
 
 	/**
-	 * Return section id
+	 * Return Section ID.
 	 *
 	 * @return string
 	 */
@@ -43,7 +45,7 @@ class Section {
 	}
 
 	/**
-	 * Return section args
+	 * Return section args.
 	 *
 	 * @return array
 	 */
@@ -52,9 +54,9 @@ class Section {
 	}
 
 	/**
-	 * Section joined to Panel
+	 * Section joined to Panel.
 	 *
-	 * @param Panel $panel
+	 * @param Panel $panel Panel object to join.
 	 * @return Panel
 	 */
 	public function join( Panel $panel ) {
@@ -63,7 +65,7 @@ class Section {
 	}
 
 	/**
-	 * Return Panel that Section joined to
+	 * Return Panel that Section joined to.
 	 *
 	 * @return Panel
 	 */

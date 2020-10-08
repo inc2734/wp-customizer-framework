@@ -10,7 +10,7 @@ namespace Inc2734\WP_Customizer_Framework\App\Style;
 class Extender {
 
 	/**
-	 * Placeholders
+	 * Placeholders.
 	 *
 	 * @var array
 	 */
@@ -19,8 +19,8 @@ class Extender {
 	/**
 	 * Set selectors. Styles of these selectors output like extend of Sass.
 	 *
-	 * @param string $placeholder
-	 * @param array $selectors
+	 * @param string $placeholder Sass placeholder.
+	 * @param array  $selectors   Target selectors.
 	 * @return void
 	 */
 	public static function extend( $placeholder, array $selectors ) {
@@ -38,8 +38,8 @@ class Extender {
 	 * Register styles.
 	 * You use Customizer_Framework->register method in $callback.
 	 *
-	 * @param string $placeholder
-	 * @param function $callback
+	 * @param string   $placeholder Sass placeholder.
+	 * @param function $callback    Callback function.
 	 * @return void
 	 */
 	public static function placeholder( $placeholder, $callback ) {

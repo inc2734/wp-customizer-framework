@@ -9,6 +9,7 @@ namespace Inc2734\WP_Customizer_Framework\App\Contract\Control;
 
 use Inc2734\WP_Customizer_Framework\App\Section;
 use Inc2734\WP_Customizer_Framework\App\Partial;
+use WP_Customize_Manager;
 
 abstract class Control {
 
@@ -21,22 +22,6 @@ abstract class Control {
 	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-control.php#L210
 	 *
 	 * @var array
-	 *  @var int instance_number
-	 *  @var WP_Customize_Manager manager
-	 *  @var string id
-	 *  @var array settings
-	 *  @var string setting
-	 *  @var string capability
-	 *  @var int priority
-	 *  @var string section
-	 *  @var string label
-	 *  @var string description
-	 *  @var array choices
-	 *  @var array input_attrs
-	 *  @var boolean allow_addition
-	 *  @var array json
-	 *  @var string text
-	 *  @var string active_callback
 	 */
 	protected $args = [
 		'instance_number' => null,
@@ -61,15 +46,6 @@ abstract class Control {
 	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-setting.php#L210
 	 *
 	 * @var array
-	 *  @var string type
-	 *  @var string capability
-	 *  @var string|array theme_supports
-	 *  @var string default
-	 *  @var string transport
-	 *  @var callback validate_callback
-	 *  @var callback sanitize_callback
-	 *  @var callback sanitize_js_callback
-	 *  @var boolean dirty
 	 */
 	protected $setting_args = [
 		'type'                 => 'theme_mod',
@@ -94,8 +70,8 @@ abstract class Control {
 	protected $partial;
 
 	/**
-	 * @param string $control_id
-	 * @param array $args
+	 * @param string $control_id The Control ID.
+	 * @param array  $args       Array of argment.
 	 */
 	public function __construct( $control_id, $args = [] ) {
 		foreach ( $args as $key => $value ) {
@@ -120,7 +96,7 @@ abstract class Control {
 	}
 
 	/**
-	 * Return control id
+	 * Return control id.
 	 *
 	 * @return string
 	 */
@@ -129,7 +105,7 @@ abstract class Control {
 	}
 
 	/**
-	 * Return control args
+	 * Return control args.
 	 *
 	 * @return array
 	 */
@@ -138,7 +114,10 @@ abstract class Control {
 	}
 
 	/**
-	 * Return specific control arg
+	 * Return specific control arg.
+	 *
+	 * @param string $key The control name.
+	 * @return mixed
 	 */
 	public function get_arg( $key ) {
 		return array_key_exists( $key, $this->args )
@@ -147,7 +126,7 @@ abstract class Control {
 	}
 
 	/**
-	 * Return setting args
+	 * Return setting args.
 	 *
 	 * @return array
 	 */
@@ -156,7 +135,10 @@ abstract class Control {
 	}
 
 	/**
-	 * Return specific setting arg
+	 * Return specific setting arg.
+	 *
+	 * @param string $key The setting name.
+	 * @return mixed
 	 */
 	public function get_setting_arg( $key ) {
 		return array_key_exists( $key, $this->setting_args )
@@ -165,29 +147,29 @@ abstract class Control {
 	}
 
 	/**
-	 * Set control arg
+	 * Set control arg.
 	 *
-	 * @param string $key
-	 * @param mixed $value
+	 * @param string $key   The control name.
+	 * @param mixed  $value The control value.
 	 */
 	public function set_arg( $key, $value ) {
 		$this->args[ $key ] = $value;
 	}
 
 	/**
-	 * Set setting arg
+	 * Set setting arg.
 	 *
-	 * @param string $key
-	 * @param mixed $value
+	 * @param string $key   The setting name.
+	 * @param mixed  $value The setting value.
 	 */
 	public function set_setting_arg( $key, $value ) {
 		$this->setting_args[ $key ] = $value;
 	}
 
 	/**
-	 * Control joined to Section
+	 * Control joined to Section.
 	 *
-	 * @param Section $section
+	 * @param Section $section Section object.
 	 * @return Section
 	 */
 	public function join( Section $section ) {
@@ -196,7 +178,7 @@ abstract class Control {
 	}
 
 	/**
-	 * Return Section that Control joined to
+	 * Return Section that Control joined to.
 	 *
 	 * @return Section
 	 */
@@ -205,9 +187,9 @@ abstract class Control {
 	}
 
 	/**
-	 * Control joined to Partial
+	 * Control joined to Partial.
 	 *
-	 * @param array|null $args
+	 * @param array|null $args Array of argment.
 	 */
 	public function partial( $args = null ) {
 		if ( is_null( $args ) ) {
@@ -218,9 +200,9 @@ abstract class Control {
 	}
 
 	/**
-	 * Set default theme_mod
+	 * Set default theme_mod.
 	 *
-	 * @param mixed $value
+	 * @param mixed $value The value you want to set as the default value.
 	 * @return mixed
 	 */
 	public function _set_default_value( $value ) {
@@ -235,22 +217,22 @@ abstract class Control {
 	/**
 	 * Set default option
 	 *
-	 * @param mixed $value
-	 * @param string $option Control ID
+	 * @param mixed $value The value you want to set as the default value.
 	 * @return mixed
 	 */
-	public function _set_default_option( $value, $option ) {
+	public function _set_default_option( $value ) {
 		return $this->_set_default_value( $value );
 	}
 
 	/**
-	 * Add control
+	 * Add control.
 	 *
-	 * @param WP_Customize_Manager $wp_customize
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
 	 * @see https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
+	 *
+	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager object.
 	 */
-	abstract public function register_control( \WP_Customize_Manager $wp_customize );
+	abstract public function register_control( WP_Customize_Manager $wp_customize );
 
 	/**
 	 * Generate register control args that added section, settings
@@ -268,7 +250,7 @@ abstract class Control {
 	}
 
 	/**
-	 * Sanitize callback function
+	 * Sanitize callback function.
 	 *
 	 * @return string|function Function name or function for sanitize
 	 */

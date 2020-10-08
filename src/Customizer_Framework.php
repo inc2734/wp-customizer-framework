@@ -26,11 +26,14 @@ class Customizer_Framework {
 	 */
 	protected static $framework;
 
+	/**
+	 * Constructor.
+	 */
 	protected function __construct() {
 	}
 
 	/**
-	 * Create instance
+	 * Create instance.
 	 *
 	 * @return Inc2734_WP_Customizer_Framework
 	 */
@@ -42,7 +45,7 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Create instance for styles with customizer
+	 * Create instance for styles with customizer.
 	 *
 	 * @return Styles
 	 */
@@ -51,10 +54,10 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Add Panel
+	 * Add Panel.
 	 *
-	 * @param string $panel_id
-	 * @param array $args
+	 * @param string $panel_id The Panel ID.
+	 * @param array  $args Array of argment.
 	 * @return Panel
 	 */
 	public function panel( $panel_id, $args ) {
@@ -62,10 +65,10 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Add Section
+	 * Add Section.
 	 *
-	 * @param string $section_id
-	 * @param array $args
+	 * @param string $section_id The Section ID.
+	 * @param array  $args Array of argment.
 	 * @return Section
 	 */
 	public function section( $section_id, $args ) {
@@ -73,11 +76,11 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Add Control
+	 * Add Control.
 	 *
-	 * @param string $type
-	 * @param string $control_id
-	 * @param array $args
+	 * @param string $type The Control type.
+	 * @param string $control_id The Control ID.
+	 * @param array  $args Array of argment.
 	 * @return Control
 	 */
 	public function control( $type, $control_id, $args ) {
@@ -85,9 +88,9 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Get Panel
+	 * Get Panel.
 	 *
-	 * @param string $panel_id
+	 * @param string $panel_id The Panel ID.
 	 * @return Panel|null
 	 */
 	public function get_panel( $panel_id ) {
@@ -95,9 +98,9 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Get Section
+	 * Get Section.
 	 *
-	 * @param string $section_id
+	 * @param string $section_id The Section ID.
 	 * @return Section|null
 	 */
 	public function get_section( $section_id ) {
@@ -105,9 +108,9 @@ class Customizer_Framework {
 	}
 
 	/**
-	 * Get Control
+	 * Get Control.
 	 *
-	 * @param string $control_id
+	 * @param string $control_id The Control ID.
 	 * @return Control|null
 	 */
 	public function get_control( $control_id ) {

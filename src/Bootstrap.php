@@ -22,15 +22,14 @@ use WP_Customize_Manager;
 class Bootstrap {
 
 	/**
-	 * @var array $args Array of argments.
-	 *   @var string $handle The main style handle.
+	 * @var array $args Array of argment.
 	 */
 	protected $args = [];
 
 	/**
 	 * Constructor.
 	 *
-	 * @param array $args Array of argments.
+	 * @param array $args Array of argment.
 	 *   @var string $handle The main style handle.
 	 */
 	public function __construct( $args = [] ) {
@@ -60,14 +59,14 @@ class Bootstrap {
 	}
 
 	/**
-	 * Enqueue assets for admin page
+	 * Enqueue assets for admin page.
 	 *
 	 * @return void
 	 */
 	public function _admin_enqueue_scripts() {
 		$relative_path = '/vendor/inc2734/wp-customizer-framework/src/assets/js/wp-customizer-framework.js';
-		$src  = get_template_directory_uri() . $relative_path;
-		$path = get_template_directory() . $relative_path;
+		$src           = get_template_directory_uri() . $relative_path;
+		$path          = get_template_directory() . $relative_path;
 
 		wp_enqueue_script(
 			'inc2734-wp-customizer-framework',
@@ -88,7 +87,7 @@ class Bootstrap {
 
 		ob_start();
 		$this->_print_styles();
-		$t = wp_add_inline_style( $this->args['handle'], ob_get_clean() );
+		wp_add_inline_style( $this->args['handle'], ob_get_clean() );
 	}
 
 	/**
@@ -118,9 +117,9 @@ class Bootstrap {
 	}
 
 	/**
-	 * Setup customizer
+	 * Setup customizer.
 	 *
-	 * @param WP_Customize_Manager $wp_customize
+	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager object.
 	 * @return void
 	 */
 	public function _customize_register( WP_Customize_Manager $wp_customize ) {
@@ -149,12 +148,12 @@ class Bootstrap {
 	}
 
 	/**
-	 * Join control to section and panel
+	 * Join control to section and panel.
 	 *
-	 * @param WP_Customize_Manager $wp_customize
-	 * @param Control $control
-	 * @param Section $section
-	 * @param Panel $panel
+	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager object.
+	 * @param Control              $control      Control object to join.
+	 * @param Section              $section      Section object to join.
+	 * @param Panel                $panel        Panel object to join.
 	 * @return void
 	 */
 	protected function _join( WP_Customize_Manager $wp_customize, Control $control, Section $section, Panel $panel = null ) {

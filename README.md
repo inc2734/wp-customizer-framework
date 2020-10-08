@@ -19,7 +19,9 @@ $ composer require inc2734/wp-customizer-framework
 ```
 require_once( get_theme_file_path( '/vendor/autoload.php' ) );
 
-new \Inc2734\WP_Customizer_Framework\Bootstrap();
+new \Inc2734\WP_Customizer_Framework\Bootstrap(
+  'handle' => 'main style sheet handle',
+);
 ```
 
 ### Customizer

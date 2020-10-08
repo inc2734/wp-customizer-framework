@@ -10,9 +10,9 @@ namespace Inc2734\WP_Customizer_Framework;
 class Color {
 
 	/**
-	 * A little bit brighter
+	 * A little bit brighter.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public static function light( $hex ) {
@@ -20,9 +20,9 @@ class Color {
 	}
 
 	/**
-	 * A little brighter
+	 * A little brighter.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public static function lighter( $hex ) {
@@ -30,9 +30,9 @@ class Color {
 	}
 
 	/**
-	 * A brighter
+	 * A brighter.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public static function lightest( $hex ) {
@@ -40,9 +40,9 @@ class Color {
 	}
 
 	/**
-	 * A little bit dark
+	 * A little bit dark.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public static function dark( $hex ) {
@@ -50,9 +50,9 @@ class Color {
 	}
 
 	/**
-	 * A little dark
+	 * A little dark.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public static function darker( $hex ) {
@@ -60,9 +60,9 @@ class Color {
 	}
 
 	/**
-	 * A dark
+	 * A dark.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public static function darkest( $hex ) {
@@ -70,10 +70,10 @@ class Color {
 	}
 
 	/**
-	 * To brighten up
+	 * To brighten up.
 	 *
-	 * @param hex $hex
-	 * @param int $percent
+	 * @param hex $hex     The hex.
+	 * @param int $percent Percentage of luminance.
 	 * @return hex
 	 */
 	public static function lighten( $hex, $percent ) {
@@ -81,10 +81,10 @@ class Color {
 	}
 
 	/**
-	 * To make it dark
+	 * To make it dark.
 	 *
-	 * @param hex $hex
-	 * @param int $percent
+	 * @param hex $hex     The hex.
+	 * @param int $percent Percentage of luminance.
 	 * @return hex
 	 */
 	public static function darken( $hex, $percent ) {
@@ -92,18 +92,18 @@ class Color {
 	}
 
 	/**
-	 * hex to rgba
+	 * hex to rgba.
 	 *
-	 * @param hex $hex
-	 * @param int $percent
+	 * @param hex $hex     The hex.
+	 * @param int $percent Percentage of alpha.
 	 * @return rgba
 	 */
 	public static function rgba( $hex, $percent ) {
-		$hex = static::_hex_normalization( $hex );
+		$hex  = static::_hex_normalization( $hex );
 		$rgba = [];
 
 		for ( $i = 0; $i < 3; $i ++ ) {
-			$dec = hexdec( substr( $hex, $i * 2, 2 ) );
+			$dec    = hexdec( substr( $hex, $i * 2, 2 ) );
 			$rgba[] = $dec;
 		}
 
@@ -114,10 +114,10 @@ class Color {
 	}
 
 	/**
-	 * Change brightness
+	 * Change brightness.
 	 *
-	 * @param hex $hex
-	 * @param int $percent
+	 * @param hex $hex     The hex.
+	 * @param int $percent Percentage of luminance.
 	 * @return hex
 	 */
 	protected static function _color_luminance( $hex, $percent ) {
@@ -136,11 +136,12 @@ class Color {
 	}
 
 	/**
-	 * Normalize hex
+	 * Normalize hex.
+	 *
 	 * .e.g  #000000 -> 000000
 	 * .e.g  #000 -> 000000
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	protected static function _hex_normalization( $hex ) {
@@ -158,9 +159,9 @@ class Color {
 	}
 
 	/**
-	 * Return hue from hex
+	 * Return hue from hex.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hue
 	 */
 	private static function _get_hue( $hex ) {
@@ -182,11 +183,11 @@ class Color {
 	}
 
 	/**
-	 * Return hue from max rgb
+	 * Return hue from max rgb.
 	 *
-	 * @param dec $red
-	 * @param dec $green
-	 * @param dec $blue
+	 * @param dec $red   The red.
+	 * @param dec $green The green.
+	 * @param dec $blue  The blue.
 	 * @return hue
 	 */
 	private static function _get_hue_based_max_rgb( $red, $green, $blue ) {
@@ -207,39 +208,39 @@ class Color {
 	}
 
 	/**
-	 * Return saturation from hex
+	 * Return saturation from hex.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return saturation
 	 */
 	private static function _get_saturation( $hex ) {
-		$red   = hexdec( substr( $hex, 0, 2 ) );
-		$green = hexdec( substr( $hex, 2, 2 ) );
-		$blue  = hexdec( substr( $hex, 4, 2 ) );
+		$red     = hexdec( substr( $hex, 0, 2 ) );
+		$green   = hexdec( substr( $hex, 2, 2 ) );
+		$blue    = hexdec( substr( $hex, 4, 2 ) );
 		$max_rgb = max( $red, $green, $blue );
 		$min_rgb = min( $red, $green, $blue );
 
 		$cnt = round( ( $max_rgb + $min_rgb ) / 2 );
 		if ( 127 >= $cnt ) {
-			$tmp = ( $max_rgb + $min_rgb );
+			$tmp        = ( $max_rgb + $min_rgb );
 			$saturation = $tmp ? ( $max_rgb - $min_rgb ) / $tmp : 0;
 		} else {
-			$tmp = ( 510 - $max_rgb - $min_rgb );
+			$tmp        = ( 510 - $max_rgb - $min_rgb );
 			$saturation = ( $tmp ) ? ( ( $max_rgb - $min_rgb ) / $tmp ) : 0;
 		}
 		return $saturation * 100;
 	}
 
 	/**
-	 * Return luminance from hex
+	 * Return luminance from hex.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return luminance
 	 */
 	private static function _get_luminance( $hex ) {
-		$red   = hexdec( substr( $hex, 0, 2 ) );
-		$green = hexdec( substr( $hex, 2, 2 ) );
-		$blue  = hexdec( substr( $hex, 4, 2 ) );
+		$red     = hexdec( substr( $hex, 0, 2 ) );
+		$green   = hexdec( substr( $hex, 2, 2 ) );
+		$blue    = hexdec( substr( $hex, 4, 2 ) );
 		$max_rgb = max( $red, $green, $blue );
 		$min_rgb = min( $red, $green, $blue );
 
@@ -247,11 +248,11 @@ class Color {
 	}
 
 	/**
-	 * Convert hsl to hex
+	 * Convert hsl to hex.
 	 *
-	 * @param hue $hue
-	 * @param saturation $saturation
-	 * @param luminance $luminance
+	 * @param hue        $hue        The heu.
+	 * @param saturation $saturation The saturation.
+	 * @param luminance  $luminance  The luminance.
 	 * @return hex
 	 */
 	private static function _convert_hsl_to_hex( $hue, $saturation, $luminance ) {
@@ -276,22 +277,22 @@ class Color {
 			$green = $max_hsl;
 			$blue  = ( ( $hue - 120 ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
 		} elseif ( 240 >= $hue ) {
-			$red  = $min_hsl;
+			$red   = $min_hsl;
 			$green = ( ( 240 - $hue ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
 			$blue  = $max_hsl;
 		} elseif ( 300 >= $hue ) {
-			$red  = ( ( $hue - 240 ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
+			$red   = ( ( $hue - 240 ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
 			$green = $min_hsl;
 			$blue  = $max_hsl;
 		} else {
-			$red  = $max_hsl;
+			$red   = $max_hsl;
 			$green = $min_hsl;
 			$blue  = ( ( 360 - $hue ) / 60 ) * ( $max_hsl - $min_hsl ) + $min_hsl;
 		}
 
-		$red = sprintf( '%02s', dechex( round( $red ) ) );
+		$red   = sprintf( '%02s', dechex( round( $red ) ) );
 		$green = sprintf( '%02s', dechex( round( $green ) ) );
-		$blue = sprintf( '%02s', dechex( round( $blue ) ) );
+		$blue  = sprintf( '%02s', dechex( round( $blue ) ) );
 
 		return '#' . $red . $green . $blue;
 	}

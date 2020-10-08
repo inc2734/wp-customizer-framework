@@ -22,11 +22,14 @@ class Styles {
 	 */
 	protected static $instance;
 
+	/**
+	 * Constructor.
+	 */
 	protected function __construct() {
 	}
 
 	/**
-	 * Initialie
+	 * Initialie.
 	 *
 	 * @return Styles
 	 */
@@ -38,11 +41,11 @@ class Styles {
 	}
 
 	/**
-	 * Registers style setting
+	 * Registers style setting.
 	 *
-	 * @param string|array $selectors
-	 * @param string|array $properties
-	 * @param string $media_query
+	 * @param string|array $selectors   Target selectors.
+	 * @param string|array $properties  Properties.
+	 * @param string       $media_query Media query.
 	 * @return void
 	 */
 	public function register( $selectors, $properties, $media_query = null ) {
@@ -50,9 +53,9 @@ class Styles {
 	}
 
 	/**
-	 * A little bit brighter
+	 * A little bit brighter.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public function light( $hex ) {
@@ -60,9 +63,9 @@ class Styles {
 	}
 
 	/**
-	 * A little brighter
+	 * A little brighter.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public function lighter( $hex ) {
@@ -70,9 +73,9 @@ class Styles {
 	}
 
 	/**
-	 * A brighter
+	 * A brighter.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public function lightest( $hex ) {
@@ -80,9 +83,9 @@ class Styles {
 	}
 
 	/**
-	 * A little bit dark
+	 * A little bit dark.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public function dark( $hex ) {
@@ -90,9 +93,9 @@ class Styles {
 	}
 
 	/**
-	 * A little dark
+	 * A little dark.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public function darker( $hex ) {
@@ -100,9 +103,9 @@ class Styles {
 	}
 
 	/**
-	 * A dark
+	 * A dark.
 	 *
-	 * @param hex $hex
+	 * @param hex $hex The hex.
 	 * @return hex
 	 */
 	public function darkest( $hex ) {
@@ -110,10 +113,10 @@ class Styles {
 	}
 
 	/**
-	 * hex to rgba
+	 * hex to rgba.
 	 *
-	 * @param hex $hex
-	 * @param int $percent
+	 * @param hex $hex     The hex.
+	 * @param int $percent Percentage of alpha.
 	 * @return rgba
 	 */
 	public function rgba( $hex, $percent ) {

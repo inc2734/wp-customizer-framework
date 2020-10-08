@@ -11,6 +11,9 @@ use Inc2734\WP_Customizer_Framework;
 
 class Outputer {
 
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_print_front_styles' ] );
 		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );
@@ -19,7 +22,7 @@ class Outputer {
 	}
 
 	/**
-	 * Styles for front-end
+	 * Styles for front-end.
 	 *
 	 * @return void
 	 */
@@ -30,7 +33,7 @@ class Outputer {
 	}
 
 	/**
-	 * Styles for AMP
+	 * Styles for AMP.
 	 *
 	 * @return void
 	 */
@@ -45,9 +48,9 @@ class Outputer {
 	}
 
 	/**
-	 * Styles for TinyMCE
+	 * Styles for TinyMCE.
 	 *
-	 * @param array $mce_init
+	 * @param array $mce_init An array with TinyMCE config.
 	 * @return array
 	 */
 	public function _enqueue_classic_editor_style( $mce_init ) {
@@ -80,9 +83,9 @@ class Outputer {
 	}
 
 	/**
-	 * Styles for block editor
+	 * Styles for block editor.
 	 *
-	 * @param array $mce_init
+	 * @param array $settings Settings of block editor.
 	 * @return array
 	 */
 	public function _enqueue_block_editor_style( $settings ) {
@@ -91,7 +94,7 @@ class Outputer {
 		$styles = WP_Customizer_Framework\Style::get_registerd_styles();
 		ob_start();
 		$this->_print_styles( $styles );
-		$css = ob_get_clean();
+		$css                  = ob_get_clean();
 		$settings['styles'][] = [
 			'css'     => $css,
 			'baseURL' => null,
@@ -101,9 +104,12 @@ class Outputer {
 	}
 
 	/**
-	 * Print styles in head
+	 * Print styles in head.
 	 *
-	 * @param array $styles
+	 * @param array $styles Array of style.
+	 *   @var array $selectors   Target selectors.
+	 *   @var array $properties  Properties.
+	 *   @var array $media_query Media query.
 	 * @return void
 	 */
 	protected function _print_styles( $styles ) {

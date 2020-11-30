@@ -1,6 +1,6 @@
 # WP Customizer Framework
 
-[![Build Status](https://travis-ci.org/inc2734/wp-customizer-framework.svg?branch=master)](https://travis-ci.org/inc2734/wp-customizer-framework)
+![CI](https://github.com/inc2734/wp-customizer-framework/workflows/CI/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/inc2734/wp-customizer-framework/v/stable)](https://packagist.org/packages/inc2734/wp-customizer-framework)
 [![License](https://poser.pugx.org/inc2734/wp-customizer-framework/license)](https://packagist.org/packages/inc2734/wp-customizer-framework)
 

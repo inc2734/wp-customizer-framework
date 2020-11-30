@@ -62,7 +62,7 @@ abstract class Control {
 	/**
 	 * @var array
 	 */
-	protected $extend_args =[];
+	protected $extend_args = [];
 
 	/**
 	 * @var Section

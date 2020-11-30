@@ -60,6 +60,11 @@ abstract class Control {
 	];
 
 	/**
+	 * @var array
+	 */
+	protected $extend_args =[];
+
+	/**
 	 * @var Section
 	 */
 	protected $section;
@@ -79,6 +84,8 @@ abstract class Control {
 				$this->set_setting_arg( $key, $value );
 			} elseif ( array_key_exists( $key, $this->args ) ) {
 				$this->set_arg( $key, $value );
+			} else {
+				$this->set_extend_arg( $key, $value );
 			}
 		}
 
@@ -147,6 +154,27 @@ abstract class Control {
 	}
 
 	/**
+	 * Return extend args.
+	 *
+	 * @return array
+	 */
+	public function get_extend_args() {
+		return $this->extend_args;
+	}
+
+	/**
+	 * Return specific extend arg.
+	 *
+	 * @param string $key The setting name.
+	 * @return mixed
+	 */
+	public function get_extend_arg( $key ) {
+		return array_key_exists( $key, $this->extend_args )
+			? $this->extend_args[ $key ]
+			: false;
+	}
+
+	/**
 	 * Set control arg.
 	 *
 	 * @param string $key   The control name.
@@ -164,6 +192,16 @@ abstract class Control {
 	 */
 	public function set_setting_arg( $key, $value ) {
 		$this->setting_args[ $key ] = $value;
+	}
+
+	/**
+	 * Set extend arg.
+	 *
+	 * @param string $key   The extend name.
+	 * @param mixed  $value The extend value.
+	 */
+	public function set_extend_arg( $key, $value ) {
+		$this->extend_args[ $key ] = $value;
 	}
 
 	/**
@@ -242,6 +280,7 @@ abstract class Control {
 	protected function _generate_register_control_args() {
 		return array_merge(
 			$this->get_args(),
+			$this->get_extend_args(),
 			array(
 				'section'  => $this->section->get_id(),
 				'settings' => $this->get_id(),

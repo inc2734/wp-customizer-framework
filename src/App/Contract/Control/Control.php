@@ -19,6 +19,11 @@ abstract class Control {
 	protected $control_id;
 
 	/**
+	 * @var boolean
+	 */
+	protected $overridden_default = false;
+
+	/**
 	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-control.php#L210
 	 *
 	 * @var array
@@ -95,10 +100,14 @@ abstract class Control {
 			$this->set_setting_arg( 'sanitize_callback', $this->sanitize_callback() );
 		}
 
-		if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
-			add_filter( 'theme_mod_' . $control_id, [ $this, '_set_default_value' ] );
-		} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
-			add_filter( 'default_option_' . $control_id, [ $this, '_set_default_option' ], 10, 2 );
+		if ( isset( $args['default'] ) ) {
+			$this->overridden_default = true;
+
+			if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
+				add_filter( 'theme_mod_' . $control_id, [ $this, '_set_default_value' ] );
+			} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
+				add_filter( 'default_option_' . $control_id, [ $this, '_set_default_option' ], 10, 2 );
+			}
 		}
 	}
 
@@ -245,7 +254,7 @@ abstract class Control {
 	 */
 	public function _set_default_value( $value ) {
 		if ( is_null( $value ) || false === $value ) {
-			if ( '' !== $this->get_setting_arg( 'default' ) ) {
+			if ( $this->overridden_default ) {
 				return $this->get_setting_arg( 'default' );
 			}
 		}

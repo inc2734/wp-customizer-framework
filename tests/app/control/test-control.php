@@ -17,7 +17,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( 'control-id', $control->get_id() );
+		$this->assertSame( 'control-id', $control->get_id() );
 	}
 
 	/**
@@ -28,8 +28,8 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( 'Header Color', $control->get_arg( 'label' ) );
-		$this->assertEquals( 'sanitize_hex_color', $control->get_setting_arg( 'sanitize_callback' ) );
+		$this->assertSame( 'Header Color', $control->get_arg( 'label' ) );
+		$this->assertSame( 'sanitize_hex_color', $control->get_setting_arg( 'sanitize_callback' ) );
 	}
 
 	/**
@@ -40,16 +40,16 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( '#f00', $control->get_setting_arg( 'default' ) );
-		$this->assertEquals( 'theme_mod', $control->get_setting_arg( 'type' ) );
+		$this->assertSame( '#f00', $control->get_setting_arg( 'default' ) );
+		$this->assertSame( 'theme_mod', $control->get_setting_arg( 'type' ) );
 
-		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id-2', [
 			'label'   => 'Header Color',
 			'default' => '#f00',
 			'type'    => 'option',
 		] );
-		$this->assertEquals( '#f00', $control->get_setting_arg( 'default' ) );
-		$this->assertEquals( 'option', $control->get_setting_arg( 'type' ) );
+		$this->assertSame( '#f00', $control->get_setting_arg( 'default' ) );
+		$this->assertSame( 'option', $control->get_setting_arg( 'type' ) );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( $section, $control->join( $section ) );
+		$this->assertSame( $section, $control->join( $section ) );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'default' => '#f00',
 		] );
 		$control->join( $section );
-		$this->assertEquals( $section, $control->section() );
+		$this->assertSame( $section, $control->section() );
 	}
 
 	/**
@@ -98,15 +98,23 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'default' => '#f00',
 		] );
 
-		$this->assertEquals( 'value-1', $control->_set_default_value( 'value-1' ) );
-		$this->assertEquals( '#f00', $control->_set_default_value( null ) );
-		$this->assertEquals( '#f00', $control->_set_default_value( false ) );
+		$this->assertSame( 'value-1', $control->_set_default_value( 'value-1' ) );
+		$this->assertSame( '#f00', $control->_set_default_value( null ) );
+		$this->assertSame( '#f00', $control->_set_default_value( false ) );
 
-		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id-2', [
 			'label' => 'Header Color',
 		] );
-		$this->assertEquals( null, $control->_set_default_value( null ) );
-		$this->assertEquals( false, $control->_set_default_value( false ) );
+		$this->assertSame( null, $control->_set_default_value( null ) );
+		$this->assertSame( false, $control->_set_default_value( false ) );
+
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Text( 'control-id-3', [
+			'label'   => 'Text',
+			'default' => '',
+		] );
+		$this->assertSame( 'value-1', $control->_set_default_value( 'value-1' ) );
+		$this->assertSame( '', $control->_set_default_value( null ) );
+		$this->assertSame( '', $control->_set_default_value( false ) );
 	}
 
 	/**
@@ -119,35 +127,77 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'type'    => 'option',
 		] );
 
-		$this->assertEquals( 'value-1', $control->_set_default_value( 'value-1' ) );
-		$this->assertEquals( '#f00', $control->_set_default_value( null ) );
-		$this->assertEquals( '#f00', $control->_set_default_value( false ) );
+		$this->assertSame( 'value-1', $control->_set_default_value( 'value-1' ) );
+		$this->assertSame( '#f00', $control->_set_default_value( null ) );
+		$this->assertSame( '#f00', $control->_set_default_value( false ) );
 
-		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id-2', [
 			'label' => 'Header Color',
 			'type'  => 'option',
 		] );
-		$this->assertEquals( null, $control->_set_default_value( null ) );
-		$this->assertEquals( false, $control->_set_default_value( false ) );
+		$this->assertSame( null, $control->_set_default_value( null ) );
+		$this->assertSame( false, $control->_set_default_value( false ) );
+
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Text( 'control-id-3', [
+			'label'   => 'Text',
+			'default' => '',
+			'type'    => 'option',
+		] );
+		$this->assertSame( 'value-1', $control->_set_default_value( 'value-1' ) );
+		$this->assertSame( '', $control->_set_default_value( null ) );
+		$this->assertSame( '', $control->_set_default_value( false ) );
 	}
 
 	/**
 	 * @test
-	 * @group hoge
 	 */
 	public function get_theme_mod() {
 		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
 			'label' => 'Header Color',
 		] );
-		$this->assertEquals( false, get_theme_mod( 'control-id' ) );
+		$this->assertSame( false, get_theme_mod( 'control-id' ) );
 
-		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id-2', [
 			'label'   => 'Header Color',
 			'default' => '#f00',
 		] );
-		$this->assertEquals( '#f00', get_theme_mod( 'control-id' ) );
+		$this->assertSame( '#f00', get_theme_mod( 'control-id-2' ) );
+
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Text( 'control-id-3', [
+			'label'   => 'Text',
+			'default' => '',
+		] );
+		$this->assertSame( '', get_theme_mod( 'control-id-3' ) );
 
 		set_theme_mod( 'control-id', '#fff' );
-		$this->assertEquals( '#fff', get_theme_mod( 'control-id' ) );
+		$this->assertSame( '#fff', get_theme_mod( 'control-id' ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function get_option() {
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id', [
+			'label' => 'Header Color',
+			'type'  => 'option',
+		] );
+		$this->assertSame( false, get_option( 'control-id' ) );
+
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Color( 'control-id-2', [
+			'label'   => 'Header Color',
+			'default' => '#f00',
+			'type'    => 'option',
+		] );
+		$this->assertSame( '#f00', get_option( 'control-id-2' ) );
+
+		$control = new \Inc2734\WP_Customizer_Framework\App\Control\Text( 'control-id-3', [
+			'label'   => 'Text',
+			'default' => '',
+			'type'    => 'option',
+		] );
+		$this->assertSame( '', get_option( 'control-id-3' ) );
+
+		update_option( 'control-id', '#fff' );
+		$this->assertSame( '#fff', get_option( 'control-id' ) );
 	}
 }

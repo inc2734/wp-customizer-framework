@@ -40,7 +40,7 @@ class Number extends Base {
 	 */
 	public function sanitize_callback() {
 		return function( $value ) {
-			if ( preg_match( '/^\d+$/', $value ) ) {
+			if ( preg_match( '/^\d+(\.\d+)?$/', $value ) ) {
 				return $value;
 			}
 		};

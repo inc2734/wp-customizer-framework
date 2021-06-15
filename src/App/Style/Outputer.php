@@ -18,7 +18,7 @@ class Outputer {
 		add_action( 'inc2734_wp_customizer_framework_print_styles', [ $this, '_print_front_styles' ] );
 		add_action( 'amp_post_template_css', [ $this, '_amp_post_template_css' ] );
 		add_filter( 'tiny_mce_before_init', [ $this, '_enqueue_classic_editor_style' ], 11 );
-		add_filter( 'block_editor_settings', [ $this, '_enqueue_block_editor_style' ], 11 );
+		add_filter( 'block_editor_settings_all', [ $this, '_enqueue_block_editor_style' ], 11 );
 	}
 
 	/**

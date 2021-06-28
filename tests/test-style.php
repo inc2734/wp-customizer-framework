@@ -15,33 +15,25 @@ class Style_Test extends WP_UnitTestCase {
 	 * @test
 	 */
 	public function register() {
-		Style::register(
-			[
-				'body',
-			],
-			[
-				'font-size' => '16px',
-				'color: #000',
-				'background-color' => '',
-				'font-style: ',
-			],
-			'@media (min-width: 1024px)'
-		);
-
-		$this->assertEquals(
+		Style::attach(
+			'',
 			[
 				[
-					'selectors' => [
-						'body',
-					],
-					'properties' => [
-						'font-size' => '16px',
-						'color: #000',
-					],
+					'selectors'   => [ 'body' ],
+					'properties'  => [ 'font-size: 16px' ],
 					'media_query' => '@media (min-width: 1024px)',
 				],
 			],
-			Style::get_registerd_styles()
+		);
+
+		ob_start();
+		do_action( 'wp_print_scripts' );
+		$css = ob_get_clean();
+		var_dump( $css );
+
+		$this->assertEquals(
+			'<style data-id="wp-customizer-framework-print-styles">@media (min-width: 1024px) { body { font-size: 16px } }</style>',
+			$css
 		);
 	}
 }

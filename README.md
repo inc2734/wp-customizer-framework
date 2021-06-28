@@ -60,16 +60,21 @@ add_action(
   function() {
     $accent_color = get_theme_mod( 'accent-color' );
 
-    Style::register(
+    Style::attach(
+      'The handle of enqueued style',
       [
-        '.page-title',
-        '.strong',
-      ],
-      [
-        "color: {$accent_color}",
-        "border-bottom-color: {$accent_color}",
-      ],
-      '@media (min-width: 768px)' // Optional
+        [
+          'selectors'  => [
+            '.page-title',
+            '.strong',
+          ],
+          'properties' => [
+            "color: {$accent_color}",
+            "border-bottom-color: {$accent_color}",
+          ],
+          'media_query' => '@media (min-width: 768px)', // Optional
+        ],
+      ]
     );
   }
 );
@@ -113,9 +118,14 @@ add_action(
       function( $selectors ) {
         $accent_color = get_theme_mod( 'accent-color' );
 
-        Style::register(
-          $selectors,
-          'border-color: ' . $accent_color
+        Style::attach(
+          'The handle of enqueued style',
+          [
+            [
+              'selectors'  => $selectors,
+              'properties' => [ "border-color: {$accent_color}" ],
+            ],
+          ]
         );
       }
     );

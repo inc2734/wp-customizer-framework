@@ -37,14 +37,6 @@ class Bootstrap {
 
 		add_action( 'wp_loaded', [ $this, '_load_styles' ], 11 );
 		add_action( 'customize_register', array( $this, '_customize_register' ) );
-		new Outputer();
-
-		if ( ! empty( $this->args['handle'] ) ) {
-			add_action( 'snow_monkey_enqueued_main_style', [ $this, '_enqueued_main_style' ] );
-		} else {
-			add_action( 'wp_print_scripts', [ $this, '_wp_print_scripts' ] );
-		}
-
 		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
 	}
 

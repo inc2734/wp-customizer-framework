@@ -29,7 +29,6 @@ class Style_Test extends WP_UnitTestCase {
 		ob_start();
 		do_action( 'wp_print_scripts' );
 		$css = ob_get_clean();
-		var_dump( $css );
 
 		$this->assertEquals(
 			'<style data-id="wp-customizer-framework-print-styles">@media (min-width: 1024px) { body { font-size: 16px } }</style>',

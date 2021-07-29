@@ -28,24 +28,31 @@ abstract class Control {
 	 *
 	 * @var array
 	 */
-	protected $args = [
-		'instance_number' => null,
-		'manager'         => null,
-		'id'              => null,
-		'settings'        => null,
-		'setting'         => 'default',
-		'capability'      => null,
-		'priority'        => 10,
-		'section'         => '',
-		'label'           => '',
-		'description'     => '',
-		'choices'         => [],
-		'input_attrs'     => [],
-		'allow_addition'  => false,
-		'json'            => [],
-		'type'            => 'text',
-		'active_callback' => '',
+	protected $args_keys = [
+		'instance_number',
+		'manager',
+		'id',
+		'settings',
+		'setting',
+		'capability',
+		'priority',
+		'section',
+		'label',
+		'description',
+		'choices',
+		'input_attrs',
+		'allow_addition',
+		'json',
+		'type',
+		'active_callback',
 	];
+
+	/**
+	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-control.php#L210
+	 *
+	 * @var array
+	 */
+	protected $args = [];
 
 	/**
 	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-setting.php#L210
@@ -87,7 +94,7 @@ abstract class Control {
 		foreach ( $args as $key => $value ) {
 			if ( array_key_exists( $key, $this->setting_args ) ) {
 				$this->set_setting_arg( $key, $value );
-			} elseif ( array_key_exists( $key, $this->args ) ) {
+			} elseif ( in_array( $key, $this->args_keys, true ) ) {
 				$this->set_arg( $key, $value );
 			} else {
 				$this->set_extend_arg( $key, $value );
@@ -106,7 +113,7 @@ abstract class Control {
 			if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
 				add_filter( 'theme_mod_' . $control_id, [ $this, '_set_default_value' ] );
 			} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
-				add_filter( 'default_option_' . $control_id, [ $this, '_set_default_option' ], 10, 2 );
+				add_filter( 'default_option_' . $control_id, [ $this, '_set_default_option' ] );
 			}
 		}
 	}

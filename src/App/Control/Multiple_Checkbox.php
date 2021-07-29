@@ -22,7 +22,12 @@ class Multiple_Checkbox extends Base {
 	 * @param WP_Customize_Manager $wp_customize WP_Customize_Manager object.
 	 */
 	public function register_control( WP_Customize_Manager $wp_customize ) {
-		$this->set_arg( 'type', 'multiple-checkbox' );
+		$default_args = get_class_vars( '\Inc2734\WP_Customizer_Framework\App\Customize_Control\Multiple_Checkbox_Control' );
+		foreach ( $default_args as $key => $value ) {
+			if ( ! array_key_exists( $key, $this->args ) ) {
+				$this->set_arg( $key, $value );
+			}
+		}
 
 		$wp_customize->add_control(
 			new Customize_Control\Multiple_Checkbox_Control(

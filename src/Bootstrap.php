@@ -38,6 +38,7 @@ class Bootstrap {
 		add_action( 'wp_loaded', [ $this, '_load_styles' ], 11 );
 		add_action( 'customize_register', array( $this, '_customize_register' ) );
 		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
+		add_action( 'wp_loaded', [ $this, '_enqueued_main_style' ], 12 );
 	}
 
 	/**

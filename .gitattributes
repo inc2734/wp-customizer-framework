@@ -5,4 +5,5 @@
 .phpunit.xml.dist export-ignore
 .travis.yml export-ignore
 .wp-env.json export-ignore
+.github export-ignore
 tests export-ignore

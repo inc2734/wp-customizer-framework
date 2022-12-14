@@ -30,9 +30,9 @@ class Cropped_Image extends Image {
 		}
 
 		if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
-			add_filter( 'theme_mod_' . $this->get_id(), [ $this, '_url_to_id' ] );
+			add_filter( 'theme_mod_' . $this->get_id(), array( $this, '_url_to_id' ) );
 		} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
-			add_filter( 'default_option_' . $this->get_id(), [ $this, '_url_to_id' ] );
+			add_filter( 'default_option_' . $this->get_id(), array( $this, '_url_to_id' ) );
 		}
 
 		$wp_customize->add_control(

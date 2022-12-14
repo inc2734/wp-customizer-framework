@@ -14,7 +14,7 @@ class Panel_Manager {
 	/**
 	 * @var array
 	 */
-	protected static $panels = [];
+	protected static $panels = array();
 
 	/**
 	 * Get Panel.
@@ -26,7 +26,7 @@ class Panel_Manager {
 		if ( isset( static::$panels[ $panel_id ] ) ) {
 			return static::$panels[ $panel_id ];
 		} else {
-			return static::_panel( $panel_id, [] );
+			return static::_panel( $panel_id, array() );
 		}
 	}
 

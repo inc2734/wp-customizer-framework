@@ -14,7 +14,7 @@ class Section_Manager {
 	/**
 	 * @var array
 	 */
-	protected static $sections = [];
+	protected static $sections = array();
 
 	/**
 	 * Get Section.
@@ -26,7 +26,7 @@ class Section_Manager {
 		if ( isset( static::$sections[ $section_id ] ) ) {
 			return static::$sections[ $section_id ];
 		} else {
-			return static::_section( $section_id, [] );
+			return static::_section( $section_id, array() );
 		}
 	}
 
@@ -52,7 +52,7 @@ class Section_Manager {
 	 * @param array  $args       Array of argment.
 	 * @return Section
 	 */
-	protected static function _section( $section_id, array $args = [] ) {
+	protected static function _section( $section_id, array $args = array() ) {
 		return new Section( $section_id, $args );
 	}
 }

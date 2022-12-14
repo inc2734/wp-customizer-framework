@@ -14,7 +14,7 @@ class Extender {
 	 *
 	 * @var array
 	 */
-	protected static $placeholders = [];
+	protected static $placeholders = array();
 
 	/**
 	 * Set selectors. Styles of these selectors output like extend of Sass.
@@ -25,7 +25,7 @@ class Extender {
 	 */
 	public static function extend( $placeholder, array $selectors ) {
 		if ( ! isset( static::$placeholders[ $placeholder ] ) ) {
-			static::$placeholders[ $placeholder ] = [];
+			static::$placeholders[ $placeholder ] = array();
 		}
 
 		static::$placeholders[ $placeholder ] = array_merge(

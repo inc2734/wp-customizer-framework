@@ -19,7 +19,7 @@ class Style {
 	 *  array properties
 	 *  string media_query
 	 */
-	protected static $styles = [];
+	protected static $styles = array();
 
 	/**
 	 * Registers style setting.
@@ -32,7 +32,7 @@ class Style {
 	 */
 	public static function attach( $handle, array $styles ) {
 		foreach ( $styles as $style ) {
-			$selectors = isset( $style['selectors'] ) ? $style['selectors'] : [];
+			$selectors = isset( $style['selectors'] ) ? $style['selectors'] : array();
 			if ( ! is_array( $style['selectors'] ) ) {
 				$selectors = explode( ',', $style['selectors'] );
 			}
@@ -40,7 +40,7 @@ class Style {
 				continue;
 			}
 
-			$properties = isset( $style['properties'] ) ? $style['properties'] : [];
+			$properties = isset( $style['properties'] ) ? $style['properties'] : array();
 			if ( ! is_array( $style['properties'] ) ) {
 				$properties = explode( ';', $style['properties'] );
 			}
@@ -48,7 +48,7 @@ class Style {
 				continue;
 			}
 
-			$sanitized_properties = [];
+			$sanitized_properties = array();
 
 			// $key ... index or property
 			// @value ... property value or property: property value
@@ -71,11 +71,11 @@ class Style {
 
 			$media_query = isset( $style['media_query'] ) ? $style['media_query'] : '';
 
-			$new_style = [
+			$new_style = array(
 				'selectors'   => $selectors,
 				'properties'  => $sanitized_properties,
 				'media_query' => $media_query,
-			];
+			);
 
 			ob_start();
 			if ( ! $new_style['media_query'] ) {
@@ -103,14 +103,6 @@ class Style {
 			if ( $handle ) {
 				add_action(
 					'wp_enqueue_scripts',
-					function() use ( $handle, $css ) {
-						wp_styles()->add_inline_style( $handle, $css );
-					},
-					11
-				);
-
-				add_action(
-					'enqueue_block_assets',
 					function() use ( $handle, $css ) {
 						wp_styles()->add_inline_style( $handle, $css );
 					},
@@ -204,7 +196,7 @@ class Style {
 			$properties = explode( ';', $properties );
 		}
 
-		$sanitized_properties = [];
+		$sanitized_properties = array();
 
 		// $key ... index or property
 		// @value ... property value or property: property value
@@ -226,13 +218,13 @@ class Style {
 			return;
 		}
 
-		$styles = [
-			[
+		$styles = array(
+			array(
 				'selectors'   => $selectors,
 				'properties'  => $sanitized_properties,
 				'media_query' => $media_query,
-			],
-		];
+			),
+		);
 
 		static::attach( null, $styles );
 	}

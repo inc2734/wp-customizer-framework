@@ -28,7 +28,7 @@ abstract class Control {
 	 *
 	 * @var array
 	 */
-	protected $args_keys = [
+	protected $args_keys = array(
 		'instance_number',
 		'manager',
 		'id',
@@ -45,21 +45,21 @@ abstract class Control {
 		'json',
 		'type',
 		'active_callback',
-	];
+	);
 
 	/**
 	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-control.php#L210
 	 *
 	 * @var array
 	 */
-	protected $args = [];
+	protected $args = array();
 
 	/**
 	 * @see https://core.trac.wordpress.org/browser/trunk/src/wp-includes/class-wp-customize-setting.php#L210
 	 *
 	 * @var array
 	 */
-	protected $setting_args = [
+	protected $setting_args = array(
 		'type'                 => 'theme_mod',
 		'capability'           => 'edit_theme_options',
 		'theme_supports'       => '',
@@ -69,12 +69,12 @@ abstract class Control {
 		'sanitize_callback'    => '',
 		'sanitize_js_callback' => '',
 		'dirty'                => false,
-	];
+	);
 
 	/**
 	 * @var array
 	 */
-	protected $extend_args = [];
+	protected $extend_args = array();
 
 	/**
 	 * @var Section
@@ -90,7 +90,7 @@ abstract class Control {
 	 * @param string $control_id The Control ID.
 	 * @param array  $args       Array of argment.
 	 */
-	public function __construct( $control_id, $args = [] ) {
+	public function __construct( $control_id, $args = array() ) {
 		foreach ( $args as $key => $value ) {
 			if ( array_key_exists( $key, $this->setting_args ) ) {
 				$this->set_setting_arg( $key, $value );
@@ -111,9 +111,9 @@ abstract class Control {
 			$this->overridden_default = true;
 
 			if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
-				add_filter( 'theme_mod_' . $control_id, [ $this, '_set_default_value' ] );
+				add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
 			} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
-				add_filter( 'default_option_' . $control_id, [ $this, '_set_default_option' ] );
+				add_filter( 'default_option_' . $control_id, array( $this, '_set_default_option' ) );
 			}
 		}
 	}

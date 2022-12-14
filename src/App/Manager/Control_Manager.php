@@ -12,7 +12,7 @@ class Control_Manager {
 	/**
 	 * @var array
 	 */
-	protected static $controls = [];
+	protected static $controls = array();
 
 	/**
 	 * Get Control.

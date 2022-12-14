@@ -24,7 +24,7 @@ class Bootstrap {
 	/**
 	 * @var array $args Array of argment.
 	 */
-	protected $args = [];
+	protected $args = array();
 
 	/**
 	 * Constructor.
@@ -32,13 +32,13 @@ class Bootstrap {
 	 * @param array $args Array of argment.
 	 *   @var string $handle The main style handle.
 	 */
-	public function __construct( $args = [] ) {
+	public function __construct( $args = array() ) {
 		$this->args = $args;
 
-		add_action( 'wp_loaded', [ $this, '_load_styles' ], 11 );
+		add_action( 'wp_loaded', array( $this, '_load_styles' ), 11 );
 		add_action( 'customize_register', array( $this, '_customize_register' ) );
-		add_action( 'admin_enqueue_scripts', [ $this, '_admin_enqueue_scripts' ] );
-		add_action( 'wp_loaded', [ $this, '_enqueued_main_style' ], 12 );
+		add_action( 'admin_enqueue_scripts', array( $this, '_admin_enqueue_scripts' ) );
+		add_action( 'wp_loaded', array( $this, '_enqueued_main_style' ), 12 );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Bootstrap {
 		wp_enqueue_script(
 			'inc2734-wp-customizer-framework',
 			$src,
-			[ 'jquery' ],
+			array( 'jquery' ),
 			filemtime( $path ),
 			true
 		);
@@ -155,9 +155,9 @@ class Bootstrap {
 		if ( ! empty( $panel ) && $panel->get_args() ) {
 			$section_args = array_merge(
 				$section_args,
-				[
+				array(
 					'panel' => $panel->get_id(),
-				]
+				)
 			);
 		}
 

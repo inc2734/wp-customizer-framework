@@ -49,7 +49,7 @@ class Multiple_Checkbox extends Base {
 				$value = explode( ',', $value );
 			}
 
-			$sanitized_values = [];
+			$sanitized_values = array();
 
 			foreach ( $value as $v ) {
 				if ( ! array_key_exists( $v, $this->args['choices'] ) ) {

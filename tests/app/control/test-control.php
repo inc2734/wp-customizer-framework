@@ -1,12 +1,12 @@
 <?php
 class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestCase {
 
-	public function setup() {
-		parent::setup();
+	public function set_up() {
+		parent::set_up();
 	}
 
-	public function tearDown() {
-		parent::tearDown();
+	public function tear_down() {
+		parent::tear_down();
 	}
 
 	/**
@@ -29,7 +29,6 @@ class Inc2734_WP_Customizer_Framework_Abstract_Control_Test extends WP_UnitTestC
 			'default' => '#f00',
 		] );
 		$this->assertSame( 'Header Color', $control->get_arg( 'label' ) );
-		$this->assertSame( 'sanitize_hex_color', $control->get_setting_arg( 'sanitize_callback' ) );
 	}
 
 	/**

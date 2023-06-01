@@ -3,7 +3,7 @@
   "description": "A library for WordPress Customizer.",
   "license": "GPL-2.0-or-later",
   "require": {
-    "php": ">=5.6"
+    "php": ">=7.4"
   },
   "require-dev": {
     "wp-coding-standards/wpcs": "^2.3",

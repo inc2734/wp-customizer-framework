@@ -44,6 +44,12 @@ class Content extends Base {
 	 * @return string|function Function name or function for sanitize
 	 */
 	public function sanitize_callback() {
-		return 'sanitize_text_field';
+		return function( $value ) {
+			if ( is_array( $value ) || is_object( $value ) ) {
+				return '';
+			}
+
+			return sanitize_text_field( $value );
+		};
 	}
 }

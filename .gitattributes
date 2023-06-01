@@ -7,3 +7,4 @@
 .wp-env.json export-ignore
 .github export-ignore
 tests export-ignore
+.phpunit.result.cache

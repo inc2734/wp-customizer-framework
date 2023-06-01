@@ -40,9 +40,15 @@ class Number extends Base {
 	 */
 	public function sanitize_callback() {
 		return function( $value ) {
-			if ( preg_match( '/^\d+(\.\d+)?$/', $value ) ) {
-				return $value;
+			if ( is_array( $value ) || is_object( $value ) ) {
+				return '';
 			}
+
+			if ( ! preg_match( '/^\d+(\.\d+)?$/', $value ) ) {
+				return '';
+			}
+
+			return $value;
 		};
 	}
 }

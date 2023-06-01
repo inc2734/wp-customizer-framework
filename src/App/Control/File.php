@@ -44,6 +44,12 @@ class File extends Base {
 	 * @return string|function Function name or function for sanitize
 	 */
 	public function sanitize_callback() {
-		return 'esc_url_raw';
+		return function( $value ) {
+			if ( is_array( $value ) || is_object( $value ) ) {
+				return '';
+			}
+
+			return esc_url_raw( $value );
+		};
 	}
 }

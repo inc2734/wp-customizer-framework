@@ -4,12 +4,12 @@ use Inc2734\WP_Customizer_Framework\App\Section;
 
 class Inc2734_WP_Customizer_Framework_Section_Test extends WP_UnitTestCase {
 
-	public function setup() {
-		parent::setup();
+	public function set_up() {
+		parent::set_up();
 	}
 
-	public function tearDown() {
-		parent::tearDown();
+	public function tear_down() {
+		parent::tear_down();
 	}
 
 	/**

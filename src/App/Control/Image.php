@@ -65,16 +65,4 @@ class Image extends Base {
 		}
 		return $value;
 	}
-
-	/**
-	 * Sanitize callback function
-	 *
-	 * @return string|function Function name or function for sanitize
-	 */
-	public function sanitize_callback() {
-		return function( $value ) {
-			return $value;
-			return 'esc_url_raw';
-		};
-	}
 }

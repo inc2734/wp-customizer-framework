@@ -112,10 +112,8 @@ abstract class Control {
 
 			if ( 'theme_mod' === $this->get_setting_arg( 'type' ) ) {
 				add_filter( 'theme_mod_' . $control_id, array( $this, '_set_default_value' ) );
-				add_filter( 'theme_mod_' . $control_id, $this->get_setting_arg( 'sanitize_callback' ) );
 			} elseif ( 'option' === $this->get_setting_arg( 'type' ) ) {
 				add_filter( 'default_option_' . $control_id, array( $this, '_set_default_option' ) );
-				add_filter( 'option_' . $control_id, $this->get_setting_arg( 'sanitize_callback' ) );
 			}
 		}
 	}

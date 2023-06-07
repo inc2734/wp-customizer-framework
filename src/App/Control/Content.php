@@ -45,11 +45,7 @@ class Content extends Base {
 	 */
 	public function sanitize_callback() {
 		return function( $value ) {
-			if ( is_object( $value ) ) {
-				return new \stdClass();
-			}
-
-			if ( is_array( $value ) ) {
+			if ( is_array( $value ) || is_object( $value ) ) {
 				return '';
 			}
 

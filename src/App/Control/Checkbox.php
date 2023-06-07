@@ -40,9 +40,14 @@ class Checkbox extends Base {
 	 */
 	public function sanitize_callback() {
 		return function( $value ) {
+			if ( is_object( $value ) ) {
+				return new \stdClass();
+			}
+
 			if ( true === $value || 'true' === $value || 1 === $value ) {
 				return 1;
 			}
+
 			return '';
 		};
 	}

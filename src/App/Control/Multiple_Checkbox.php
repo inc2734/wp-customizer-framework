@@ -46,7 +46,7 @@ class Multiple_Checkbox extends Base {
 	public function sanitize_callback() {
 		return function( $value ) {
 			if ( is_object( $value ) ) {
-				$value = (array) $value;
+				return new \stdClass();
 			}
 
 			if ( ! is_array( $value ) ) {

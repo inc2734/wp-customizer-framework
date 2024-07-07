@@ -57,10 +57,8 @@ class Style {
 					if ( preg_match( '/:\s*$/', $value ) ) {
 						continue;
 					}
-				} else {
-					if ( is_null( $value ) || '' === $value ) {
+				} elseif ( is_null( $value ) || '' === $value ) {
 						continue;
-					}
 				}
 
 				$sanitized_properties[ $key ] = $value;
@@ -99,11 +97,11 @@ class Style {
 
 			$css = ob_get_clean();
 
-			// For front
+			// For front.
 			if ( $handle ) {
 				add_action(
 					'wp_enqueue_scripts',
-					function() use ( $handle, $css ) {
+					function () use ( $handle, $css ) {
 						wp_styles()->add_inline_style( $handle, $css );
 					},
 					11
@@ -111,31 +109,44 @@ class Style {
 			} else {
 				add_action(
 					'wp_print_scripts',
-					function() use ( $css ) {
+					function () use ( $css ) {
 						if ( is_admin() ) {
 							return;
 						}
 
 						echo '<style data-id="wp-customizer-framework-print-styles">';
-						echo $css; // xss ok.
+						echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo '</style>';
 					}
 				);
 			}
 
-			// For editor
+			// For editor.
 			add_action(
-				'enqueue_block_editor_assets',
-				function() use ( $handle, $css ) {
+				'enqueue_block_assets',
+				function () use ( $handle, $css ) {
+					if ( ! is_admin() ) {
+						return;
+					}
+
 					wp_styles()->add_inline_style( $handle, $css );
 				},
 				11
 			);
 
-			// For classic editor
+			// For editor.
+			add_action(
+				'enqueue_block_editor_assets',
+				function () use ( $handle, $css ) {
+					wp_styles()->add_inline_style( $handle, $css );
+				},
+				11
+			);
+
+			// For classic editor.
 			add_filter(
 				'tiny_mce_before_init',
-				function( $mce_init ) use ( $new_style ) {
+				function ( $mce_init ) use ( $new_style ) {
 					if ( ! isset( $mce_init['content_style'] ) ) {
 						$mce_init['content_style'] = '';
 					}
@@ -163,12 +174,12 @@ class Style {
 				11
 			);
 
-			// For AMP
+			// For AMP.
 			add_action(
 				'amp_post_template_css',
-				function() use ( $css ) {
+				function () use ( $css ) {
 					$css = str_replace( '!important', '', $css );
-					echo $css; // xss ok.
+					echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			);
 		}
@@ -205,10 +216,8 @@ class Style {
 				if ( preg_match( '/:\s*$/', $value ) ) {
 					continue;
 				}
-			} else {
-				if ( is_null( $value ) || '' === $value ) {
+			} elseif ( is_null( $value ) || '' === $value ) {
 					continue;
-				}
 			}
 
 			$sanitized_properties[ $key ] = $value;

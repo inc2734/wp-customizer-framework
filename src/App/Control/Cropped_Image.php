@@ -7,7 +7,7 @@
 
 namespace Inc2734\WP_Customizer_Framework\App\Control;
 
-use Inc2734\WP_Customizer_Framework\App\Control\Image as Image;
+use Inc2734\WP_Customizer_Framework\App\Control\Image;
 use WP_Customize_Cropped_Image_Control;
 use WP_Customize_Manager;
 

@@ -102,7 +102,7 @@ class Color {
 		$hex  = static::_hex_normalization( $hex );
 		$rgba = array();
 
-		for ( $i = 0; $i < 3; $i ++ ) {
+		for ( $i = 0; $i < 3; $i++ ) {
 			$dec    = hexdec( substr( $hex, $i * 2, 2 ) );
 			$rgba[] = $dec;
 		}

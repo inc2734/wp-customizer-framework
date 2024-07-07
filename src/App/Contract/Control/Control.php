@@ -310,7 +310,7 @@ abstract class Control {
 	 * @return string|function Function name or function for sanitize
 	 */
 	public function sanitize_callback() {
-		return function( $value ) {
+		return function ( $value ) {
 			return $value;
 		};
 	}

@@ -39,7 +39,7 @@ class Checkbox extends Base {
 	 * @return string|function Function name or function for sanitize
 	 */
 	public function sanitize_callback() {
-		return function( $value ) {
+		return function ( $value ) {
 			if ( true === $value || 'true' === $value || 1 === $value ) {
 				return 1;
 			}

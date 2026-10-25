@@ -1,29 +1,37 @@
 {
 	"engines": {
-		"node": ">=20.10.0",
-		"npm": ">=10.2.3"
+		"node": ">=24.22.1",
+		"npm": ">=11.19.1"
 	},
 	"volta": {
-		"node": "20.11.1"
+		"node": "24.22.1"
 	},
 	"author": "inc2734",
 	"license": "GPL-2.0+",
 	"devDependencies": {
-		"@wordpress/env": "^10.2.0",
-		"npm-run-all": "^4.1.5"
+		"@wordpress/env": "^12.0.0"
 	},
 	"scripts": {
 		"wp-env": "wp-env",
 		"start": "wp-env start",
 		"stop": "wp-env stop",
-		"cli": "wp-env run --env-cwd=\"wp-content/plugins/wp-customizer-framework\" cli",
+		"destroy": "wp-env destroy && wp-env destroy --config=.wp-env.tests.json",
+		"cli": "wp-env run cli --env-cwd=\"wp-content/plugins/wp-customizer-framework\"",
 		"wp": "wp-env run cli --env-cwd=\"wp-content/plugins/wp-customizer-framework\" wp",
 		"composer": "wp-env run cli --env-cwd=\"wp-content/plugins/wp-customizer-framework\" composer",
-		"pretest": "wp-env start && npm run composer install -- --no-interaction",
-		"test:lint:php": "npm run composer lint",
-		"test:lint": "run-s test:lint:*",
-		"test:unit:php": "wp-env start && wp-env run --env-cwd=\"wp-content/plugins/wp-customizer-framework\" tests-wordpress vendor/bin/phpunit -c .phpunit.xml.dist --verbose",
-		"test:unit": "run-s test:unit:*",
-		"test": "run-s test:*"
+		"test:php:start": "wp-env start --config=.wp-env.tests.json",
+		"test:php:stop": "wp-env stop --config=.wp-env.tests.json",
+		"test-composer": "wp-env run cli --config=.wp-env.tests.json --env-cwd=\"wp-content/plugins/wp-customizer-framework\" composer",
+		"pretest:php:lint": "npm run test:php:start && npm run test-composer -- install --no-interaction",
+		"test:php:lint": "wp-env run wordpress --config=.wp-env.tests.json --env-cwd=\"wp-content/plugins/wp-customizer-framework\" vendor/bin/phpcs --standard=.phpcs.xml.dist",
+		"posttest:php:lint": "npm run test:php:stop",
+		"test:lint:php": "npm run test:php:lint || (status=$?; npm run test:php:stop; exit $status)",
+		"test:lint": "npm run test:lint:php",
+		"pretest:php:unit": "npm run test:php:start && npm run test-composer -- install --no-interaction",
+		"test:php:unit": "wp-env run wordpress --config=.wp-env.tests.json --env-cwd=\"wp-content/plugins/wp-customizer-framework\" vendor/bin/phpunit -- -c .phpunit.xml.dist --verbose",
+		"posttest:php:unit": "npm run test:php:stop",
+		"test:unit:php": "npm run test:php:unit || (status=$?; npm run test:php:stop; exit $status)",
+		"test:unit": "npm run test:unit:php",
+		"test": "npm run test:lint && npm run test:unit"
 	}
 }

@@ -1,0 +1,11 @@
+{
+	"core": null,
+	"mappings": {
+		"wp-content/plugins/wp-customizer-framework": "./"
+	},
+	"config": {
+		"WP_DEBUG": true
+	},
+	"testsEnvironment": false,
+	"port": 8889
+}

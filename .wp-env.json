@@ -1,9 +1,10 @@
 {
-  "core": null,
-  "mappings": {
-    "wp-content/plugins/wp-customizer-framework": "./"
-  },
-  "config": {
-    "WP_DEBUG": true
-  }
+	"core": null,
+	"mappings": {
+		"wp-content/plugins/wp-customizer-framework": "./"
+	},
+	"config": {
+		"WP_DEBUG": true
+	},
+	"testsEnvironment": false
 }
